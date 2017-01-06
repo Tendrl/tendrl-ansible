@@ -6,7 +6,7 @@ Ansible playbook for Tendrl!
 Clone me:
 
 ```bash
-git clone https://github.com/zeichenanonym/tendrl-ansible.git
+git clone https://github.com/Tendrl/tendrl-ansible.git
 ```
 
 ## What does it do?
