@@ -2,5 +2,8 @@
 
 - include: install-tendrl.yml
   tags: setup
-# - include: install-rhscon.yml
-#   tags: setup
+  when: use_upstream
+
+- include: install-rhscon.yml
+  tags: setup
+  when: not use_upstream
