@@ -46,13 +46,5 @@ Vagrant.configure("2") do |config|
             override.ssh.username = "cloud-user"
             override.ssh.private_key_path = "vagrant_rsa"
         end
-
-        tendrl_server.vm.provision "shell", inline: <<-SHELL
-            echo "r3dh4t1!!" | sudo passwd root --stdin
-            sudo hostname tendrl-server
-            hostname | sudo tee /etc/hostname
-            sudo systemctl disable firewalld
-            sudo systemctl stop firewalld
-        SHELL
     end
 end
