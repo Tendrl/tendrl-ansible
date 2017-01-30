@@ -24,8 +24,8 @@
 # This needs the RHEL extras repo!
 - name: Ensure etcd is installed
   package:
-    name: etcd
-    state: latest
+    name: etcd-2.3.7-4.el7
+    state: present
 
 - name: Configure etcd
   replace:
