@@ -30,7 +30,7 @@
 - name: Configure etcd connection for tendrl-node-agent
   lineinfile:
     dest: /etc/tendrl/node-agent/node-agent.conf.yaml
-    line: "etcd_connection = '{{ etcd_server_address }}'"
+    line: "etcd_connection : '{{ etcd_server_address }}'"
     regexp: '^etcd_connection'
 
 - name: Start tendrl-node-agent and enable it on boot
@@ -50,5 +50,29 @@
     name: tendrl-glusterd
     enabled: yes
     state: restarted
+
+- firewalld:
+    zone: public
+    port: 2379/tcp
+    permanent: true
+    state: enabled
+
+- firewalld:
+    zone: public
+    port: 2379/tcp
+    permanent: true
+    state: enabled
+
+- firewalld:
+    zone: public
+    port: 9292/tcp
+    permanent: true
+    state: enabled
+
+- firewalld:
+    zone: public
+    port: 80/tcp
+    permanent: true
+    state: enabled
 
 # http://IP:2379/v2/keys/nodes should list all nodes
