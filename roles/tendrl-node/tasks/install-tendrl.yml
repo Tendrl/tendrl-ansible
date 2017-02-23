@@ -27,15 +27,27 @@
     name: tendrl-node-agent
     state: latest
 
-- name: Configure etcd connection for tendrl-noded
+- name: Configure etcd connection for tendrl-node-agent
   lineinfile:
-    dest: /etc/tendrl/tendrl.conf
+    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
     line: "etcd_connection = '{{ etcd_server_address }}'"
     regexp: '^etcd_connection'
 
-- name: Start tendrl-noded and enable it on boot
+- name: Start tendrl-node-agent and enable it on boot
   service:
-    name: tendrl-noded
+    name: tendrl-node-agent
+    enabled: yes
+    state: restarted
+
+# This needs the RHEL extra repo
+- name: Ensure tendrl-gluster-integration is installed
+  package:
+    name: tendrl-gluster-integration
+    state: latest
+
+- name: Start tendrl-gluster-integration and enable it on boot
+  service:
+    name: tendrl-glusterd
     enabled: yes
     state: restarted
 

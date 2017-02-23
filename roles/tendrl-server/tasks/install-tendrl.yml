@@ -22,6 +22,7 @@
     name: http://mirror.netcologne.de/fedora-epel/epel-release-latest-7.noarch.rpm
 
 # This needs the RHEL extras repo!
+# TODO: do a version compare instead of hard code etcd version
 - name: Ensure etcd is installed
   package:
     name: etcd-2.3.7-4.el7
@@ -43,7 +44,7 @@
   uri:
     url: 'http://{{ etcd_server_address }}:2379/v2/keys'
 
-- name: Install tendlr-apid
+- name: Install tendrl-apid
   package:
     name: tendrl-api
     state: latest
@@ -77,6 +78,11 @@
     url: 'http://{{ etcd_server_address }}:9292/1.0/ping'
   ignore_errors: yes
 
+- name: Install tendrl-dashboard
+  package:
+    name: tendrl-dashboard
+    state: latest
+
 # curl -XGET http://IP:9292/1.0/ping <--  Check if API server is running
-# curl -XGET http://IP:9292/1.0/GetNodeList <-- Return List of nodes running tendlr-noded
+# curl -XGET http://IP:9292/1.0/GetNodeList <-- Return List of nodes running tendrl-noded
 # curl -XPOST -d '{"Node[]": ["node_id1","node_id2","node_id3"], "Tendrl_context.sds_name":"gluster", Tendrl_context.sds_version:"gluster-version"}' http://IP:9292/1.0/GlusterImportCluster <-- Import existing Gluster Storage Pool

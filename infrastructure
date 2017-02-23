@@ -1,20 +1,26 @@
 [tendrl-servers]
-localhost
+tendrl-01
 
 [storage-servers]
-storage1 ansible_host=10.10.1.139
-storage2 ansible_host=10.10.1.141
-storage3 ansible_host=10.10.1.142
+gluster-01
+gluster-02
+#storage1 ansible_host=10.10.1.139
+#storage2 ansible_host=10.10.1.141
+#storage3 ansible_host=10.10.1.142
 
 [infrastructure:children]
 tendrl-servers
 storage-servers
 
 [tendrl-servers:vars]
-ansible_connection=local
+#ansible_connection=local
+# use when your tendrl server is not remote
 
 [infrastructure:vars]
-ansible_user=vagrant
-ansible_ssh_pass=vagrant
+ansible_user=root
+#ansible_become=true
+#become=yes
+#become_user=root
+#become_method=su
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
