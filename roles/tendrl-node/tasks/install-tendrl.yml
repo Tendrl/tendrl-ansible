@@ -6,7 +6,7 @@
 
 - name: DEBUG!
   debug:
-    msg: "Using {{ etcd_server_address }} to connect to server"
+    msg: "Using {{ etcd_server_address }} to connect to etcd server"
 
 - name: Install tendrl repo
   get_url:
