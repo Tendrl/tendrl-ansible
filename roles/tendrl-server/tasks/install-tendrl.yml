@@ -2,11 +2,11 @@
 
 - name: Collect etcd server address
   set_fact:
-    etcd_server_address: '{{ ansible_default_ipv4.address }}'
+    etcd_server_address: "{{ hostvars[groups['tendrl-servers'][0]]['ansible_default_ipv4']['address'] }}"
 
 - name: DEBUG!
   debug:
-    msg: "Using {{ etcd_server_address }} to connect to server"
+    msg: "Using {{ etcd_server_address }} to connect to etcd server"
 
 - name: Install tendrl repo
   get_url:
