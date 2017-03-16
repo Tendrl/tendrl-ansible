@@ -30,16 +30,13 @@ The Host in the `tendrl-servers` group will get the Tendrl Central Store (Etcd) 
 
 **Note** Currently there is only support for a single server in the tendrl-servers group!
 
-## VirtualBox Support
+## Local test bed
 
-If you would like to bring up a small testbed with Tendrl and two storage nodes:
+If you would like to bring up a small testbed with Tendrl and two storage nodes locally on Virtualbox:
 
-git clone https://github.com/Tendrl/tendrl-ansible.git
-
-cd tendrl-ansible/
-
-vagrant up
-
-vagrant provision
-
-browse to http://localhost:8080
+* Install Virtualbox from [Download Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+* Install Vagrant from [Download Vagrant](https://www.vagrantup.com/downloads.html)
+* `git clone https://github.com/Tendrl/tendrl-ansible.git`
+* `cd tendrl-ansible/`
+* `vagrant up`
+* Browse to http://localhost:8080
