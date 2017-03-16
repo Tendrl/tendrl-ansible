@@ -38,10 +38,6 @@ git clone https://github.com/Tendrl/tendrl-ansible.git
 
 cd tendrl-ansible/
 
-mv Vagrantfile.virtualbox Vagrantfile
-
-uncomment #virtualbox = True in group_vars/all.yml 
-
 $ ansible-galaxy install -p roles/ geerlingguy.apache
 
 $ ansible-galaxy install -p roles/ geerlingguy.ntp
