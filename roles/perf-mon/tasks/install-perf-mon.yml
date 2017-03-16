@@ -1,0 +1,59 @@
+---
+
+- name: Install tendrl-performance-monitoring
+  package:
+    name: tendrl-performance-monitoring
+    state: latest
+
+- name: Initialize graphite-db
+  command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
+#  args:
+#    arg1: syncdb
+#    arg2: --noinput
+  register: result
+
+- debug: msg="{{ result.stdout }}"
+
+- file:
+    path: /var/lib/graphite-web/graphite.db
+    owner: apache
+    group: apache
+#    mode: 0644
+
+- name: Start carbon cache and enable it on boot
+  service:
+    name: carbon-cache
+    enabled: yes
+    state: started
+
+- service:
+    name: httpd
+    state: restarted
+
+- name: Configure performance monitoring
+  lineinfile:
+    dest: /etc/tendrl/performance-monitoring/performance-monitoring.conf.yaml
+    state: present
+    regexp: '^etcd_connection: '
+    line: 'etcd_connection: {{ etcd_server_address }}'
+
+
+- name: Configure performance monitoring time series
+  lineinfile:
+    dest: /etc/tendrl/performance-monitoring/performance-monitoring.conf.yaml
+    state: present
+    regexp: '^time_series_db_server: '
+    line: 'time_series_db_server: {{ ansible_default_ipv4.address }}'
+
+- name: Configure performance monitoring api server address
+  lineinfile:
+    dest: /etc/tendrl/performance-monitoring/performance-monitoring.conf.yaml
+    state: present
+    regexp: '^api_server_addr: '
+    line: 'api_server_addr: {{ ansible_default_ipv4.address }}'
+
+- name: Enable and start performance monitoring service
+  service:
+    name: tendrl-performance-monitoring
+    enabled: yes
+    state: started

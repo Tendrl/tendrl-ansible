@@ -1,0 +1,6 @@
+---
+# tasks file for perf-mon
+
+- include: install-perf-mon.yml
+  tags: setup
+  when: use_upstream
