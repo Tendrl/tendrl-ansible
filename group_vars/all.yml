@@ -1,1 +1,2 @@
 use_upstream: True
+virtualbox: True
