@@ -5,3 +5,4 @@
   roles:
     - tendrl-server
     - geerlingguy.apache
+    - perf-mon
