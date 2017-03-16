@@ -30,7 +30,7 @@ The Host in the `tendrl-servers` group will get the Tendrl Central Store (Etcd) 
 
 **Note** Currently there is only support for a single server in the tendrl-servers group!
 
-VirtualBox Support
+## VirtualBox Support
 
 If you would like to bring up a small testbed with Tendrl and two storage nodes:
 
