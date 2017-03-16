@@ -16,6 +16,11 @@ General support for:
 * Tendrl Central Store
 * Tendrl API Server
 * Tendrl Agents
+* Install & Config of Apache
+* Install & Config of NTP
+* Install & Config of Performance Monitoring
+* Install & Config of Node Agent
+* Install & Config of Node Monitoring
 
 
 ## Getting Started
