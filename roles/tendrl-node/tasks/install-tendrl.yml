@@ -4,6 +4,11 @@
   set_fact:
     etcd_server_address: "{{ hostvars[groups['tendrl-servers'][0]]['ansible_default_ipv4']['address'] }}"
 
+- name: Collect etcd server address
+  set_fact:
+    etcd_server_address: "{{ hostvars[groups['tendrl-servers'][0]]['ansible_eth1']['ipv4']['address'] }}"
+  when: virtualbox  # workaround for default NAT eth0 interface in virtualbox
+
 - name: DEBUG!
   debug:
     msg: "Using {{ etcd_server_address }} to connect to etcd server"
@@ -30,8 +35,8 @@
 - name: Configure etcd connection for tendrl-node-agent
   lineinfile:
     dest: /etc/tendrl/node-agent/node-agent.conf.yaml
-    line: "etcd_connection : '{{ etcd_server_address }}'"
     regexp: '^etcd_connection'
+    line: "etcd_connection : {{ etcd_server_address }}"
 
 - name: Start tendrl-node-agent and enable it on boot
   service:
@@ -39,17 +44,22 @@
     enabled: yes
     state: restarted
 
-# This needs the RHEL extra repo
-- name: Ensure tendrl-gluster-integration is installed
+- name: Ensure tendrl-node-monitoring is installed
   package:
-    name: tendrl-gluster-integration
+    name: tendrl-node-monitoring
     state: latest
 
-- name: Start tendrl-gluster-integration and enable it on boot
+- name: Configure etcd connection for tendrl-node-monitoring
+  lineinfile:
+    dest: /etc/tendrl/node-monitoring/node-monitoring.conf.yaml
+    regexp: '^etcd_connection'
+    line: "etcd_connection : {{ etcd_server_address }}"
+
+- name: Start tendrl-node-monitoring and enable it on boot
   service:
-    name: tendrl-gluster-integration
+    name: tendrl-node-monitoring
     enabled: yes
-    state: restarted
+    state: started
 
 #- firewalld:
 #    zone: public
