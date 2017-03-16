@@ -1,3 +1,9 @@
+VAGRANT_ROOT = File.dirname(File.expand_path(__FILE__))
+
+if ARGV[0] == "up" or ARGV[0] == "provision"
+    system("ansible-galaxy install -p #{VAGRANT_ROOT}/roles/ -r requirements.yml")
+end
+
 Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
 

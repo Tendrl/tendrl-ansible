@@ -38,11 +38,7 @@ git clone https://github.com/Tendrl/tendrl-ansible.git
 
 cd tendrl-ansible/
 
-$ ansible-galaxy install -p roles/ geerlingguy.apache
-
-$ ansible-galaxy install -p roles/ geerlingguy.ntp
-
-vagrant up --no-provision
+vagrant up
 
 vagrant provision
 
