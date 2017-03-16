@@ -4,6 +4,11 @@
   set_fact:
     etcd_server_address: "{{ hostvars[groups['tendrl-servers'][0]]['ansible_default_ipv4']['address'] }}"
 
+- name: Collect etcd server address
+  set_fact:
+    etcd_server_address: "{{ hostvars[groups['tendrl-servers'][0]]['ansible_eth1']['ipv4']['address'] }}"
+  when: virtualbox  # workaround for default NAT eth0 interface in virtualbox
+
 - name: DEBUG!
   debug:
     msg: "Using {{ etcd_server_address }} to connect to etcd server"
@@ -28,11 +33,23 @@
     name: etcd-2.3.7-4.el7
     state: present
 
+#- name: Configure etcd
+#  replace:
+#    dest: /etc/etcd/etcd.conf
+#    regexp: 'localhost'
+#    replace: '{{ etcd_server_address }}'
+
 - name: Configure etcd
-  replace:
+  lineinfile:
     dest: /etc/etcd/etcd.conf
-    regexp: 'localhost'
-    replace: '{{ etcd_server_address }}'
+    regexp: '^ETCD_LISTEN_CLIENT_URLS='
+    line: 'ETCD_LISTEN_CLIENT_URLS="http://{{ etcd_server_address }}:2379"'
+
+- name: Configure etcd
+  lineinfile:
+    dest: /etc/etcd/etcd.conf
+    regexp: '^ETCD_ADVERTISE_CLIENT_URLS='
+    line: 'ETCD_ADVERTISE_CLIENT_URLS="http://{{ etcd_server_address }}:2379"'
 
 - name: Start etcd and enable it on boot
   service:
@@ -82,6 +99,17 @@
   package:
     name: tendrl-dashboard
     state: latest
+
+- name: Install tendrl-api-httpd
+  package:
+    name: tendrl-api-httpd
+    state: latest
+
+- service:
+    name: httpd
+    state: restarted
+
+
 
 # curl -XGET http://IP:9292/1.0/ping <--  Check if API server is running
 # curl -XGET http://IP:9292/1.0/GetNodeList <-- Return List of nodes running tendrl-noded
