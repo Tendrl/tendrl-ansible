@@ -35,10 +35,17 @@ VirtualBox Support
 If you would like to bring up a small testbed with Tendrl and two storage nodes:
 
 git clone https://github.com/Tendrl/tendrl-ansible.git
+
 cd tendrl-ansible/
+
 mv Vagrantfile.virtualbox Vagrantfile
+
 $ ansible-galaxy install -p roles/ geerlingguy.apache
+
 $ ansible-galaxy install -p roles/ geerlingguy.ntp
+
 vagrant up --no-provision
+
 vagrant provision
+
 browse to http://localhost:8080
