@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
       # ansible.verbose = 'vvvv'
       ansible.groups = {
         "tendrl-servers" => ["tendrl"],
-        "storage-servers" => ["gl01,gl02]"], 
+        "storage-servers" => ["gl0[1:2]"], 
       }
     end
   end
