@@ -33,12 +33,6 @@
     name: etcd-2.3.7-4.el7
     state: present
 
-#- name: Configure etcd
-#  replace:
-#    dest: /etc/etcd/etcd.conf
-#    regexp: 'localhost'
-#    replace: '{{ etcd_server_address }}'
-
 - name: Configure etcd
   lineinfile:
     dest: /etc/etcd/etcd.conf
@@ -54,7 +48,7 @@
 - name: Start etcd and enable it on boot
   service:
     name: etcd
-    enabled: yes
+    enabled: "yes"
     state: restarted
 
 - name: Check if etcd is OK
@@ -84,16 +78,29 @@
     line: "  :password: ''"
     regexp: ':password:'
 
+- name: Create tendrl-api admin user
+  command: rake etcd:load_admin
+  args:
+    chdir: /usr/share/tendrl-api
+  environment:
+    RACK_ENV: production
+  register: output
+#  creates: /path/to/database
+
+- name: DEBUG!
+  debug:
+    msg: "Rake command results= {{ output  }} "
+
 - name: Start tendrl-apid and enable it on boot
   service:
     name: tendrl-apid
-    enabled: yes
+    enabled: "yes"
     state: restarted
 
 - name: Check if tendrl-apid is OK
   uri:
     url: 'http://{{ etcd_server_address }}:9292/1.0/ping'
-  ignore_errors: yes
+  ignore_errors: "yes"
 
 - name: Install tendrl-dashboard
   package:
@@ -108,8 +115,6 @@
 - service:
     name: httpd
     state: restarted
-
-
 
 # curl -XGET http://IP:9292/1.0/ping <--  Check if API server is running
 # curl -XGET http://IP:9292/1.0/GetNodeList <-- Return List of nodes running tendrl-noded
