@@ -1,16 +1,25 @@
 [tendrl-servers]
-tendrl-01
+tendrl-node-01 ansible_host=46.101.235.78
 
-[storage-servers]
-gluster-01
-gluster-02
-#storage1 ansible_host=10.10.1.139
-#storage2 ansible_host=10.10.1.141
-#storage3 ansible_host=10.10.1.142
+[storage-servers:children]
+gluster-servers
+ceph-servers
 
 [infrastructure:children]
 tendrl-servers
 storage-servers
+
+[gluster-servers]
+tendrl-gluster-01 ansible_host=46.101.134.171
+tendrl-gluster-02 ansible_host=46.101.104.72
+tendrl-gluster-03 ansible_host=139.59.150.204
+
+[ceph-servers]
+tendrl-ceph-01 ansible_host=188.166.167.119
+tendrl-ceph-02 ansible_host=207.154.234.57
+tendrl-ceph-03 ansible_host=139.59.157.150
+tendrl-ceph-04 ansible_host=46.101.128.59
+tendrl-ceph-05 ansible_host=207.154.234.73
 
 [tendrl-servers:vars]
 #ansible_connection=local
@@ -23,4 +32,3 @@ ansible_user=root
 #become_user=root
 #become_method=su
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-
