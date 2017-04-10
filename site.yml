@@ -18,5 +18,5 @@
 
 - hosts: ceph-servers
   roles:
-    - ceph-nodes
+    - ceph-node
 

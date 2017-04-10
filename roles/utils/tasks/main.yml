@@ -1,7 +1,6 @@
---
 - name: Install extra packages
   package:
-    name: item
+    name: "{{item}}"
     state: latest
   with_items:
     - wget
@@ -10,7 +9,6 @@
     - less
     - net-tools
     - psmisc
-    - htop
     - tmux
 
 - name: Setup screen and vimrc
