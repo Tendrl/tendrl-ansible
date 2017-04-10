@@ -1,7 +1,46 @@
 ---
 - hosts: all
   become: yes
+  tasks:
   roles:
+    - utils
+    - tendrl-node
     - geerlingguy.ntp
-- include: tendrl-servers.yml
-- include: storage-servers.yml
+    - role: access
+      name: mrugesh
+    - role: access
+      name: nishant
+
+- hosts: tendrl-servers
+  become: yes
+  roles:
+    - tendrl-server
+    - geerlingguy.apache
+    - perf-mon
+
+- hosts: ceph-servers
+  tasks:
+    - name: Install yum priorities
+      package:
+        name: yum-plugin-priorities
+        state: installed
+
+    - name: Setup Ceph repos
+      yum_repository:
+        name: ceph-jewel
+        description: Ceph packages for $basearch
+        baseurl: https://download.ceph.com/rpm-jewel/el7/$basearch
+        enabled: 1
+        priority: 2
+        gpgcheck: 0
+        gpgkey: https://download.ceph.com/keys/release.asc
+
+    - name: Setup Ceph repos
+      yum_repository:
+        name: ceph-jewel-noarch
+        description: Ceph noarch packages
+        baseurl: https://download.ceph.com/rpm-jewel/el7/noarch
+        enabled: 1
+        priority: 2
+        gpgcheck: 0
+        gpgkey: https://download.ceph.com/keys/release.asc

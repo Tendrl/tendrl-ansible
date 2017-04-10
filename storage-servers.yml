@@ -1,6 +1,0 @@
----
-
-- hosts: storage-servers
-  become: yes
-  roles:
-    - tendrl-node

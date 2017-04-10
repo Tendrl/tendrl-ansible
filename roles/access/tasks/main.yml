@@ -1,0 +1,8 @@
+- name: Add SSH key
+  authorized_key:
+    user: root
+    state: present
+    key: "{{lookup('file', 'files/ssh/' + item + '.pub')}}"
+  with_items:
+    - nishant
+    - mrugesh

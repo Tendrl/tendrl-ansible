@@ -1,0 +1,28 @@
+--
+- name: Install extra packages
+  package:
+    name: item
+    state: latest
+  with_items:
+    - wget
+    - vim
+    - bash-completion
+    - less
+    - net-tools
+    - psmisc
+    - htop
+    - tmux
+
+- name: Setup screen and vimrc
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: vimrc, dest: /root/.vimrc }
+    - { src: vimrc, dest: /etc/skel/.vimrc }
+    - { src: screenrc, dest: /root/.screenrc }
+    - { src: screenrc, dest: /etc/skel/.screenrc }
+
+- name: "Build hosts file"
+  lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }} {{item}}" state=present
+  with_items: "{{ groups['all']}}"
