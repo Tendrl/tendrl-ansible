@@ -24,7 +24,8 @@
 
 - name: Activate EPEL
   package:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    name: epel-release
+    state: latest
 
 # This needs the RHEL extra repo
 - name: Ensure tendrl-node-agent is installed

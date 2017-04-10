@@ -1,0 +1,30 @@
+- name: Setup ktdreyer-ceph-installer repo
+  yum_repository:
+    name: ktdreyer-ceph-installer
+    description: Copr repo for ceph-installer
+    baseurl: https://download.ceph.com/rpm-jewel/el7/$basearch
+    enabled: yes
+    gpgcheck: yes
+    skip_if_unavailable: yes
+    gpgkey: https://copr-be.cloud.fedoraproject.org/results/ktdreyer/ceph-installer/pubkey.gpg
+
+- name: Setup ceph-ansible repo
+  yum_repository:
+    name: ceph-ansible
+    description: ceph-ansible master
+    baseurl: https://shaman.ceph.com/api/repos/ceph-ansible/master/latest/centos/7/noarch/noarch
+    gpgcheck: no
+    enabled: yes
+
+- name: Setup ceph-installer repo
+  yum_repository:
+    name: ceph-installer
+    description: ceph-installer master
+    baseurl: https://shaman.ceph.com/api/repos/ceph-installer/master/latest/centos/7/noarch/noarch
+    gpgcheck: no
+    enabled: yes
+
+- name: Install ceph-installer
+  package:
+    name: ceph-installer
+    state: latest
