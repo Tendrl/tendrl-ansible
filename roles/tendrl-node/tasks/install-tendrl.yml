@@ -56,6 +56,15 @@
     regexp: '^etcd_connection'
     line: "etcd_connection : {{ etcd_server_address }}"
 
+- name: Configure tendrl-node-01 to be a ceph provisioner
+  lineinfile:
+    dest: /etc/tendrl/node-monitoring/node-monitoring.conf.yaml
+    regexp: '^ - provisioner\/ceph'
+    state: present
+    insertafter: '^tags:'
+    line: '- provisioner/ceph'
+    when: ansible_hostname == tendrl-node-01
+
 - name: Start tendrl-node-monitoring and enable it on boot
   service:
     name: tendrl-node-monitoring
