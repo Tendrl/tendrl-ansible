@@ -1,3 +1,4 @@
+*.retry
 infrastructure
 roles/geerlingguy.apache/
 roles/geerlingguy.ntp/
