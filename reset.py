@@ -8,7 +8,7 @@ from os import environ
 
 HEADERS = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer {}'.format(environ.get('DO_KEY')
+        'Authorization': 'Bearer {}'.format(environ.get('DO_KEY'))
 }
 REGION = 'fra1'
 NODES = {

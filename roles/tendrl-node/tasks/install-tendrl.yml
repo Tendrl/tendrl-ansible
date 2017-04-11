@@ -58,12 +58,12 @@
 
 - name: Configure tendrl-node-01 to be a ceph provisioner
   lineinfile:
-    dest: /etc/tendrl/node-monitoring/node-monitoring.conf.yaml
-    regexp: '^ - provisioner\/ceph'
-    state: present
+    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
+    regexp: '^  - provisioner\/ceph'
     insertafter: '^tags:'
-    line: '- provisioner/ceph'
+    line: '  - provisioner/ceph'
   when: ansible_hostname == 'tendrl-node-01'
+  tags: testing
 
 - name: Start tendrl-node-monitoring and enable it on boot
   service:

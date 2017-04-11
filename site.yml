@@ -1,4 +1,11 @@
 ---
+- hosts: tendrl-servers
+  roles:
+    - tendrl-server
+    - geerlingguy.apache
+    - perf-mon
+    - ceph-installer
+
 - hosts: all
   tasks:
   roles:
@@ -9,12 +16,6 @@
       name: mrugesh
     - role: access
       name: nishant
-
-- hosts: tendrl-servers
-  roles:
-    - tendrl-server
-    - geerlingguy.apache
-    - perf-mon
 
 - hosts: ceph-servers
   roles:

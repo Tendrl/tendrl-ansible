@@ -2,7 +2,7 @@
   yum_repository:
     name: ktdreyer-ceph-installer
     description: Copr repo for ceph-installer
-    baseurl: https://download.ceph.com/rpm-jewel/el7/$basearch
+    baseurl: https://copr-be.cloud.fedoraproject.org/results/ktdreyer/ceph-installer/epel-7-$basearch/
     enabled: yes
     gpgcheck: yes
     skip_if_unavailable: yes
