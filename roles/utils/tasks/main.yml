@@ -21,6 +21,16 @@
     - { src: screenrc, dest: /root/.screenrc }
     - { src: screenrc, dest: /etc/skel/.screenrc }
 
+- name: Remove hostname pointing to 127.0.0.1 from /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '^127\.0\.0\.1\s*{{ ansible_hostname }}.*'
+    state: absent
+
 - name: "Build hosts file"
-  lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }} {{item}}" state=present
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '.*{{ item }}$'
+    line: "{{ hostvars[item]['ansible_eth1']['ipv4']['address'] }} {{item}}"
+    state: present
   with_items: "{{ groups['all']}}"

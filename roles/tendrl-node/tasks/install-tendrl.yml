@@ -63,7 +63,6 @@
     insertafter: '^tags:'
     line: '  - provisioner/ceph'
   when: ansible_hostname == 'tendrl-node-01'
-  tags: testing
 
 - name: Start tendrl-node-monitoring and enable it on boot
   service:
