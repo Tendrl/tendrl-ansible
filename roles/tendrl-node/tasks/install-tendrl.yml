@@ -18,6 +18,11 @@
     url: https://copr.fedorainfracloud.org/coprs/tendrl/release/repo/epel-7/tendrl-release-epel-7.repo
     dest: /etc/yum.repos.d/tendrl-release-epel-7.repo
 
+- name: Install tendrl deps repo
+  get_url:
+    url: https://copr.fedorainfracloud.org/coprs/tendrl/dependencies/repo/epel-7/tendrl-dependencies-epel-7.repo
+    dest: /etc/yum.repos.d/tendrl-dependencies-epel-7.repo
+
 - name: Disable SELinux
   selinux:
     state: disabled
