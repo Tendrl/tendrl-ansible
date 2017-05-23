@@ -3,3 +3,5 @@ infrastructure
 roles/geerlingguy.apache/
 roles/geerlingguy.ntp/
 .vagrant/
+*.swp
+*~
