@@ -1,2 +1,4 @@
 ---
 # tasks file for tendrl-server
+
+- include: etcd.yml
