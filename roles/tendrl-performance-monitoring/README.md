@@ -1,38 +1,34 @@
-Role Name
-=========
+Tendrl Performance Monitoring
+=============================
 
-A brief description of the role goes here.
+This role automates installation of *Tendrl Performance Monitoring* component,
+as described in *Performance Monitoring installation* section in [Tendrl
+Package Installation
+Reference](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installation-Reference)
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role expects that the repositories with Tendrl packages (and it's
+dependencies) are already available on the machine.
+
+Moreover we expect that *Tendrl Server* role will be installed somewhere
+(on that machine, etcd and tendrl-api will be running).
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+You need to define all variables listed there, with references to other
+services:
 
-Dependencies
-------------
+* `etcd_ip_address`: ipv4 address of etcd instance
+* `tendrl_api_ip_address`: ipv4 address of `tendrl-api` service
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Note that by default, both services will be running on a single *Tendrl
+Server* machine (this distinction is here so that you can use this role even
+when you decide to have mentioned services listening on different interfaces).
 
 License
 -------
 
 Apache 2.0
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

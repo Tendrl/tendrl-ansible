@@ -1,2 +1,12 @@
 ---
 # handlers file for tendrl-performance-monitoring
+
+- name: restart httpd
+  service:
+    name=httpd
+    state=restarted
+
+- name: restart tendrl-performance-monitoring
+  service:
+    name=tendrl-performance-monitoring
+    state=restarted
