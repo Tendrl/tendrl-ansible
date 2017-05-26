@@ -1,0 +1,8 @@
+# vim temporary files
+.*.swp
+*~
+# ansible files
+*.hosts
+*.retry
+# vagrant files
+.vagrant
