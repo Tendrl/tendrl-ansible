@@ -1,2 +1,12 @@
 ---
 # tasks file for tendrl-copr
+
+- name: Install Tendrl Release repo
+  copy:
+    src='tendrl-release-epel-7.repo'
+    dest=/etc/yum.repos.d
+
+- name: Install Tendrl Dependencies repo
+  copy:
+    src='tendrl-dependencies-epel-7.repo'
+    dest=/etc/yum.repos.d
