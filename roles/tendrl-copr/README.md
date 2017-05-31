@@ -1,8 +1,8 @@
 Tendrl Copr
 ===========
 
-Enable official upstream yum repositories with latest stable Tendrl relese,
-which are maintained in
+Enable official upstream yum repositories with latest stable
+[Tendrl](http://tendrl.org/) relese, which are maintained in
 [Copr](https://docs.pagure.org/copr.copr/user_documentation.html#faq):
 
 * [tendrl-release](https://copr.fedorainfracloud.org/coprs/tendrl/release/)
