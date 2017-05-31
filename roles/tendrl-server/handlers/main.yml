@@ -1,2 +1,7 @@
 ---
 # handlers file for tendrl-server
+
+- name: restart etcd
+  service:
+    name=etcd
+    state=restarted

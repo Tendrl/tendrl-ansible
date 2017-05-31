@@ -14,15 +14,18 @@
     dest=/etc/etcd/etcd.conf
     regexp="^(\#*)ETCD_LISTEN_CLIENT_URLS(.*)"
     line="ETCD_LISTEN_CLIENT_URLS=\"http://{{ etcd_ip_address }}:2379\""
+  notify:
+    - restart etcd
 
 - name: Configure etcd.conf ETCD_ADVERTISE_CLIENT_URLS
   lineinfile:
     dest=/etc/etcd/etcd.conf
     regexp="^(\#*)ETCD_ADVERTISE_CLIENT_URLS(.*)"
     line="ETCD_ADVERTISE_CLIENT_URLS=\"http://{{ etcd_ip_address }}:2379\""
+  notify:
+    - restart etcd
 
-- name: Start etcd
+- name: Enable etcd service
   service:
     name=etcd
-    state=started
     enabled=yes
