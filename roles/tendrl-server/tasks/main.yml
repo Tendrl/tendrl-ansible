@@ -1,4 +1,9 @@
 ---
 # tasks file for tendrl-server
 
+- name: Use ip address of default ipv4 network interface for etcd
+  set_fact:
+    etcd_ip_address: '{{ ansible_default_ipv4.address }}'
+  when: etcd_ip_address is undefined
+
 - include: etcd.yml

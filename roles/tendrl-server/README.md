@@ -14,11 +14,9 @@ dependencies) is already available on the machine.
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.)
-should be mentioned here as well.
+* When `etcd_ip_address` variable is undefined (which is the default state),
+  this role will use ip address of default ipv4 network interface to configure
+  etcd, otherwise a value of this variable will be used.
 
 License
 -------
