@@ -1,9 +1,6 @@
 ---
 # tasks file for installation and setup of etcd for the purposes of Tendrl
 
-- debug:
-    msg: "Using {{ etcd_ip_address }} as etcd ip address."
-
 - name: Install etcd
   yum:
     name=etcd
@@ -29,3 +26,10 @@
   service:
     name=etcd
     enabled=yes
+
+- name: Start etcd service
+  service:
+    name=etcd
+    state=started
+
+- meta: flush_handlers

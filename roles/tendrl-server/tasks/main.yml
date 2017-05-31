@@ -6,4 +6,8 @@
     etcd_ip_address: '{{ ansible_default_ipv4.address }}'
   when: etcd_ip_address is undefined
 
+- debug:
+    msg: "Using {{ etcd_ip_address }} as etcd ip address."
+
 - include: etcd.yml
+- include: tendrl-api.yml

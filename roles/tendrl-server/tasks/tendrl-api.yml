@@ -1,0 +1,87 @@
+---
+
+- name: Install tendrl-api
+  yum:
+    name=tendrl-api
+    state=latest
+
+- name: Configure tendrl-api etcd.yml host
+  replace:
+    dest: /etc/tendrl/etcd.yml
+    regexp: "^ +:host:.*"
+    replace: "  :host: \'{{ etcd_ip_address }}\'"
+  notify:
+    - restart tendrl-api
+
+- name: Configure tendrl-api etcd.yml user_name
+  replace:
+    dest: /etc/tendrl/etcd.yml
+    regexp: "^ +:user_name:.*"
+    replace: "  :user_name: ''"
+  notify:
+    - restart tendrl-api
+
+- name: Configure tendrl-api etcd.yml password
+  replace:
+    dest: /etc/tendrl/etcd.yml
+    regexp: "^ +:password:.*"
+    replace: "  :password: ''"
+  notify:
+    - restart tendrl-api
+
+- name: Enable tendrl-api service
+  service:
+    name=tendrl-apid
+    enabled=yes
+
+- name: Start tendrl-api service
+  service:
+    name=tendrl-apid
+    enabled=yes
+
+# based on description from:
+# https://github.com/Tendrl/api/blob/master/docs/users.adoc#create-admin-user
+- name: Create Tendrl admin user
+  shell: RACK_ENV=production rake etcd:load_admin
+  args:
+    chdir: /usr/share/tendrl-api
+  register: rake_result
+  changed_when:
+    - "'User named admin already exists.' not in rake_result.stdout"
+  failed_when:
+    - "rake_result.rc != 0"
+
+# Extracting and storing default password is based on requirements from
+# tendrl.atlassian.net jira TEN-257
+
+- name: Extract tendrl admin password
+  shell: echo "{{rake_result.stdout_lines[3] | regex_replace('^.*\"Password:\s*(.*)\".*$','\1')}}"
+  register: admin_password
+  when: rake_result.changed
+
+# - debug:
+#     msg: "Tendrl Admin password: {{ admin_password }}"
+
+- name: Store tendrl admin password to local /root/password file
+  copy:
+    content="{{ admin_password.stdout }}\n"
+    dest=/root/password
+    mode=600
+  when: admin_password.changed
+
+- name: Install tendrl-api-httpd
+  yum:
+    name=tendrl-api-httpd
+    state=latest
+  notify:
+    - restart httpd
+
+- name: Enable httpd service
+  service:
+    name=httpd
+    enabled=yes
+
+- name: Start httpd service
+  service:
+    name=httpd
+    state=started

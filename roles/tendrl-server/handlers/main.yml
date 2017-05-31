@@ -5,3 +5,13 @@
   service:
     name=etcd
     state=restarted
+
+- name: restart tendrl-api
+  service:
+    name=tendrl-apid
+    state=restarted
+
+- name: restart httpd
+  service:
+    name=httpd
+    state=restarted
