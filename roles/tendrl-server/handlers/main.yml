@@ -15,3 +15,8 @@
   service:
     name=httpd
     state=restarted
+
+- name: restart tendrl-node-agent
+  service:
+    name=tendrl-node-agent
+    state=restarted
