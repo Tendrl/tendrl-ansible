@@ -12,3 +12,10 @@
 - include: etcd.yml
 - include: tendrl-api.yml
 - include: tendrl-node-agent.yml
+
+- name: Install tendrl-dashboard
+  yum:
+    name=tendrl-dashboard
+    state=latest
+  notify:
+    - restart httpd
