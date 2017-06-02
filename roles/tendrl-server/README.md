@@ -9,7 +9,7 @@ Requirements
 ------------
 
 This role expects that the repositories with Tendrl packages (and it's
-dependencies) is already available on the machine.
+dependencies) are already available on the machine.
 
 If you want to be able to provision Ceph clusters with Tendrl, use role
 *Ceph Installer* on the same machine as this role.
