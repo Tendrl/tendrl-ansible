@@ -1,0 +1,4 @@
+---
+# defaults file for ceph-installer
+ceph_installer_baseurl: "https://shaman.ceph.com/api/repos/ceph-installer/master/latest/centos/7/noarch/noarch"
+ceph_ansible_baseurl: "https://shaman.ceph.com/api/repos/ceph-ansible/master/latest/centos/7/noarch/noarch"

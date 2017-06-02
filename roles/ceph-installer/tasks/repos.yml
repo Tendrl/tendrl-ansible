@@ -1,0 +1,30 @@
+---
+
+- name: Install ktdreyer/ceph-installer copr repo
+  copy:
+    src='ktdreyer-ceph-installer-epel-7.repo'
+    dest=/etc/yum.repos.d
+
+- name: Install ktdreyer/ceph-installer copr rpm-gpg key
+  copy:
+    src='RPM-GPG-KEY-ktdreyer-ceph-installer'
+    dest=/etc/pki/rpm-gpg
+
+- name: Import Tendrl Release rpm-gpg key
+  rpm_key:
+    key=/etc/pki/rpm-gpg/RPM-GPG-KEY-ktdreyer-ceph-installer
+    state=present
+
+- name: Add ceph-installer repo
+  yum_repository:
+    name: ceph-installer
+    description: "Ceph-installer repo"
+    baseurl: "{{ ceph_installer_baseurl }}"
+    gpgcheck: no
+
+- name: Add ceph-ansible repo
+  yum_repository:
+    name: ceph-ansible
+    description: "Ceph-ansible repo"
+    baseurl: "{{ ceph_ansible_baseurl }}"
+    gpgcheck: no

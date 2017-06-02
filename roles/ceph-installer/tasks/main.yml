@@ -1,0 +1,9 @@
+---
+# tasks file for ceph-installer
+
+- include: repos.yml
+
+- name: Install ceph-installer
+  yum:
+    name="ceph-installer"
+    state=latest
