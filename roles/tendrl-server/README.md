@@ -5,6 +5,12 @@ This role automates installation of *Tendrl Server*, as described in *Server
 Installation* section of [Tendrl Package Installation
 Reference](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installation-Reference)
 
+This role also includes installation and setup of *Tendrl Alerting*, which is
+described in another section of the documentation linked above, because
+deploying it on the *Tenrl Server* machine is a safe default choice (moreover
+we try to limit sheer number of possible deployment scenarios until more
+complicated architectures and scaling will be documented and tested).
+
 Requirements
 ------------
 
