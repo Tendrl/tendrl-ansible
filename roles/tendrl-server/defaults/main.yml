@@ -1,6 +1,2 @@
 ---
 # defaults file for tendrl-server
-
-# enable when you want Tendrl to be able to provision ceph clusters
-# note: ceph-installer needs to be available
-tendrl_ceph_provisioning_support: False
