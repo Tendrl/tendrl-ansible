@@ -31,12 +31,12 @@
 
 - name: Enable tendrl-api service
   service:
-    name=tendrl-apid
+    name=tendrl-api
     enabled=yes
 
 - name: Start tendrl-api service
   service:
-    name=tendrl-apid
+    name=tendrl-api
     enabled=yes
 
 # based on description from:

@@ -8,7 +8,7 @@
 
 - name: restart tendrl-api
   service:
-    name=tendrl-apid
+    name=tendrl-api
     state=restarted
 
 - name: restart httpd
