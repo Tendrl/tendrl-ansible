@@ -4,6 +4,7 @@
 
 - hosts: all
   user: root
+  # become: yes
   tasks:
 
     - name: Make sure that tendrl group exists

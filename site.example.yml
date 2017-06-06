@@ -1,0 +1,45 @@
+---
+# This is an example of a ansible playbook to install Tendrl.
+
+#
+# Workarounds required to run before the installation.
+#
+
+- include: workaround.disable-selinux.yml
+- include: workaround.disable-firewall.yml
+
+#
+# Installation of Tendrl itself.
+#
+
+- hosts: usm_server
+  user: root
+  # become: yes
+  vars:
+    # etcd_ip_address: '192.0.2.2'
+    # etcd_ip_address: "{{ hostvars[groups['usm_server'][0]].ansible_ens3.ipv4.address }}"
+    etcd_ip_address: "{{ ansible_ens3.ipv4.address }}"
+    tendrl_api_ip_address: "{{ etcd_ip_address }}"
+    # tendrl_alerting_email_id: alerting@example.org
+    # tendrl_alerting_email_smtp_server: smtp.example.org
+    # tendrl_alerting_email_smtp_port: 25
+  roles:
+    - tendrl-copr
+    - ceph-installer
+    - tendrl-server
+    - tendrl-performance-monitoring
+
+- hosts: usm_nodes
+  user: root
+  # become: yes
+  vars:
+    etcd_ip_address: "{{ hostvars[groups['usm_server'][0]].ansible_ens3.ipv4.address }}"
+  roles:
+    - tendrl-copr
+    - tendrl-storage-node
+
+#
+# Workarounds required to run after the installation.
+#
+
+- include: workaround.tendrl-performance-monitoring.issue9.yml

@@ -5,6 +5,7 @@
 
 - hosts: all
   user: root
+  # become: yes
   tasks:
 
     - name: Make sure that libselinux-python is installed
