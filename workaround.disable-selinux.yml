@@ -1,0 +1,18 @@
+---
+# This is a workaround for not having SELinux policy for Tendrl: we need to
+# switch to *permissive* mode, as noted in *Tendrl Package Installation
+# Reference*
+
+- hosts: all
+  user: root
+  tasks:
+
+    - name: Make sure that libselinux-python is installed
+      yum:
+        name: libselinux-python
+        state: latest
+
+    - name: Switch SELinux to permissive modue
+      selinux:
+        policy: targeted
+        state: permissive
