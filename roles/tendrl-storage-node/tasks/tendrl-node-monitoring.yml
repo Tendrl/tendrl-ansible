@@ -1,0 +1,24 @@
+---
+
+- name: Install tendrl-node-monitoring
+  yum:
+    name=tendrl-node-monitoring
+    state=latest
+
+- name: Configure etcd_connection in node-monitoring.conf.yaml
+  lineinfile:
+    dest: /etc/tendrl/node-monitoring/node-monitoring.conf.yaml
+    regexp: '^etcd_connection:.*'
+    line: "etcd_connection: {{ etcd_ip_address }}"
+  notify:
+    - restart tendrl-node-monitoring
+
+- name: Enable tendrl-node-monitoring service
+  service:
+    name=tendrl-node-monitoring
+    enabled=yes
+
+- name: Start tendrl-node-monitoring service
+  service:
+    name=tendrl-node-monitoring
+    state=started

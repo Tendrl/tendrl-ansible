@@ -1,0 +1,12 @@
+---
+# handlers file for tendrl-node
+
+- name: restart tendrl-node-agent
+  service:
+    name=tendrl-node-agent
+    state=restarted
+
+- name: restart tendrl-node-monitoring
+  service:
+    name=tendrl-node-monitoring
+    state=restarted

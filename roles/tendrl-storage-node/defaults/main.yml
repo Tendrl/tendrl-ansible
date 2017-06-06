@@ -1,0 +1,6 @@
+---
+# defaults file for tendrl-node
+
+# Should Tendrl be able to provision new Gluster cluster? Requires Gluster
+# rpm repositories (gdeploy) to be available.
+tendrl_gluster_provisioning_support: False

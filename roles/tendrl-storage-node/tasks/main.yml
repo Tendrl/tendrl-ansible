@@ -1,0 +1,5 @@
+---
+# tasks file for tendrl-node
+
+- include: tendrl-node-agent.yml
+- include: tendrl-node-monitoring.yml
