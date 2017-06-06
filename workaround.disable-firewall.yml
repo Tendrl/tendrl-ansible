@@ -1,0 +1,23 @@
+---
+# This is a workaround for not having firewall rules specified in
+# documentation (nor packaged as firewalld service files).
+# Based on suggestions from *Tendrl Package Installation Reference*.
+
+- hosts: all
+  user: root
+  tasks:
+
+    - name: Check if firewalld is installed
+      command: rpm -q firewalld
+      register: rpm_q_firewalld
+      failed_when: rpm_q_firewalld.rc > 1
+
+    - name: Disable and stop firewalld service
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+      when: rpm_q_firewalld.rc == 0
+
+    - name: Flush iptables
+      iptables: flush=yes
