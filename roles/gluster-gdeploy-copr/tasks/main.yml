@@ -1,0 +1,17 @@
+---
+# tasks file for gluster-gdeploy-copr
+
+- name: Install Sac Gdeploy repo
+  copy:
+    src='sac-gdeploy-epel-7.repo'
+    dest=/etc/yum.repos.d
+
+- name: Install Sac Gdeploy rpm-gpg key
+  copy:
+    src='RPM-GPG-KEY-Sac-Gdeploy'
+    dest=/etc/pki/rpm-gpg
+
+- name: Import Sac Gdeploy rpm-gpg key
+  rpm_key:
+    key=/etc/pki/rpm-gpg/RPM-GPG-KEY-Sac-Gdeploy
+    state=present
