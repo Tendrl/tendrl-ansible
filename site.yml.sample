@@ -1,0 +1,92 @@
+---
+# This is an example of a ansible playbook to install Tendrl, automating steps
+# from upstream *Tendrl Package Installation Reference*. You need to review it
+# and either tweak it or use it as a starting point before installing
+# Tendrl.
+
+# The playbook expects inventory file with the following groups:
+#
+# * tendrl-server: a single machine where Tendrl Server (management console) is
+#                  installed
+# * ceph-servers: ceph storage servers (ods/mon machines)
+# * gluster-servers: gluster storage servers (machines with bricks)
+#
+# Note that this is just an example which holds for this playbook, tendrl roles
+# doesn't care how you group your servers in ansible inventory.
+
+#
+# Workarounds required to run before the installation.
+#
+
+- include: workaround.disable-selinux.yml
+- include: workaround.disable-firewall.yml
+
+#
+# Installation of Tendrl itself.
+#
+
+- hosts: tendrl-server
+  user: root
+  # When you uncomment this here (eg. because you are using sudo to switch to
+  # root user account on the remote machines, make sure you change it in all
+  # playbooks in this directory as well)
+  # become: yes
+  vars:
+    # You need to specify ip address where etcd will be listening, either by:
+    # - ip adress value (based on prior knowledge of your infrastructure)
+    # etcd_ip_address: '192.0.2.2'
+    # - using ansible facts: asking for ipv4 address of interface eth1
+    # etcd_ip_address: "{{ ansible_eth1.ipv4.address }}"
+    # - using ansible facts: asking for ipv4 address of default interface
+    etcd_ip_address: "{{ ansible_default_ipv4.address }}"
+    # The same holds for ip address of tendrl api, where safe default is using
+    # the same ip address as etcd listens on, but when you have multiple
+    # networks you can select different one if you need it
+    tendrl_api_ip_address: "{{ etcd_ip_address }}"
+    # You can also configure Tendrl Alerting component here:
+    # tendrl_alerting_email_id: alerting@example.org
+    # tendrl_alerting_email_smtp_server: smtp.example.org
+    # tendrl_alerting_email_smtp_port: 25
+  pre_tasks:
+    - name: Check that variables are defined properly (just to make this clear)
+      assert:
+        that:
+          - etcd_ip_address is defined
+          - tendrl_api_ip_address is defined
+  roles:
+    - tendrl-copr
+    - ceph-installer # you can uncomment when you don't need to provision ceph
+    - tendrl-server
+    - tendrl-performance-monitoring
+
+- hosts: ceph-servers
+  user: root
+  # become: yes
+  vars:
+    # make sure this value is the same
+    etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+  pre_tasks:
+    - name: Install Ceph repository from CentOS Storage SIG
+      yum:
+        name: centos-release-ceph
+        state: latest
+  roles:
+    - tendrl-copr
+    - tendrl-storage-node
+
+- hosts: gluster-servers
+  user: root
+  # become: yes
+  vars:
+    # make sure this value is the same
+    etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+  roles:
+    - tendrl-copr
+    - gluster-gdeploy-copr
+    - tendrl-storage-node
+
+#
+# Workarounds required to run after the installation.
+#
+
+- include: workaround.tendrl-performance-monitoring.issue9.yml
