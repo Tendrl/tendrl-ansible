@@ -11,6 +11,7 @@
     - name: Check if firewalld is installed
       command: rpm -q firewalld
       register: rpm_q_firewalld
+      changed_when: False
       failed_when: rpm_q_firewalld.rc > 1
 
     - name: Disable and stop firewalld service
