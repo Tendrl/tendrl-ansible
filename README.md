@@ -32,6 +32,10 @@ tools (such as `ceph-installer` and `gdeploy`):
 
 See sample ansible playbook `site.yml.sample` to chekc how it fits together.
 
+## Setup with Vagrant using libvirt provider
+
+TODO
+
 ## Setup with Vagrant using virtualbox provider
 
 TODO
