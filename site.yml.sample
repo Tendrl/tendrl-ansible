@@ -96,9 +96,3 @@
     - tendrl-copr
     - gluster-gdeploy-copr
     - tendrl-storage-node
-
-#
-# Workarounds required to run after the installation.
-#
-
-- include: workaround.tendrl-performance-monitoring.issue9.yml
