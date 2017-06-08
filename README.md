@@ -23,6 +23,11 @@ on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-
 * `tendrl-performance-monitoring`: installs *Tendrl Performance Monitoring*
    component
 
+Please note that `tendrl-server` role includes setup of admin user account for
+Tendrl (usable with both api and web interface), and that new random default
+password is stored on *Tendrl Server* machine in `/root/password` file (based
+on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
+
 For convenience, there are also ansible roles for installation of yum
 repositories with upstream releases of Ceph, Gluster and theirs installation
 tools (such as `ceph-installer` and `gdeploy`):
