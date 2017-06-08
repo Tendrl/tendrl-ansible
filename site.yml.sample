@@ -22,6 +22,18 @@
 - include: workaround.disable-firewall.yml
 
 #
+# Run yum update.
+#
+
+- hosts: all
+  user: root
+  tasks:
+    - name: Update all installed packages
+      yum:
+        name: '*'
+        state: latest
+
+#
 # Installation of Tendrl itself.
 #
 
