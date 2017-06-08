@@ -92,6 +92,7 @@
   vars:
     # make sure this value is the same
     etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+    tendrl_gluster_provisioning_support: True
   roles:
     - tendrl-copr
     - gluster-gdeploy-copr
