@@ -51,6 +51,8 @@ Ansible Driven installation
           `[ tendrl-server]       [ceph-servers]        [gluster-servers]        [all]`
 * Step 3:  Modify `site.yml` `etcd_ip_address` and `tendrl_api_ip_address` to suit 
 * Step 4: Run `# ansible-playbook site.yml`
+* Step 5: ssh into your Tendrl server as root and `cat /root/password` 
+* Step 6: log in to your tendrl server at http://ip.of.tendrl.server  with admin user and the password from step 5
 
 ## Setup with Vagrant using libvirt provider
 
