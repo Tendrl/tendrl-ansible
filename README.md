@@ -41,6 +41,16 @@ tools (such as `ceph-installer` and `gdeploy`):
 
 See sample ansible playbook `site.yml.sample` to chekc how it fits together.
 
+##
+Basic setup
+Ansible Driven installation
+* Step 1: Install Ansible >= 2.2
+* Step 2:   Git the code:        git clone https://github.com/Tendrl/tendrl-ansible.git
+* Step 3: Set up the Ansible groups in inventory file:   
+          [ tendrl-server]       [ceph-servers]        [gluster-servers]        [all]
+* Step 3:  Modify site.yml etcd_ip_address and tendrl_api_ip_address to suit 
+* Step 4: Run # ansible-playbook site.yml
+
 ## Setup with Vagrant using libvirt provider
 
 TODO
