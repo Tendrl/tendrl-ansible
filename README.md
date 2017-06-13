@@ -43,6 +43,7 @@ See sample ansible playbook `site.yml.sample` to chekc how it fits together.
 
 ##
 Basic setup
+
 Ansible Driven installation
 * Step 1: Install Ansible >= 2.2
 * Step 2:   Git the code:        git clone https://github.com/Tendrl/tendrl-ansible.git
