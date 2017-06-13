@@ -9,6 +9,10 @@ Clone me:
 git clone https://github.com/Tendrl/tendrl-ansible.git
 ```
 
+
+**NOTE:** The `master` branch was completely overwritten on 13th June 2017. The original master branch is now available as the branch `archive`.
+
+
 ## What does it do?
 
 There are ansible roles for installation of [Tendrl](http://tendrl.org/), based
