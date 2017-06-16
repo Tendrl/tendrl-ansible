@@ -39,17 +39,18 @@ tools (such as `ceph-installer` and `gdeploy`):
 * `ceph-installer`
 * `gluster-gdeploy-copr`
 
-See sample ansible playbook `site.yml.sample` to chekc how it fits together.
+See sample ansible playbook `site.yml.sample` to check how it fits together.
 
-##
-Basic setup
+## Basic setup
 
-Ansible Driven installation
+Ansible Driven installation:
+
 * Step 1: Install Ansible >= 2.2
-* Step 2:   Git the code:        `git clone https://github.com/Tendrl/tendrl-ansible.git`
-* Step 3: Set up the Ansible groups in inventory file:   
-          `[ tendrl-server]       [ceph-servers]        [gluster-servers]        [all]`
-* Step 3:  Modify `site.yml` `etcd_ip_address` and `tendrl_api_ip_address` to suit 
+* Step 2: Git the code:        `git clone https://github.com/Tendrl/tendrl-ansible.git`
+* Step 3: Set up the Ansible groups in inventory file:
+          `[ tendrl-server]       [ceph-servers]        [gluster-servers]`
+* Step 3: Create `site.yml` file based on `site.yml.sample` and make sure to
+  define `etcd_ip_address` and `tendrl_api_ip_address` to suit
 * Step 4: Run `# ansible-playbook site.yml`
 * Step 5: ssh into your Tendrl server as root and `cat /root/password` 
 * Step 6: log in to your tendrl server at http://ip.of.tendrl.server  with admin user and the password from step 5
