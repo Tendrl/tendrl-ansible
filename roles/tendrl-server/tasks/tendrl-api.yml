@@ -37,7 +37,7 @@
 - name: Start tendrl-api service
   service:
     name=tendrl-api
-    enabled=yes
+    state=started
 
 # based on description from:
 # https://github.com/Tendrl/api/blob/master/docs/users.adoc#create-admin-user
