@@ -14,9 +14,9 @@
 - include: tendrl-node-agent.yml
 - include: tendrl-alerting.yml
 
-- name: Install tendrl-dashboard
+- name: Install tendrl-ui
   yum:
-    name=tendrl-dashboard
+    name=tendrl-ui
     state=latest
   notify:
     - restart httpd
