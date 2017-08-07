@@ -25,3 +25,8 @@
   service:
     name=tendrl-alerting
     state=restarted
+
+- name: restart tendrl-node-monitoring
+  service:
+    name=tendrl-node-monitoring
+    state=restarted

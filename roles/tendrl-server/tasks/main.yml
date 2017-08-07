@@ -20,3 +20,6 @@
     state=latest
   notify:
     - restart httpd
+
+# reuse tasks file from storage node to install tendlr node monitoring
+- include: roles/tendrl-storage-node/tasks/tendrl-node-monitoring.yml

@@ -1,4 +1,7 @@
 ---
+# note: this file is inluced from tendrl server role as well, so when this
+# file is changed in singificant, both this and tendrl server role needs to be
+# checked and updated if needed
 
 - name: Install tendrl-node-monitoring
   yum:
