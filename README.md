@@ -24,8 +24,6 @@ on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-
 * `tendrl-storage-node`: installation of *Tendrl Storage Node* machine
    (required on Ceph or Gluster servers, which you would like to manage by
    Tendrl)
-* `tendrl-performance-monitoring`: installs *Tendrl Performance Monitoring*
-   component
 
 Please note that `tendrl-server` role includes setup of admin user account for
 Tendrl (usable with both api and web interface), and that new random default

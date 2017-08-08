@@ -51,10 +51,6 @@
     # etcd_ip_address: "{{ ansible_eth1.ipv4.address }}"
     # - using ansible facts: asking for ipv4 address of default interface
     etcd_ip_address: "{{ ansible_default_ipv4.address }}"
-    # The same holds for ip address of tendrl api, where safe default is using
-    # the same ip address as etcd listens on, but when you have multiple
-    # networks you can select different one if you need it
-    tendrl_api_ip_address: "{{ etcd_ip_address }}"
     # You can also configure Tendrl Alerting component here:
     # tendrl_alerting_email_id: alerting@example.org
     # tendrl_alerting_email_smtp_server: smtp.example.org
@@ -64,12 +60,10 @@
       assert:
         that:
           - etcd_ip_address is defined
-          - tendrl_api_ip_address is defined
   roles:
     - tendrl-copr
     - ceph-installer # you can uncomment when you don't need to provision ceph
     - tendrl-server
-    - tendrl-performance-monitoring
 
 - hosts: ceph-servers
   user: root
