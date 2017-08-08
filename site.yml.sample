@@ -51,10 +51,6 @@
     # etcd_ip_address: "{{ ansible_eth1.ipv4.address }}"
     # - using ansible facts: asking for ipv4 address of default interface
     etcd_ip_address: "{{ ansible_default_ipv4.address }}"
-    # You can also configure Tendrl Alerting component here:
-    # tendrl_alerting_email_id: alerting@example.org
-    # tendrl_alerting_email_smtp_server: smtp.example.org
-    # tendrl_alerting_email_smtp_port: 25
   pre_tasks:
     - name: Check that variables are defined properly (just to make this clear)
       assert:

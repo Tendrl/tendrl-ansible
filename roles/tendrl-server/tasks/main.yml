@@ -12,7 +12,6 @@
 - include: etcd.yml
 - include: tendrl-api.yml
 - include: tendrl-node-agent.yml
-- include: tendrl-alerting.yml
 
 - name: Install tendrl-ui
   yum:

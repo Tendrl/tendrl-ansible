@@ -10,12 +10,6 @@ with both api and web interface), and that new random default password is
 stored on *Tendrl Server* machine in `/root/password` file (based on
 [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
-This role also includes installation and setup of *Tendrl Alerting*, which is
-described in another section of the documentation linked above, because
-deploying it on the *Tenrl Server* machine is a safe default choice (moreover
-we try to limit sheer number of possible deployment scenarios until more
-complicated architectures and scaling will be documented and tested).
-
 Requirements
 ------------
 

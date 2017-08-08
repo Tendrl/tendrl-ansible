@@ -20,8 +20,3 @@
   service:
     name=tendrl-node-agent
     state=restarted
-
-- name: restart tendrl-alerting
-  service:
-    name=tendrl-alerting
-    state=restarted
