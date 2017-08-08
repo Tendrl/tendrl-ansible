@@ -10,8 +10,8 @@
     msg: "Using {{ etcd_ip_address }} as etcd ip address."
 
 - include: etcd.yml
-- include: tendrl-api.yml
 - include: tendrl-node-agent.yml
+- include: tendrl-api.yml
 
 - name: Install tendrl-ui
   yum:
