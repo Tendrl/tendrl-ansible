@@ -59,7 +59,7 @@
   roles:
     - grafana-repo
     - tendrl-copr
-    - ceph-installer # you can uncomment when you don't need to provision ceph
+    # - ceph-installer # uncomment when you need to provision ceph
     - tendrl-server
 
 - hosts: ceph-servers
