@@ -57,6 +57,7 @@
         that:
           - etcd_ip_address is defined
   roles:
+    - grafana-repo
     - tendrl-copr
     - ceph-installer # you can uncomment when you don't need to provision ceph
     - tendrl-server
