@@ -25,6 +25,13 @@ Role Variables
 * When `etcd_ip_address` variable is undefined (which is the default state),
   this role will use ip address of default ipv4 network interface to configure
   etcd, otherwise a value of this variable will be used.
+* When `graphite_ip_address` variable is undefined (which is the default
+  state), this role will use ip address of default ipv4 network interface,
+  otherwise a value of this variable will be used.
+* When `graphite_port` variable is undefined, task which configures graphite
+  port for `tendrl-node-agent` will be skipped so that the default value from
+  config file (as shipped in rpm package) will be used. *If you are not sure*
+  if you need to reconfigure this, *leave this variable undefined*.
 
 License
 -------

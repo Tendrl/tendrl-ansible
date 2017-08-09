@@ -5,11 +5,25 @@
     name=tendrl-node-agent
     state=latest
 
-- name: Configure etcd_connection in node-agent.conf.yaml
+- name: Configure etcd and graphite ip addr in node-agent.conf.yaml
   lineinfile:
     dest: /etc/tendrl/node-agent/node-agent.conf.yaml
-    regexp: '^etcd_connection:.*'
-    line: "etcd_connection: {{ etcd_ip_address }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^etcd_connection:.*'
+      line: "etcd_connection: {{ etcd_ip_address }}"
+    - regexp: '^graphite_host:.*'
+      line: "graphite_host: {{ graphite_ip_address }}"
+  notify:
+    - restart tendrl-node-agent
+
+- name: Configure graphite_port in node-agent.conf.yaml (only when needed)
+  lineinfile:
+    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
+    regexp: '^graphite_port:.*'
+    line: "graphite_port: {{ graphite_port }}"
+  when: graphite_port is defined
   notify:
     - restart tendrl-node-agent
 

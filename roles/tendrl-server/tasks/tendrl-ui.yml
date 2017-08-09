@@ -1,0 +1,6 @@
+---
+
+- name: Install tendrl-ui
+  yum:
+    name=tendrl-ui
+    state=latest
