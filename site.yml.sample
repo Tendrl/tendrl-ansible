@@ -51,11 +51,19 @@
     # etcd_ip_address: "{{ ansible_eth1.ipv4.address }}"
     # - using ansible facts: asking for ipv4 address of default interface
     etcd_ip_address: "{{ ansible_default_ipv4.address }}"
+    # IP address of graphite (carbon-cache service in particular) which will
+    # be used in tendrl-node-agent config file (this value doesn't reconfigure
+    # graphite).
+    # Note that a safe default value for ip address of graphite is the same one
+    # we use for etcd here (tendrl-server role places both services on the same
+    # machine).
+    graphite_ip_address: "{{ etcd_ip_address }}"
   pre_tasks:
     - name: Check that variables are defined properly (just to make this clear)
       assert:
         that:
           - etcd_ip_address is defined
+          - graphite_ip_address is defined
   roles:
     - grafana-repo
     - tendrl-copr
@@ -83,6 +91,7 @@
   vars:
     # make sure this value is the same
     etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+    graphite_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
     tendrl_gluster_provisioning_support: True
   roles:
     - tendrl-copr
