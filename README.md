@@ -26,8 +26,10 @@ on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-
    Tendrl)
 
 Please note that `tendrl-server` role includes setup of admin user account for
-Tendrl (usable with both api and web interface), and that new random default
-password is stored on *Tendrl Server* machine in `/root/password` file (based
+Tendrl (usable with both api and web interface), and that default
+password is ``adminuser``. Moreover the admin password is also
+stored on *Tendrl Server* machine in `/root/password` file (this feature of
+tendrl-ansible is based
 on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
 For convenience, there are also ansible roles for installation of yum
@@ -63,9 +65,8 @@ tendrl.example.com
 4) Create `site.yml` file based on `site.yml.sample` and make sure to
    define `etcd_ip_address` to suit
 5) Run `$ ansible-playbook -i inventory_file site.yml`
-6) Ssh into your Tendrl server as root and `cat /root/password` 
-7) Log in to your tendrl server at http://ip.of.tendrl.server  with admin user
-   and the password from step 5
+6) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+   ``admin`` user and the default password ``adminuser``.
 
 ## Setup with Vagrant using libvirt provider
 
