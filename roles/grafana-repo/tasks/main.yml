@@ -25,3 +25,8 @@
   rpm_key:
     key=/etc/pki/rpm-gpg/RPM-GPG-KEY-grafana
     state=present
+
+# WORKAROUND issues with grafana repo
+# https://github.com/ansible/ansible/issues/20711
+- name: "WORKAROUND for issues with grafana repo: make yum cache"
+  command: "yum makecache -y --disablerepo='*' --enablerepo='grafana'"
