@@ -16,7 +16,7 @@ git clone https://github.com/Tendrl/tendrl-ansible.git
 ## What does it do?
 
 There are ansible roles for installation of [Tendrl](http://tendrl.org/), based
-on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installation-Reference(Revised)):
+on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installation-Reference):
 
 * `tendrl-copr`: installs yum repository of latest Tendrl upstream release
 * `tendrl-server`: installation of *Tendrl Server* machine (where api, web and
