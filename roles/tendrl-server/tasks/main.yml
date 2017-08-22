@@ -6,20 +6,28 @@
     etcd_ip_address: '{{ ansible_default_ipv4.address }}'
   when: etcd_ip_address is undefined
 
+- name: Use ip address of default ipv4 network interface for graphite
+  set_fact:
+    graphite_ip_address: '{{ ansible_default_ipv4.address }}'
+  when: graphite_ip_address is undefined
+
 - debug:
-    msg: "Using {{ etcd_ip_address }} as etcd ip address."
+    msg:
+      - "Using {{ etcd_ip_address }} as etcd ip address."
+      - "Using {{ graphite_ip_address }} as graphite ip address."
 
 - include: etcd.yml
-- include: tendrl-api.yml
 - include: tendrl-node-agent.yml
-- include: tendrl-alerting.yml
+- include: tendrl-api.yml
+- include: tendrl-ui.yml
+- include: tendrl-monitoring-integration.yml
 
-- name: Install tendrl-dashboard
-  yum:
-    name=tendrl-dashboard
-    state=latest
-  notify:
-    - restart httpd
+- name: Enable httpd service
+  service:
+    name=httpd
+    enabled=yes
 
-# reuse tasks file from storage node to install tendlr node monitoring
-- include: roles/tendrl-storage-node/tasks/tendrl-node-monitoring.yml
+- name: Start httpd service
+  service:
+    name=httpd
+    state=started

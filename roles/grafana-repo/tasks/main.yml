@@ -1,0 +1,34 @@
+---
+# tasks file for grafana-repo
+
+- name: Install Grafana stable repo
+  copy:
+    src='grafana.repo'
+    dest=/etc/yum.repos.d
+
+- name: Install Grafana stable rpm-gpg key
+  copy:
+    src='RPM-GPG-KEY-grafana'
+    dest=/etc/pki/rpm-gpg
+
+- name: Install packagecloud ops rpm-gpg key
+  copy:
+    src='packagecloud-ops.gpg.key'
+    dest=/etc/pki/rpm-gpg
+
+- name: Import packagecloud ops rpm-gpg key
+  rpm_key:
+    key=/etc/pki/rpm-gpg/packagecloud-ops.gpg.key
+    state=present
+  register: rpm_key_packagecloud
+
+- name: Import Grafana stable rpm-gpg key
+  rpm_key:
+    key=/etc/pki/rpm-gpg/RPM-GPG-KEY-grafana
+    state=present
+
+# WORKAROUND for issues with grafana repo
+# https://github.com/ansible/ansible/issues/20711
+- name: "WORKAROUND for issues with grafana repo: make yum cache"
+  command: "yum makecache -y --disablerepo='*' --enablerepo='grafana'"
+  when: rpm_key_packagecloud.changed

@@ -26,6 +26,8 @@ Role Variables
   gluster provisioning will be enabled (default is False).
 * Variable `etcd_ip_address` needs to be set to ipv4 adress of etcd instance.
   Specifying this variable is mandatory as there is no default value.
+* Variable `graphite_ip_address` needs to be set to ipv4 adress of graphite
+  instance. Specifying this variable is mandatory as there is no default value.
 
 License
 -------

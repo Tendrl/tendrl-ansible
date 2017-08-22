@@ -29,16 +29,6 @@
   notify:
     - restart tendrl-api
 
-- name: Enable tendrl-api service
-  service:
-    name=tendrl-api
-    enabled=yes
-
-- name: Start tendrl-api service
-  service:
-    name=tendrl-api
-    state=started
-
 # based on description from:
 # https://github.com/Tendrl/api/blob/master/docs/users.adoc#create-admin-user
 - name: Create Tendrl admin user
@@ -69,19 +59,12 @@
     mode=600
   when: admin_password.changed
 
-- name: Install tendrl-api-httpd
-  yum:
-    name=tendrl-api-httpd
-    state=latest
-  notify:
-    - restart httpd
-
-- name: Enable httpd service
+- name: Enable tendrl-api service
   service:
-    name=httpd
+    name=tendrl-api
     enabled=yes
 
-- name: Start httpd service
+- name: Start tendrl-api service
   service:
-    name=httpd
+    name=tendrl-api
     state=started

@@ -24,12 +24,12 @@ on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-
 * `tendrl-storage-node`: installation of *Tendrl Storage Node* machine
    (required on Ceph or Gluster servers, which you would like to manage by
    Tendrl)
-* `tendrl-performance-monitoring`: installs *Tendrl Performance Monitoring*
-   component
 
 Please note that `tendrl-server` role includes setup of admin user account for
-Tendrl (usable with both api and web interface), and that new random default
-password is stored on *Tendrl Server* machine in `/root/password` file (based
+Tendrl (usable with both api and web interface), and that default
+password is ``adminuser``. Moreover the admin password is also
+stored on *Tendrl Server* machine in `/root/password` file (this feature of
+tendrl-ansible is based
 on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
 For convenience, there are also ansible roles for installation of yum
@@ -45,15 +45,28 @@ See sample ansible playbook `site.yml.sample` to check how it fits together.
 
 Ansible Driven installation:
 
-* Step 1: Install Ansible >= 2.2
-* Step 2: Git the code:        `git clone https://github.com/Tendrl/tendrl-ansible.git`
-* Step 3: Set up the Ansible groups in inventory file:
-          `[ tendrl-server]       [ceph-servers]        [gluster-servers]`
-* Step 3: Create `site.yml` file based on `site.yml.sample` and make sure to
-  define `etcd_ip_address` and `tendrl_api_ip_address` to suit
-* Step 4: Run `# ansible-playbook site.yml`
-* Step 5: ssh into your Tendrl server as root and `cat /root/password` 
-* Step 6: log in to your tendrl server at http://ip.of.tendrl.server  with admin user and the password from step 5
+1) Install Ansible >= 2.2
+2) Get the code: `git clone https://github.com/Tendrl/tendrl-ansible.git`
+3) Create Ansible inventory file with groups for `tendrl-server`,
+   `ceph-servers` and/or `gluster-servers`. Here is an example of inventory
+   file for 4 node cluster with Gluster:
+
+```
+[gluster-servers]
+gl1.example.com
+gl2.example.com
+gl3.example.com
+gl4.example.com
+
+[tendrl-server]
+tendrl.example.com
+```
+
+4) Create `site.yml` file based on `site.yml.sample` and make sure to
+   define `etcd_ip_address` to suit
+5) Run `$ ansible-playbook -i inventory_file site.yml`
+6) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+   ``admin`` user and the default password ``adminuser``.
 
 ## Setup with Vagrant using libvirt provider
 

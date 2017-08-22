@@ -10,12 +10,6 @@ with both api and web interface), and that new random default password is
 stored on *Tendrl Server* machine in `/root/password` file (based on
 [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
-This role also includes installation and setup of *Tendrl Alerting*, which is
-described in another section of the documentation linked above, because
-deploying it on the *Tenrl Server* machine is a safe default choice (moreover
-we try to limit sheer number of possible deployment scenarios until more
-complicated architectures and scaling will be documented and tested).
-
 Requirements
 ------------
 
@@ -31,6 +25,13 @@ Role Variables
 * When `etcd_ip_address` variable is undefined (which is the default state),
   this role will use ip address of default ipv4 network interface to configure
   etcd, otherwise a value of this variable will be used.
+* When `graphite_ip_address` variable is undefined (which is the default
+  state), this role will use ip address of default ipv4 network interface,
+  otherwise a value of this variable will be used.
+* When `graphite_port` variable is undefined, task which configures graphite
+  port for `tendrl-node-agent` will be skipped so that the default value from
+  config file (as shipped in rpm package) will be used. *If you are not sure*
+  if you need to reconfigure this, *leave this variable undefined*.
 
 License
 -------
