@@ -18,6 +18,16 @@ Expected operating system is *CentOS 7.3*, with both *CentOS-7 - Base* and
 *CentOS-7 - Extras* repositories enabled (extras is required for `epel-release`
 rpm package).
 
+Role Variables
+--------------
+
+* When `tendrl_copr_repo` variable is set to `master`, this role will use
+  [copr repository with latest devel snapshot
+  builds](https://copr.fedorainfracloud.org/coprs/tendrl/tendrl/) instead of
+  latest release, which would be otherwise used by default (as listed above).
+  Note that switching to `master` is not supported and intended for testing and
+  development purposes only.
+
 License
 -------
 
