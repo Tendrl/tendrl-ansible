@@ -20,3 +20,8 @@
   service:
     name=tendrl-node-agent
     state=restarted
+
+- name: restart tendrl-monitoring-integration
+  service:
+    name=tendrl-monitoring-integration
+    state=restarted
