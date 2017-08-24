@@ -48,28 +48,17 @@
   with_items:
     - regexp: '^datasource_host:.*'
       line: "datasource_host: {{ graphite_ip_address }}"
+    - regexp: '^etcd_connection:.*'
+      line: "etcd_connection: {{ etcd_ip_address }}"
+  notify:
+    - restart tendrl-monitoring-integration
 
-# Script tendrl-monitoring-integration requires grafana to be up and running,
-# but sometimes grafana is not able to respong to queries at this point and
-# so the tendrl-monitoring-integration script fails. For this reason, when the
-# script fails, we try to rerun after waiting for 5s again (and try this for
-# another 4 times before giving up and reporting an error).
-#
-# Script tendrl-monitoring-integration uploads dashboard definitions into
-# grafana and without this step, you would not see any dashboards there.
+- name: Start tendrl-monitoring-integration service
+  service:
+    name=tendrl-monitoring-integration
+    state=started
 
-- name: Run tendrl-monitoring-integration
-  command: /usr/bin/tendrl-monitoring-integration
-  register: tmi_result
-  changed_when:
-    - "'Datasource  uploaded successfully' in tmi_result.stdout"
-  failed_when:
-    - "('upload failed' in tmi_result.stdout and not 'Data source with same name already exists' in tmi_result.stdout) or tmi_result.stderr != ''"
-  until: tmi_result|success
-  retries: 5
-  delay: 5
-
-- debug:
-    msg:
-      - "tendrl-monitoring-integration stdout: {{ tmi_result.stdout }}"
-      - "tendrl-monitoring-integration stderr: {{ tmi_result.stderr }}"
+- name: Enable tendrl-monitoring-integration service
+  service:
+    name=tendrl-monitoring-integration
+    enabled=yes

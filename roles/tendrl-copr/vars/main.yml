@@ -1,0 +1,8 @@
+---
+tendrl_corp_repos:
+    release:
+        repofile: 'tendrl-release-epel-7.repo'
+        repokey: RPM-GPG-KEY-Tendrl-Release
+    master:
+        repofile: 'tendrl-tendrl-epel-7.repo'
+        repokey: RPM-GPG-KEY-Tendrl-Tendrl
