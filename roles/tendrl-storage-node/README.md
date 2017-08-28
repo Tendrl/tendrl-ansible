@@ -11,10 +11,6 @@ Requirements
 This role expects that the repositories with Tendrl packages (and it's
 dependencies) are already available on the machine.
 
-If you want to be able to provision Gluster clusters with Tendrl, make *Gluster
-Gdeploy* rpm repository available on *Tendrl Storage Node* machines and
-update related role variables (see details below).
-
 Role Variables
 --------------
 
