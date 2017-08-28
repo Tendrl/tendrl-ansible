@@ -94,5 +94,4 @@
     graphite_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
   roles:
     - tendrl-copr
-    # - gluster-gdeploy-copr
     - tendrl-storage-node
