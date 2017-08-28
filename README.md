@@ -22,7 +22,7 @@ on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-
 * `tendrl-server`: installation of *Tendrl Server* machine (where api, web and
    etcd are running)
 * `tendrl-storage-node`: installation of *Tendrl Storage Node* machine
-   (required on Ceph or Gluster servers, which you would like to manage by
+   (required on Gluster servers, which you would like to monitor by
    Tendrl)
 
 Please note that `tendrl-server` role includes setup of admin user account for
@@ -47,8 +47,8 @@ Ansible Driven installation:
 
 1) Install Ansible >= 2.2
 2) Get the code: `git clone https://github.com/Tendrl/tendrl-ansible.git`
-3) Create Ansible inventory file with groups for `tendrl-server`,
-   `ceph-servers` and/or `gluster-servers`. Here is an example of inventory
+3) Create Ansible inventory file with groups for `tendrl-server`
+   and `gluster-servers`. Here is an example of inventory
    file for 4 node cluster with Gluster:
 
 ```

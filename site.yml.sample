@@ -8,7 +8,6 @@
 #
 # * tendrl-server: a single machine where Tendrl Server (management console) is
 #                  installed
-# * ceph-servers: ceph storage servers (ods/mon machines)
 # * gluster-servers: gluster storage servers (machines with bricks)
 #
 # Note that this is just an example which holds for this playbook, tendrl roles
@@ -67,23 +66,7 @@
   roles:
     - grafana-repo
     - tendrl-copr
-    # - ceph-installer # uncomment when you need to provision ceph
     - tendrl-server
-
-- hosts: ceph-servers
-  user: root
-  # become: yes
-  vars:
-    # make sure this value is the same
-    etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
-  pre_tasks:
-    - name: Install Ceph repository from CentOS Storage SIG
-      yum:
-        name: centos-release-ceph
-        state: latest
-  roles:
-    - tendrl-copr
-    - tendrl-storage-node
 
 - hosts: gluster-servers
   user: root
