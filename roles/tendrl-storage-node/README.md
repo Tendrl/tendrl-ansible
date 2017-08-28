@@ -22,8 +22,6 @@ update related role variables (see details below).
 Role Variables
 --------------
 
-* When `tendrl_gluster_provisioning_support` variable is `True`, support for
-  gluster provisioning will be enabled (default is False).
 * Variable `etcd_ip_address` needs to be set to ipv4 adress of etcd instance.
   Specifying this variable is mandatory as there is no default value.
 * Variable `graphite_ip_address` needs to be set to ipv4 adress of graphite

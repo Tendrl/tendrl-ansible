@@ -18,16 +18,6 @@
   notify:
     - restart tendrl-node-agent
 
-- name: Add provisioner/gluster tag into node-agent.conf.yaml
-  lineinfile:
-    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
-    insertafter: '^tags:$'
-    line: "  - provisioner/gluster"
-  notify:
-    - restart tendrl-node-agent
-  when: tendrl_gluster_provisioning_support == True
-  run_once: true
-
 - name: Enable tendrl-node-agent service
   service:
     name=tendrl-node-agent
