@@ -37,6 +37,19 @@
  # grafana configuration
  #
 
+- name: Configure grafana to use tendrl-monitoring-integration config
+  lineinfile:
+    dest=/etc/sysconfig/grafana-server
+    regexp={{ item.regexp }}
+    line={{ item.line }}
+  with_items:
+    - regexp: '^CONF_DIR=.*'
+      line: "CONF_DIR=/etc/tendrl/monitoring-integration/grafana/"
+    - regexp: '^CONF_FILE=.*'
+      line: "CONF_FILE=/etc/tendrl/monitoring-integration/grafana/grafana.ini"
+  notify:
+    - restart grafana-server
+
 - name: Enable grafana-server service
   service:
     name=grafana-server

@@ -25,3 +25,8 @@
   service:
     name=tendrl-monitoring-integration
     state=restarted
+
+- name: restart grafana-server
+  service:
+    name=grafana-server
+    state=restarted
