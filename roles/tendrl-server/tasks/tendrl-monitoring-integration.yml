@@ -5,6 +5,10 @@
     name=tendrl-monitoring-integration
     state=latest
 
+#
+# graphite (consists of carbon, whisper and graphite web) configuration
+#
+
 - name: Initialize graphite-db
   command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
   args:
@@ -29,6 +33,10 @@
     name=carbon-cache
     enabled=yes
 
+ #
+ # grafana configuration
+ #
+
 - name: Enable grafana-server service
   service:
     name=grafana-server
@@ -39,6 +47,10 @@
   service:
     name=grafana-server
     state=started
+
+#
+# configuration of monitoring integration itself
+#
 
 - name: Configure tendrl-monitoring-integration
   lineinfile:
