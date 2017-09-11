@@ -37,59 +37,22 @@
           - ansible_distribution_version|regex_replace('7.3.*', '7.3') == '7.3'
 
     # Checking that NTP is configured. Based on RHEL 7 *System Administrators
-    # Guide* which states:
-    #
-    # > There is a choice between the daemons ntpd and chronyd, which are
-    # > available from the repositories in the ntp and chrony packages
-    # > respectively.
-    #
-    # It seems that for storage servers, ntpd makes more sense (referencing the
-    # Admin guide again):
-    #
-    # > The NTP daemon (ntpd) should be considered for systems which are
-    # > normally kept permanently on.
-    #
-    # But for POC virtual machines, there is nothing wrong with chrony I guess.
-    #
-    # Also note that we just check that the daemon is installed and running, in
-    # a hope that it's already configured or that the defaults will work.
-    # Ansible playbooks like this one can't possibly solve ntp configuration for
-    # all possible enviroments.
+    # Guide*.
 
-    - name: Check if chrony is installed
-      command: rpm -q chrony
-      register: rpm_q_chrony
+    - name: Run timedatectl to see if NTP is enabled and synchronized
+      command: timedatectl
       changed_when: False
-      failed_when: rpm_q_chrony.rc > 1
+      register: timedatectl_run
 
-    - name: Check if ntp is installed
-      command: rpm -q ntp
-      register: rpm_q_ntp
-      changed_when: False
-      failed_when: rpm_q_ntp.rc > 1
-
-    - name: Check that either chrony or ntp is installed
+    - name: Check that NTP is enabled
       assert:
         that:
-          - rpm_q_chrony.rc == 0 or rpm_q_ntp.rc == 0
+          - '"NTP enabled: yes" in timedatectl_run.stdout'
 
-    - name: Try to start chronyd service, if only chrony is installed
-      service: name=chronyd state=started
-      when: rpm_q_chrony.rc == 0 and rpm_q_ntp.rc != 0
-      register: chronyd_service
-
-    - name: Try to start ntpd service, if it makes sense
-      service: name=ntpd state=started
-      # TODO: we don't want to start ntpd if chronyd is running
-      when: rpm_q_ntp.rc == 0 and (rpm_q_chrony.rc != 0 or chronyd_service.state != "started")
-      register: ntpd_service
-
-    - name: Check that either chronyd or ntpd service is running
+    - name: Check that NTP is synchronized
       assert:
         that:
-          - chronyd_service is defined or ntpd_service is defined
-          # - chronyd_service is defined and chronyd_service.state == "started"
-          # - ntpd_service is defined and ntpd_service.state == "started"
+          - '"NTP synchronized: yes" in timedatectl_run.stdout'
 
    # Check machine id.
    # TODO: Ok, there is a file in /etc/machine-id, but how to
