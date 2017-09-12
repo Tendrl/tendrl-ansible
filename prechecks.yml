@@ -59,9 +59,16 @@
         that:
           - '"NTP synchronized: yes" in timedatectl_run.stdout'
 
-   # Check machine id.
-   # TODO: Ok, there is a file in /etc/machine-id, but how to
-   # check the uniqueness? actually, it's in ansible_machine_id
+    # Check that machine-id is unique on each machine. The implementation is
+    # not very efficient (linear check on each machine ... o(n^2)), but assert
+    # can't be performed locally based on facts from each remote host. On the
+    # brigh side: machines with non unique machine-id will be marked as failed.
+
+    - name: Check that machine-id on this machine is unique
+      assert:
+        that:
+          - ansible_hostname == hostvars[item]['ansible_hostname'] or ansible_machine_id != hostvars[item]['ansible_machine_id']
+      with_items: "{{ groups['all'] }}"
 
    # Check DNS setup.
    # check that ansible_fqdn translates to ip of default ansible interface?
