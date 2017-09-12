@@ -14,7 +14,7 @@
     # > GB of memory and 4 VCPUs (or equivalent)(due to alerts, logs
     # > being stored on this node)
     #
-    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.4.1-(install-doc)
+    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.0-(install-doc)
     - assert:
         that:
           - ansible_memtotal_mb >= 12000
