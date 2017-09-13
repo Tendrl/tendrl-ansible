@@ -70,5 +70,23 @@
           - ansible_hostname == hostvars[item]['ansible_hostname'] or ansible_machine_id != hostvars[item]['ansible_machine_id']
       with_items: "{{ groups['all'] }}"
 
-   # Check DNS setup.
-   # check that ansible_fqdn translates to ip of default ansible interface?
+    # Check that hostnames are reachable and available via dns
+
+    # Note that the dns lookup is performed on the ansible control machine (as
+    # all ansible lookup plugins are executed locally).
+    - name: Check that fqdn of the host is available via dns
+      assert:
+        that:
+          - lookup('dig', ansible_fqdn) != 'NXDOMAIN'
+
+    # This check doesn't use assert, but expects that getent tool ends with
+    # nonzero error code when the translation can't be done, so that ansible
+    # would consider such state as an failure anyway by default.
+    # And again, the implementation is not very efficient (linear check on
+    # each machine ... o(n^2)), but here we don't have any other choice: we
+    # have to make sure that on each machine, we can get an ip address of all
+    # the others to be sure that the dns is configured right.
+    - name: Check that the host can get an ip address for all the others
+      command: getent hosts "{{ hostvars[item]['ansible_fqdn'] }}"
+      changed_when: False
+      with_items: "{{ groups['all'] }}"
