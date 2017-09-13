@@ -14,6 +14,12 @@
 # doesn't care how you group your servers in ansible inventory.
 
 #
+# Validation of prerequisities for Tendrl, doesn't modify machines in any way.
+#
+
+- include: prechecks.yml
+
+#
 # Workarounds required to run before the installation.
 #
 
