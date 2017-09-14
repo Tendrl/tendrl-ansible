@@ -2,6 +2,21 @@
 # A simple playbook with Tendrl installation pre checks as listed in:
 # https://tendrl.atlassian.net/browse/TEN-257
 
+- hosts: localhost
+  connection: local
+  tasks:
+    # For dig lookup module[1] to work (dig lookup is used later in this
+    # playbook), you need to have python dns module[2] installed[3] on ansible
+    # control machine (the local machine where you run ansible).
+    # [1] https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-dns-lookup-dig
+    # [2] http://www.dnspython.org/
+    # [3] Fedora package: python2-dns, RHEL 7 package: python-dns
+    # This check is here to provide more clear error message when the module
+    # is missing.
+    - name: Check that python dns is installed on ansible control machine
+      command: python2 -c 'import dns'
+      changed_when: False
+
 #
 # Check hw requirements first, so far for *Tendrl Server* only.
 #
