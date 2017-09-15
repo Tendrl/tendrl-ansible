@@ -1,2 +1,3 @@
 ---
 # defaults file for tendrl-server
+etcd_authentication: True

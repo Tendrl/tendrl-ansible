@@ -32,4 +32,35 @@
     name=etcd
     state=started
 
+#
+# https://coreos.com/etcd/docs/latest/op-guide/authentication.html
+#
+
+- name: Detection of current etcd authentication mode (etcdctl run)
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 user list
+  when: etcd_authentication == True
+  changed_when: False
+  failed_when: False
+  register: detect_etcd_auth
+
+- name: Detection of current etcd authentication mode (checking stderr)
+  set_fact:
+    is_etcd_auth_already_enabled: "{{ 'Insufficient credentials' in detect_etcd_auth.stderr }}"
+
+- name: Detected status of etcd authentication (based on previous etcdctl run)
+  debug:
+    var: is_etcd_auth_already_enabled
+
+- name: Add etcd root user account
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 user add root:{{ lookup('password', 'etcd_root_passwd chars=ascii_letters length=30') }}
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
+- name: Enable etcd authentication
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 auth enable
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
+- name: Remove etcd guest group
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 --username root:{{ lookup('password', 'etcd_root_passwd chars=ascii_letters length=30') }} role remove guest
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
 - meta: flush_handlers

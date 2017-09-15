@@ -7,3 +7,5 @@
 site.yml
 # vagrant files
 .vagrant
+# ansible password lookup files
+etcd_root_passwd
