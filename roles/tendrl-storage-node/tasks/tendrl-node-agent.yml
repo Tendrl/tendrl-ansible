@@ -18,6 +18,22 @@
   notify:
     - restart tendrl-node-agent
 
+- name: Detection if etcd_root_passwd (ansible password lookup file) exists
+  local_action: stat path=etcd_root_passwd
+  register: stat_etcd_root_passwd
+  run_once: True
+  when: etcd_authentication == True
+
+- name: Make sure that etcd_root_passwd (ansible password lookup file) exists
+  fail:
+    msg:
+      - "to configure etcd credentials in tendrl config files, etcd_root_passwd (ansible password lookup) file is required"
+      - "since etcd_root_passwd is missing, we can't continue"
+      - "under normal conditions, etcd_root_passwd is created by ansible when tendrl-server role is executed"
+  when: etcd_authentication == True and stat_etcd_root_passwd['stat']['exists'] == False
+  run_once: True
+  delegate_to: localhost
+
 - name: Configure etcd username and password in node-agent.conf.yaml
   lineinfile:
     dest: /etc/tendrl/node-agent/node-agent.conf.yaml
