@@ -18,6 +18,20 @@
   notify:
     - restart tendrl-node-agent
 
+- name: Configure etcd username and password in node-agent.conf.yaml
+  lineinfile:
+    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#? *etcd_username:.*'
+      line: "etcd_username: root"
+    - regexp: '^#? *etcd_password:.*'
+      line: "etcd_password: {{ lookup('password', 'etcd_root_passwd') }}"
+  notify:
+    - restart tendrl-node-agent
+  when: etcd_authentication == True
+
 - name: Enable tendrl-node-agent service
   service:
     name=tendrl-node-agent
