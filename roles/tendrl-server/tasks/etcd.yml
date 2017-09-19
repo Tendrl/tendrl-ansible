@@ -68,6 +68,11 @@
       - "another option is to skip etcd auth configuration by setting etcd_authentication ansible variable to False"
   when: is_etcd_auth_already_enabled == True and stat_etcd_root_passwd['stat']['exists'] == False and etcd_authentication == True
 
+- name: Make it clear that we will not disable etcd auth when etcd_authentication == False
+  debug:
+    msg: "Since etcd_authentication == False, tasks dealing with etcd auth are just skipped."
+  when: is_etcd_auth_already_enabled == True and etcd_authentication == False
+
 - name: Add etcd root user account
   command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 user add root:{{ lookup('password', 'etcd_root_passwd chars=ascii_letters length=30') }}
   when: etcd_authentication == True and is_etcd_auth_already_enabled == False
