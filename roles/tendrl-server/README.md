@@ -56,7 +56,8 @@ Role Variables
     In other words, **this role can't disable nor reconfigura etcd
     authentication, it can only skip etcd auth setup and config tasks**.
 
-    This means that the only way to disable etcd authentication is to set
+    Since authentication is disabled in etcd by default, the only way to
+    configure Tendrl to run without etcd authentication is to set
     `etcd_authentication` to `False` for the 1st time you run ansible to deploy
     Tendrl, and keep it this way every other run of tendrl-ansible.
 
