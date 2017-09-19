@@ -17,7 +17,16 @@ etcd root user account with new default random password via [ansible password
 lookup
 plugin](https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-password-lookup).
 This means that the password of etcd root user will be stored in current working
-directory (from where you run ansible), in `etcd_root_passwd` file.
+directory (from where you run ansible), in `etcd_root_passwd` file. Don't
+delete this password file, as this role can't regenerate etcd root password.
+
+Moreover it also generates new random password for grafana admin user account
+via [ansible password lookup
+plugin](https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-password-lookup),
+which is then stored in `grafana_admin_passwd` file in current working
+directory. To regenerate this password, you can safely delete this password
+lookup file and rerun the playbook, new password will be generated and all
+affected components reconfigured.
 
 Requirements
 ------------
