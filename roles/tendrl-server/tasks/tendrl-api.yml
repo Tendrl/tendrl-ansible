@@ -13,15 +13,6 @@
   notify:
     - restart tendrl-api
 
-- name: Configure tendrl-api etcd.yml user_name to empty string
-  replace:
-    dest: /etc/tendrl/etcd.yml
-    regexp: "^ +:user_name:.*"
-    replace: "  :user_name: ''"
-  notify:
-    - restart tendrl-api
-  when: etcd_authentication == False
-
 - name: Configure tendrl-api etcd.yml user_name
   replace:
     dest: /etc/tendrl/etcd.yml
@@ -30,15 +21,6 @@
   notify:
     - restart tendrl-api
   when: etcd_authentication == True
-
-- name: Configure tendrl-api etcd.yml password to empty string
-  replace:
-    dest: /etc/tendrl/etcd.yml
-    regexp: "^ +:password:.*"
-    replace: "  :password: ''"
-  notify:
-    - restart tendrl-api
-  when: etcd_authentication == False
 
 - name: Configure tendrl-api etcd.yml password
   replace:

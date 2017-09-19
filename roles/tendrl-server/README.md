@@ -31,22 +31,38 @@ If you want to be able to provision Ceph clusters with Tendrl, use role
 Role Variables
 --------------
 
-* When `etcd_ip_address` variable is undefined (which is the default state),
-  this role will use ip address of default ipv4 network interface to configure
-  etcd, otherwise a value of this variable will be used.
-* When `graphite_ip_address` variable is undefined (which is the default
-  state), this role will use ip address of default ipv4 network interface,
-  otherwise a value of this variable will be used.
-* When `graphite_port` variable is undefined, task which configures graphite
-  port for `tendrl-node-agent` will be skipped so that the default value from
-  config file (as shipped in rpm package) will be used. *If you are not sure*
-  if you need to reconfigure this, *leave this variable undefined*.
-* When `etcd_authentication` variable is undefined or set to `True` (which is
-  the default value), this role will configure [etcd
-  authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html).
-  When the value is `False`, the authentication will be disabled, which is
-  useful for development/testing purposes only. For production, keep the
-  authentication always enabled.
+ *  When `etcd_ip_address` variable is undefined (which is the default state),
+    this role will use ip address of default ipv4 network interface to
+    configure etcd, otherwise a value of this variable will be used.
+
+ *  When `graphite_ip_address` variable is undefined (which is the default
+    state), this role will use ip address of default ipv4 network interface,
+    otherwise a value of this variable will be used.
+
+ *  When `graphite_port` variable is undefined, task which configures graphite
+    port for `tendrl-node-agent` will be skipped so that the default value from
+    config file (as shipped in rpm package) will be used. *If you are not sure*
+    if you need to reconfigure this, *leave this variable undefined*.
+
+ *  When `etcd_authentication` variable is undefined or set to `True` (which is
+    the default value), this role will enable [etcd
+    authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
+    and configure tendrl components accordingly.
+
+    When the value is `False`, ansible would just skip all etcd authentication
+    tasks (icluding both etcd auth setup and tendrl configuration),
+    which means that if the etcd auth has been already enabled, it will still
+    be enabled and when etcd auth is disabled, it will continue to be disabled.
+    In other words, **this role can't disable nor reconfigura etcd
+    authentication, it can only skip etcd auth setup and config tasks**.
+
+    This means that the only way to disable etcd authentication is to set
+    `etcd_authentication` to `False` for the 1st time you run ansible to deploy
+    Tendrl, and keep it this way every other run of tendrl-ansible.
+
+    Note that having etcd authentication disabled is useful for
+    development/testing purposes only. For production, keep the authentication
+    always enabled.
 
 License
 -------
