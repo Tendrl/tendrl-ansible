@@ -52,7 +52,7 @@
 
 - name: Configure admin password for grafana
   ini_file:
-    path: /etc/grafana/grafana.ini
+    path: /etc/tendrl/monitoring-integration/grafana/grafana.ini
     section: security
     option: admin_password
     value: "{{ lookup('password', 'grafana_admin_passwd chars=ascii_letters length=30') }}"
