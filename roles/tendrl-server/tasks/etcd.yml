@@ -32,4 +32,57 @@
     name=etcd
     state=started
 
+#
+# https://coreos.com/etcd/docs/latest/op-guide/authentication.html
+#
+
+- name: Detection of current etcd authentication mode (etcdctl run)
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 user list
+  changed_when: False
+  failed_when: False
+  register: detect_etcd_auth
+
+- name: Detection of current etcd authentication mode (checking stderr)
+  set_fact:
+    is_etcd_auth_already_enabled: "{{ 'Insufficient credentials' in detect_etcd_auth.stderr }}"
+
+- name: Detected status of etcd authentication (based on previous tasks)
+  debug:
+    var: is_etcd_auth_already_enabled
+
+- name: Detection if etcd_root_passwd (ansible password lookup file) exists
+  local_action: stat path=etcd_root_passwd
+  register: stat_etcd_root_passwd
+  run_once: True
+
+- name: Detected status of local etcd_root_passwd file (based on previous task)
+  debug:
+    var: stat_etcd_root_passwd['stat']['exists']
+
+- name: Prevent breaking etcd auth configuration when necessary
+  fail:
+    msg:
+      - "etcd auth is already enabled, but etcd_root_passwd file is missing"
+      - "to prevent misconfiguration of the cluster, ansible run stopped"
+      - "you need to save etcd root admin password into local etcd_root_passwd file to be able to run this playbook again"
+      - "another option is to skip etcd auth configuration by setting etcd_authentication ansible variable to False"
+  when: is_etcd_auth_already_enabled == True and stat_etcd_root_passwd['stat']['exists'] == False and etcd_authentication == True
+
+- name: Make it clear that we will not disable etcd auth when etcd_authentication == False
+  debug:
+    msg: "Since etcd_authentication == False, tasks dealing with etcd auth are just skipped."
+  when: is_etcd_auth_already_enabled == True and etcd_authentication == False
+
+- name: Add etcd root user account
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 user add root:{{ lookup('password', 'etcd_root_passwd chars=ascii_letters length=30') }}
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
+- name: Enable etcd authentication
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 auth enable
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
+- name: Remove etcd guest group
+  command: etcdctl --endpoints http://{{ etcd_ip_address }}:2379 --username root:{{ lookup('password', 'etcd_root_passwd chars=ascii_letters length=30') }} role remove guest
+  when: etcd_authentication == True and is_etcd_auth_already_enabled == False
+
 - meta: flush_handlers
