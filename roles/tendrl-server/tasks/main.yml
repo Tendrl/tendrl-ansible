@@ -21,6 +21,7 @@
 - include: tendrl-api.yml
 - include: tendrl-ui.yml
 - include: tendrl-monitoring-integration.yml
+- include: tendrl-notifier.yml
 
 - name: Enable httpd service
   service:
