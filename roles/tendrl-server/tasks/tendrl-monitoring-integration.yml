@@ -50,6 +50,15 @@
   notify:
     - restart grafana-server
 
+- name: Configure admin password for grafana
+  ini_file:
+    path: /etc/tendrl/monitoring-integration/grafana/grafana.ini
+    section: security
+    option: admin_password
+    value: "{{ lookup('password', 'grafana_admin_passwd chars=ascii_letters length=30') }}"
+  notify:
+    - restart grafana-server
+
 - name: Enable grafana-server service
   service:
     name=grafana-server
@@ -91,6 +100,15 @@
   notify:
     - restart tendrl-monitoring-integration
   when: etcd_authentication == True
+
+- name: Configure grafana admin password in monitoring-integration.conf.yaml
+  lineinfile:
+    dest: /etc/tendrl/monitoring-integration/monitoring-integration.conf.yaml
+    insertafter: 'credentials:'
+    regexp: '^  password:.*'
+    line: "  password: {{ lookup('password', 'grafana_admin_passwd') }}"
+  notify:
+    - restart tendrl-monitoring-integration
 
 - name: Start tendrl-monitoring-integration service
   service:

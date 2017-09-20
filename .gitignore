@@ -9,3 +9,4 @@ site.yml
 .vagrant
 # ansible password lookup files
 etcd_root_passwd
+grafana_admin_passwd
