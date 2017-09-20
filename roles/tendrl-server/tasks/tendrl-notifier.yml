@@ -30,7 +30,7 @@
     - restart tendrl-notifier
   when: etcd_authentication == True
 
-- name: Configure email source
+- name: Configure email source (done only when email config is provided)
   lineinfile:
     dest: /etc/tendrl/notifier/email.conf.yaml
     regexp: "{{ item.regexp }}"
@@ -42,6 +42,7 @@
       line: "email_smtp_server: {{ tendrl_notifier_email_smtp_server }} "
     - regexp: '^#? *email_smtp_port:.*'
       line: "email_smtp_port: {{ tendrl_notifier_email_smtp_port }}"
+  when: tendrl_notifier_email_id is defined and tendrl_notifier_email_smtp_server is defined
   notify:
     - restart tendrl-notifier
 

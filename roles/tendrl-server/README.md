@@ -74,27 +74,32 @@ Role Variables
     development/testing purposes only. For production, keep the authentication
     always enabled.
 
- *  When mandatory variable `tendrl_notifier_email_id` is left undefined (which
-    is the default state), configuration of tendrl-notifier fails.
+ *  When both variables `tendrl_notifier_email_id` and
+    `tendrl_notifier_email_smtp_server` are left undefined (which is the
+    default state), email configuration of tendrl-notifier is skipped.
 
-    Value provided here is used for configuration of `email_id` option in
-    `/etc/tendrl/notifier/email.conf.yaml` config file.
+    Only when both these variables are defined, email configuration of
+    tendrl-notifier is performed.
 
-    Tendrl notifier uses this value as a source email address when sending
-    notification messages via email.
+    Values provided here are used for configuration of `email_id` and
+    `email_smtp_server` options in `/etc/tendrl/notifier/email.conf.yaml`
+    config file.
 
- *  When mandatory variable `tendrl_notifier_email_smtp_server` is left
-    undefined (which is the default state), configuration of tendrl-notifier
-    fails.
+    Tendrl notifier uses value of `email_id` as a source email address when
+    sending notification messages via email.
 
-    Value provided here is used for configuration of `email_smpt_server` option
-    in `/etc/tendrl/notifier/email.conf.yaml` config file.
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
 
  *  When `tendrl_notifier_email_smtp_port` variable is undefined, default value
     `25` will be used.
 
     Value provided here is used for configuration of `email_smpt_port` option
     in `/etc/tendrl/notifier/email.conf.yaml` config file.
+
+    Note that this value is used only when both
+    `tendrl_notifier_email_smtp_server` and `tendrl_notifier_email_id` are
+    defined.
 
 License
 -------
