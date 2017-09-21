@@ -18,4 +18,4 @@ Expected operating system is *CentOS 7.3*, with both *CentOS-7 - Base* and
 License
 -------
 
-Apache 2.0
+GNU Lesser General Public License, version 2.1

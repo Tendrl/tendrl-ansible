@@ -31,4 +31,4 @@ Role Variables
 License
 -------
 
-Apache 2.0
+GNU Lesser General Public License, version 2.1

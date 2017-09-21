@@ -75,3 +75,9 @@ TODO
 ## Setup with Vagrant using virtualbox provider
 
 TODO
+
+## License
+
+Distributed under the terms of the [GNU LGPL, version
+2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html) license,
+tendrl-ansible is free and open source software.

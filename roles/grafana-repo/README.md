@@ -17,4 +17,4 @@ Expected operating system is *CentOS 7.x*.
 License
 -------
 
-Apache 2.0
+GNU Lesser General Public License, version 2.1
