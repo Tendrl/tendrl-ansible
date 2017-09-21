@@ -102,6 +102,32 @@ Role Variables
     `tendrl_notifier_email_smtp_server` and `tendrl_notifier_email_id` are
     defined.
 
+ *  When `tendrl_notifier_email_auth` variable is defined, it's value will
+    be used to configure `auth` option in
+    `/etc/tendrl/notifier/email.conf.yaml` file.
+
+    When the variable is undefined, no configuration change of `auth` option
+    will be performed.
+
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
+
+ *  When `tendrl_notifier_email_pass` variable is defined, it's value will
+    be used to configure `email_pass` option in
+    `/etc/tendrl/notifier/email.conf.yaml` file.
+
+    When the variable is undefined, no configuration change of `email_pass`
+    option will be performed.
+
+    Tendrl notifier uses value of `email_pass` as smtp password which is
+    used along with `email_id` value as an smpt username to login into
+    `email_smtp_server`, so that the notifier can send email messages with
+    notifications with `email_id` source address using authenticated smpt
+    server.
+
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
+
 License
 -------
 
