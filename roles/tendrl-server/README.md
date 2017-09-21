@@ -74,9 +74,10 @@ Role Variables
     development/testing purposes only. For production, keep the authentication
     always enabled.
 
- *  When both variables `tendrl_notifier_email_id` and
-    `tendrl_notifier_email_smtp_server` are left undefined (which is the
-    default state), email configuration of tendrl-notifier is skipped.
+ *  When one or both of variables `tendrl_notifier_email_id` and
+    `tendrl_notifier_email_smtp_server` is undefined (which is
+    the default state for both variables), email configuration of
+    tendrl-notifier is skipped.
 
     Only when both these variables are defined, email configuration of
     tendrl-notifier is performed.
