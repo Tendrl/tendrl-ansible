@@ -1,0 +1,75 @@
+---
+
+- name: Install tendrl-notifier
+  yum:
+    name=tendrl-notifier
+    state=latest
+
+- name: Configure etcd ip addr in notifier.conf.yaml
+  lineinfile:
+    dest: /etc/tendrl/notifier/notifier.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^etcd_connection:.*'
+      line: "etcd_connection: {{ etcd_ip_address }}"
+  notify:
+    - restart tendrl-notifier
+
+- name: Configure etcd username and password in notifier.conf.yaml
+  lineinfile:
+    dest: /etc/tendrl/notifier/notifier.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#? *etcd_username:.*'
+      line: "etcd_username: root"
+    - regexp: '^#? *etcd_password:.*'
+      line: "etcd_password: {{ lookup('password', 'etcd_root_passwd') }}"
+  notify:
+    - restart tendrl-notifier
+  when: etcd_authentication == True
+
+- name: Configure email source (done only when email config is provided)
+  lineinfile:
+    dest: /etc/tendrl/notifier/email.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#? *email_id:.*'
+      line: "email_id: {{ tendrl_notifier_email_id }}"
+    - regexp: '^#? *email_smtp_server:.*'
+      line: "email_smtp_server: {{ tendrl_notifier_email_smtp_server }} "
+    - regexp: '^#? *email_smtp_port:.*'
+      line: "email_smtp_port: {{ tendrl_notifier_email_smtp_port }}"
+  when: tendrl_notifier_email_id is defined and tendrl_notifier_email_smtp_server is defined
+  notify:
+    - restart tendrl-notifier
+
+- name: Configure notifier email auth (optional)
+  lineinfile:
+    dest: /etc/tendrl/notifier/email.conf.yaml
+    regexp: '^#? *auth:.*'
+    line: "auth: {{ tendrl_notifier_email_auth }}"
+  when: tendrl_notifier_email_auth is defined
+  notify:
+    - restart tendrl-notifier
+
+- name: Configure notifier email password (optional)
+  lineinfile:
+    dest: /etc/tendrl/notifier/email.conf.yaml
+    regexp: '^#? *email_pass:.*'
+    line: "email_pass: {{ tendrl_notifier_email_pass }}"
+  when: tendrl_notifier_email_pass is defined
+  notify:
+    - restart tendrl-notifier
+
+- name: Enable tendrl-notifier service
+  service:
+    name=tendrl-notifier
+    enabled=yes
+
+- name: Start tendrl-notifier service
+  service:
+    name=tendrl-notifier
+    state=started

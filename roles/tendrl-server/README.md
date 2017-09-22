@@ -70,6 +70,60 @@ Role Variables
     authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
     and configure tendrl components accordingly.
 
+ *  When one or both of variables `tendrl_notifier_email_id` and
+    `tendrl_notifier_email_smtp_server` is undefined (which is
+    the default state for both variables), email configuration of
+    tendrl-notifier is skipped.
+
+    Only when both these variables are defined, email configuration of
+    tendrl-notifier is performed.
+
+    Values provided here are used for configuration of `email_id` and
+    `email_smtp_server` options in `/etc/tendrl/notifier/email.conf.yaml`
+    config file.
+
+    Tendrl notifier uses value of `email_id` as a source email address when
+    sending notification messages via email.
+
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
+
+ *  When `tendrl_notifier_email_smtp_port` variable is undefined, default value
+    `25` will be used.
+
+    Value provided here is used for configuration of `email_smpt_port` option
+    in `/etc/tendrl/notifier/email.conf.yaml` config file.
+
+    Note that this value is used only when both
+    `tendrl_notifier_email_smtp_server` and `tendrl_notifier_email_id` are
+    defined.
+
+ *  When `tendrl_notifier_email_auth` variable is defined, it's value will
+    be used to configure `auth` option in
+    `/etc/tendrl/notifier/email.conf.yaml` file.
+
+    When the variable is undefined, no configuration change of `auth` option
+    will be performed.
+
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
+
+ *  When `tendrl_notifier_email_pass` variable is defined, it's value will
+    be used to configure `email_pass` option in
+    `/etc/tendrl/notifier/email.conf.yaml` file.
+
+    When the variable is undefined, no configuration change of `email_pass`
+    option will be performed.
+
+    Tendrl notifier uses value of `email_pass` as smtp password which is
+    used along with `email_id` value as an smpt username to login into
+    `email_smtp_server`, so that the notifier can send email messages with
+    notifications with `email_id` source address using authenticated smpt
+    server.
+
+    For more details about email configuration of tendrl-notifier, see the
+    Tendrl documentation.
+
 License
 -------
 
