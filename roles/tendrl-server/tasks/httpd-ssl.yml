@@ -1,0 +1,101 @@
+---
+# Tasks file for Apache SSL setup for Tendrl.
+# Based on description in https://github.com/Tendrl/api/pull/264
+
+# Note: at this point, httpd package should be already installed (httpd is a
+# dependency of tendrl-api-httpd, installed along with tendrl-ui).
+
+- name: Install mod_ssl package
+  yum:
+    name=mod_ssl
+    state=latest
+
+#
+# https support over a specific IP
+#
+
+- name: Initialize new tendrl-ssl.conf file based on sample conf file
+  copy:
+    src: /etc/httpd/conf.d/tendrl-ssl.conf.sample
+    dest: /etc/httpd/conf.d/tendrl-ssl.conf
+    remote_src: True
+    # This is here to prevent overriding changes over and over again, and
+    # also to allow additional manual tweaks.
+    # If you need to start from scratch or make sure that the latest sample
+    # conf file is used, just delete the tendrl-ssl.conf file.
+    force: no
+
+# TODO: should I allow to specify servername via variable or just use
+# ansible_fqdn as I do now?
+# TODO: should I validate it here like this?
+- name: Validate ansible variables tweaking apache configuration
+  assert:
+    that:
+      - lookup('dig', ansible_fqdn) == httpd_ip_address
+
+- name: Configure VirtualHost ip address in tendrl-ssl.conf
+  lineinfile:
+    path: /etc/httpd/conf.d/tendrl-ssl.conf
+    regexp: '^<VirtualHost .*:443>'
+    line: "<VirtualHost {{ httpd_ip_address }}:443>"
+  notify:
+    - restart httpd
+
+- name: Configure VirtualHost ServerName in tendrl-ssl.conf
+  lineinfile:
+    path: /etc/httpd/conf.d/tendrl-ssl.conf
+    insertafter: '<VirtualHost .*:443>'
+    regexp: '^ *ServerName .*'
+    line: "  ServerName {{ ansible_fqdn }}"
+    state: present
+  notify:
+    - restart httpd
+
+- name: Run apachectl configtest to validate new configuration
+  command: apachectl -t
+  changed_when: False
+  register: apachectl_configtest
+
+- name: Recheck result of config validation (based on previous task)
+  assert:
+    that:
+      - apachectl_configtest.stderr == 'Syntax OK'
+      - apachectl_configtest.stdout == ''
+
+#
+# Automatic redirect of all http urls to https
+#
+
+- name: Comment out DocumentRoot, ProxyPass and ProxyPassReverse in tendrl.conf
+  lineinfile:
+    path: /etc/httpd/conf.d/tendrl.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '  *#?DocumentRoot /var/www/tendrl'
+      line: '  #DocumentRoot /var/www/tendrl'
+    - regexp: '  *#?ProxyPass "/api" http://127.0.0.1:9292/'
+      line: '  #ProxyPass "/api" http://127.0.0.1:9292/'
+    - regexp: '  *#?ProxyPassReverse "/api" http://127.0.0.1:9292/'
+      line: '  #ProxyPassReverse "/api" http://127.0.0.1:9292/'
+  notify:
+    - restart httpd
+
+- name: Configure SSL redirect in tendrl.conf
+  lineinfile:
+    path: /etc/httpd/conf.d/tendrl.conf
+    regexp: ' *#? *Redirect permanent / https://.*/'
+    line: "  Redirect permanent / https://{{ httpd_ip_address }}/"
+  notify:
+    - restart httpd
+
+- name: Run apachectl configtest to validate new configuration
+  command: apachectl -t
+  changed_when: False
+  register: apachectl_configtest
+
+- name: Recheck result of config validation (based on previous task)
+  assert:
+    that:
+      - apachectl_configtest.stderr == 'Syntax OK'
+      - apachectl_configtest.stdout == ''

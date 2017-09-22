@@ -2,3 +2,4 @@
 # defaults file for tendrl-server
 etcd_authentication: False
 tendrl_notifier_email_smtp_port: 25
+tendrl_ssl_enabled: False

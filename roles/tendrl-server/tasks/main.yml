@@ -11,10 +11,16 @@
     graphite_ip_address: '{{ ansible_default_ipv4.address }}'
   when: graphite_ip_address is undefined
 
+- name: Use ip address of default ipv4 network interface for apache
+  set_fact:
+    httpd_ip_address: '{{ ansible_default_ipv4.address }}'
+  when: httpd_ip_address is undefined
+
 - debug:
     msg:
       - "Using {{ etcd_ip_address }} as etcd ip address."
       - "Using {{ graphite_ip_address }} as graphite ip address."
+      - "Using {{ httpd_ip_address }} as apache ip address."
 
 - include: etcd.yml
 - include: tendrl-node-agent.yml
@@ -22,6 +28,8 @@
 - include: tendrl-ui.yml
 - include: tendrl-monitoring-integration.yml
 - include: tendrl-notifier.yml
+- include: httpd-ssl.yml
+  when: tendrl_ssl_enabled == True
 
 - name: Enable httpd service
   service:
