@@ -53,12 +53,8 @@ Role Variables
     config file (as shipped in rpm package) will be used. *If you are not sure*
     if you need to reconfigure this, *leave this variable undefined*.
 
- *  When `etcd_authentication` variable is undefined or set to `True` (which is
-    the default value), this role will enable [etcd
-    authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
-    and configure tendrl components accordingly.
-
-    When the value is `False`, ansible would just skip all etcd authentication
+ *  When `etcd_authentication` variable is undefined or set to `False` (which
+    is the default value), ansible would just skip all etcd authentication
     tasks (icluding both etcd auth setup and tendrl configuration),
     which means that if the etcd auth has been already enabled, it will still
     be enabled and when etcd auth is disabled, it will continue to be disabled.
@@ -70,9 +66,9 @@ Role Variables
     `etcd_authentication` to `False` for the 1st time you run ansible to deploy
     Tendrl, and keep it this way every other run of tendrl-ansible.
 
-    Note that having etcd authentication disabled is useful for
-    development/testing purposes only. For production, keep the authentication
-    always enabled.
+    When the value is `True`, this role will enable [etcd
+    authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
+    and configure tendrl components accordingly.
 
 License
 -------
