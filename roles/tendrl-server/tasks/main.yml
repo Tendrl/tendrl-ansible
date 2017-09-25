@@ -16,11 +16,17 @@
     httpd_ip_address: '{{ ansible_default_ipv4.address }}'
   when: httpd_ip_address is undefined
 
+- name: Use ansible detected fqdn as apache ServerName
+  set_fact:
+    httpd_server_name: '{{ ansible_fqdn }}'
+  when: httpd_server_name is undefined
+
 - debug:
     msg:
       - "Using {{ etcd_ip_address }} as etcd ip address."
       - "Using {{ graphite_ip_address }} as graphite ip address."
       - "Using {{ httpd_ip_address }} as apache ip address."
+      - "Using {{ httpd_server_name }} as apache ServerName."
 
 - include: etcd.yml
 - include: tendrl-node-agent.yml

@@ -25,13 +25,10 @@
     # conf file is used, just delete the tendrl-ssl.conf file.
     force: no
 
-# TODO: should I allow to specify servername via variable or just use
-# ansible_fqdn as I do now?
-# TODO: should I validate it here like this?
-- name: Validate ansible variables tweaking apache configuration
+- name: Validate ansible variables (httpd_*) tweaking apache configuration
   assert:
     that:
-      - lookup('dig', ansible_fqdn) == httpd_ip_address
+      - lookup('dig', httpd_server_name) == httpd_ip_address
 
 - name: Configure VirtualHost ip address in tendrl-ssl.conf
   lineinfile:
@@ -46,7 +43,7 @@
     path: /etc/httpd/conf.d/tendrl-ssl.conf
     insertafter: '<VirtualHost .*:443>'
     regexp: '^ *ServerName .*'
-    line: "  ServerName {{ ansible_fqdn }}"
+    line: "  ServerName {{ httpd_server_name }}"
     state: present
   notify:
     - restart httpd
