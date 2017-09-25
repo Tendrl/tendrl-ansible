@@ -25,11 +25,6 @@
     # conf file is used, just delete the tendrl-ssl.conf file.
     force: no
 
-- name: Validate ansible variables (httpd_*) tweaking apache configuration
-  assert:
-    that:
-      - lookup('dig', httpd_server_name) == httpd_ip_address
-
 - name: Configure VirtualHost ip address in tendrl-ssl.conf
   lineinfile:
     path: /etc/httpd/conf.d/tendrl-ssl.conf
