@@ -53,6 +53,14 @@ Role Variables
     config file (as shipped in rpm package) will be used. *If you are not sure*
     if you need to reconfigure this, *leave this variable undefined*.
 
+ *  When `httpd_ip_address` variable is undefined,
+
+    TODO:
+
+ *  When `httpd_server_name` variable is undefined,
+
+    TODO:
+
  *  When `etcd_authentication` variable is undefined or set to `False` (which
     is the default value), ansible would just skip all etcd authentication
     tasks (icluding both etcd auth setup and tendrl configuration),
@@ -123,6 +131,26 @@ Role Variables
 
     For more details about email configuration of tendrl-notifier, see the
     Tendrl documentation.
+
+ *  When `tendrl_ssl_enabled` variable is undefined or set to `False` (which
+    is the default value), ansible would not configure tendrl to provide
+    web interface including REST API over SSL encripted connection.
+
+    When `tendrl_ssl_enabled` variable is set to `True`, SSL will be enabled
+    for Tendrl web interface including API.
+
+ *  When one or both of variables `httpd_ssl_certificate_file` and
+    `httpd_ssl_certificate_key_file` is undefined (which is
+    the default state for both variables), the self signed local SSL key
+    created during installation of `mod_ssl` package will be used.
+
+    Value of `http_ssl_certificate_file` variable is used as
+    `SSLCertificateFile`, and `httpd_ssl_certificate_key_file` as
+    `SSLCertificateKeyFile`.
+
+    To use different SSL certificate, you need to create it and place it on the
+    tendrl server yourself, and then use it's absolute file path on tendrl
+    server as value for both variables.
 
 License
 -------
