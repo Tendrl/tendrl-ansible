@@ -1,7 +1,7 @@
 tendrl-ansible
 ==============
 
-Ansible playbook for [Tendrl](http://tendrl.org/)!
+Ansible roles and playbooks for [Tendrl](http://tendrl.org/)!
 
 Clone me:
 
