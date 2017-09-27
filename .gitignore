@@ -10,3 +10,7 @@ site.yml
 # ansible password lookup files
 etcd_root_passwd
 grafana_admin_passwd
+# rpm build artefacts (created via Makefile)
+*.tar.gz
+*.rpm
+tendrl-ansible-*
