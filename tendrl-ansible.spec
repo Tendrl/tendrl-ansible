@@ -62,7 +62,7 @@ install -p -m 644 workaround.disable-firewall.yml    $RPM_BUILD_ROOT%{_pkgdocdir
 install -p -m 644 workaround.disable-selinux.yml     $RPM_BUILD_ROOT%{_pkgdocdir}/workaround.disable-selinux.yml
 
 # install readme and license files
-install -p -m 644 README.md                    $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
+install -p -m 644 README.rpm.md                $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
 install -p -m 644 LICENSE                      $RPM_BUILD_ROOT%{_pkgdocdir}/LICENSE
 
 %check

@@ -18,6 +18,7 @@ dist:
 	cp .yamllint $(NAME)-$(VERSION)
 	cp LICENSE $(NAME)-$(VERSION)
 	cp README.md $(NAME)-$(VERSION)
+	cp README.rpm.md $(NAME)-$(VERSION)
 	cp site.yml.sample $(NAME)-$(VERSION)
 	cp prechecks.yml $(NAME)-$(VERSION)
 	cp workaround.disable-firewall.yml $(NAME)-$(VERSION)
