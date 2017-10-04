@@ -10,17 +10,8 @@ with both api and web interface), and that new random default password is
 stored on *Tendrl Server* machine in `/root/password` file (based on
 [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
-Also note that this role enables [etcd
-authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
-by default (see description of `etcd_authentication` variable below), creating
-etcd root user account with new default random password via [ansible password
-lookup
-plugin](https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-password-lookup).
-This means that the password of etcd root user will be stored in current working
-directory (from where you run ansible), in `etcd_root_passwd` file. Don't
-delete this password file, as this role can't regenerate etcd root password.
-
-Moreover it also generates new random password for grafana admin user account
+Also note that this role
+also generates new random password for grafana admin user account
 via [ansible password lookup
 plugin](https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-password-lookup),
 which is then stored in `grafana_admin_passwd` file in current working
@@ -52,23 +43,6 @@ Role Variables
     port for `tendrl-node-agent` will be skipped so that the default value from
     config file (as shipped in rpm package) will be used. *If you are not sure*
     if you need to reconfigure this, *leave this variable undefined*.
-
- *  When `etcd_authentication` variable is undefined or set to `False` (which
-    is the default value), ansible would just skip all etcd authentication
-    tasks (icluding both etcd auth setup and tendrl configuration),
-    which means that if the etcd auth has been already enabled, it will still
-    be enabled and when etcd auth is disabled, it will continue to be disabled.
-    In other words, **this role can't disable nor reconfigura etcd
-    authentication, it can only skip etcd auth setup and config tasks**.
-
-    Since authentication is disabled in etcd by default, the only way to
-    configure Tendrl to run without etcd authentication is to set
-    `etcd_authentication` to `False` for the 1st time you run ansible to deploy
-    Tendrl, and keep it this way every other run of tendrl-ansible.
-
-    When the value is `True`, this role will enable [etcd
-    authentication](https://coreos.com/etcd/docs/latest/op-guide/authentication.html)
-    and configure tendrl components accordingly.
 
  *  When one or both of variables `tendrl_notifier_email_id` and
     `tendrl_notifier_email_smtp_server` is undefined (which is
