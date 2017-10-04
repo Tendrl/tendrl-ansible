@@ -12,7 +12,7 @@ clean:
 	rm -rf $(NAME)-$(VERSION).tar.gz
 	rm -rf $(NAME)-$(VERSION)-*.el7.src.rpm
 
-dist:
+dist: clean
 	mkdir $(NAME)-$(VERSION)
 	cp -r roles $(NAME)-$(VERSION)
 	cp .yamllint $(NAME)-$(VERSION)
