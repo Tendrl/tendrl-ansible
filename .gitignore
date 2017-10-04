@@ -8,7 +8,6 @@ site.yml
 # vagrant files
 .vagrant
 # ansible password lookup files
-etcd_root_passwd
 grafana_admin_passwd
 # rpm build artefacts (created via Makefile)
 *.tar.gz
