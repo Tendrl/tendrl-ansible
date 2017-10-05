@@ -44,6 +44,46 @@ Role Variables
     config file (as shipped in rpm package) will be used. *If you are not sure*
     if you need to reconfigure this, *leave this variable undefined*.
 
+ *  When `etcd_tls_client_auth` is set to False (which is the default state),
+    etcd will work without any authentication (default etcd behavior).
+
+    When `etcd_tls_client_auth` is True, etcd will be reconfigured to use
+    client to server authentication with HTTPS client certificates, and all
+    Tendrl components will be reconfigured accordingly.
+
+    Note that tendrl-ansible is not concerned with issuing and deployment of
+    certificates. So for etcd tcl client authentication to work, *you need to
+    issue and deploy tls certificates for all machines of the Tendrl cluster*
+    (including storage nodes and Tendrl server) *before running
+    tendrl-ansible*.
+
+    The placement of tls cert files can be tweaked via ansible variables
+    explained below.
+
+    For more details, see:
+
+    * [Red Hat Enterprise Linux 7 - Security Guide - Using OpenSSL](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-using_openssl)
+    * [Etcd Security model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_cert_file` specifies full filepath of `ETCD_CERT_FILE` etcd
+    option. The default value is `/etc/pki/tls/certs/etcd.crt`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_key_file` specifies full filepath of `ETCD_KEY_FILE` etcd
+    option. The default value is `/etc/pki/tls/private/etcd.key`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_trusted_ca_file` specifies full filepath of
+    `ETCD_TRUSTED_CA_FILE` etcd option. The default value is
+    `/etc/pki/tls/certs/ca-etcd.crt`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
  *  When one or both of variables `tendrl_notifier_email_id` and
     `tendrl_notifier_email_smtp_server` is undefined (which is
     the default state for both variables), email configuration of

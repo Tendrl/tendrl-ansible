@@ -1,3 +1,9 @@
 ---
 # defaults file for tendrl-server
 tendrl_notifier_email_smtp_port: 25
+etcd_tls_client_auth: False
+# default paths for etcd ssl files based on
+# https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-using_openssl
+etcd_cert_file: "/etc/pki/tls/certs/etcd.crt"
+etcd_key_file: "/etc/pki/tls/private/etcd.key"
+etcd_trusted_ca_file: "/etc/pki/tls/certs/ca-etcd.crt"

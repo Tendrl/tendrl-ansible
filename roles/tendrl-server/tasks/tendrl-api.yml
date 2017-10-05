@@ -29,6 +29,22 @@
   notify:
     - restart tendrl-api
 
+- name: Configure etcd client-server authentication
+  replace:
+    dest: /etc/tendrl/etcd.yml
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.line }}"
+  with_items:
+    - regexp: "^ +:etcd_ca_cert_file:.*"
+      line: "  :etcd_ca_cert_file: '{{ etcd_trusted_ca_file }}'"
+    - regexp: "^ +:etcd_cert_file:.*"
+      line: "  :etcd_cert_file: '{{ etcd_cert_file }}'"
+    - regexp: "^ +:etcd_key_file:.*"
+      line: "  :etcd_key_file: '{{ etcd_key_file }}'"
+  notify:
+    - restart tendrl-api
+  when: etcd_tls_client_auth == True
+
 # based on description from:
 # https://github.com/Tendrl/api/blob/master/docs/users.adoc#create-admin-user
 - name: Create Tendrl admin user

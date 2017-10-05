@@ -16,6 +16,22 @@
   notify:
     - restart tendrl-notifier
 
+- name: Configure etcd client-server authentication
+  lineinfile:
+    dest: /etc/tendrl/notifier/notifier.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#? *etcd_ca_cert_file:.*'
+      line: "etcd_ca_cert_file: {{ etcd_trusted_ca_file }}"
+    - regexp: '^#? *etcd_cert_file:.*'
+      line: "etcd_cert_file: {{ etcd_cert_file }}"
+    - regexp: '^#? *etcd_key_file:.*'
+      line: "etcd_key_file: {{ etcd_key_file }}"
+  notify:
+    - restart tendrl-notifier
+  when: etcd_tls_client_auth == True
+
 - name: Configure email source (done only when email config is provided)
   lineinfile:
     dest: /etc/tendrl/notifier/email.conf.yaml
