@@ -64,8 +64,15 @@ tendrl.example.com
 
 4) Create `site.yml` file based on `site.yml.sample` and make sure to
    define `etcd_ip_address` to suit
-5) Run `$ ansible-playbook -i inventory_file site.yml`
-6) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+5) Check that ssh can connect to all machines from the inventory file without
+   asking for password or validation of public key by running:
+   `$ ansible -i inventory_file -m ping all`.
+   You should see ansible to show `"pong"` message for all machines.
+   In case of any problems, you need to fix it
+   before going on. If you are not sure what's wrong, consult documentation of
+   ansible and/or ssh.
+6) Run `$ ansible-playbook -i inventory_file site.yml`
+7) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
    ``admin`` user and the default password ``adminuser``.
 
 ## Setup with Vagrant using libvirt provider

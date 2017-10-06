@@ -57,7 +57,18 @@ with unnecessary debugging after installation).
     $ vim site.yml
     ```
 
-4)  Then we are ready to run ansible to install Tendrl:
+4)  Check that ssh can connect to all machines from the inventory file without
+    asking for password or validation of public key by running:
+
+    ```
+    $ ansible -i inventory_file -m ping all`.
+    ```
+
+    You should see ansible to show `"pong"` message for all machines.
+    In case of any problems, you need to fix it before going on. If you are not
+    sure what's wrong, consult documentation of ansible and/or ssh.
+
+5)  Then we are ready to run ansible to install Tendrl:
 
     ```
     $ ansible-playbook -i inventory_file site.yml
@@ -66,7 +77,7 @@ with unnecessary debugging after installation).
     Assuming we have deployed ssh keys on the machines and have a cluster
     already installed and running there.
 
-5)  Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+6)  Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
     ``admin`` user and the default password ``adminuser``.
 
 
