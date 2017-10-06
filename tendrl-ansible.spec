@@ -4,7 +4,7 @@
 
 Name:           tendrl-ansible
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
 License:        LGPLv2.1
@@ -12,7 +12,7 @@ Url:            https://github.com/Tendrl/tendrl-ansible
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       ansible
+Requires:       ansible >= 2.3
 Requires:       python-dns
 BuildRequires:  yamllint
 
@@ -97,6 +97,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Fri Oct 6 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.3-2
+- Update requires to make it clear that we need ansible >= 2.3
+
 * Wed Sep 27 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.3-1
 - First release with tendrl-ansible provided in rpm package.
 - Initial specfile based on rhel-system-roles packaging style.

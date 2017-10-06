@@ -45,7 +45,7 @@ See sample ansible playbook `site.yml.sample` to check how it fits together.
 
 Ansible Driven installation:
 
-1) Install Ansible >= 2.2
+1) Install ansible >= 2.3
 2) Get the code: `git clone https://github.com/Tendrl/tendrl-ansible.git`
 3) Create Ansible inventory file with groups for `tendrl-server`
    and `gluster-servers`. Here is an example of inventory
