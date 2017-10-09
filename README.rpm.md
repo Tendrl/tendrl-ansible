@@ -61,7 +61,7 @@ with unnecessary debugging after installation).
     asking for password or validation of public key by running:
 
     ```
-    $ ansible -i inventory_file -m ping all`.
+    $ ansible -i inventory_file -m ping all
     ```
 
     You should see ansible to show `"pong"` message for all machines.
