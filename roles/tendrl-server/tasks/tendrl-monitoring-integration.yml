@@ -83,7 +83,7 @@
     - regexp: '^datasource_host:.*'
       line: "datasource_host: {{ graphite_ip_address }}"
     - regexp: '^etcd_connection:.*'
-      line: "etcd_connection: {{ etcd_ip_address }}"
+      line: "etcd_connection: {{ etcd_fqdn }}"
   notify:
     - restart tendrl-monitoring-integration
 

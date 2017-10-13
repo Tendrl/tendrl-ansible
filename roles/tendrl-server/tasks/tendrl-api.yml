@@ -9,7 +9,7 @@
   replace:
     dest: /etc/tendrl/etcd.yml
     regexp: "^ +:host:.*"
-    replace: "  :host: '{{ etcd_ip_address }}'"
+    replace: "  :host: '{{ etcd_fqdn }}'"
   notify:
     - restart tendrl-api
 

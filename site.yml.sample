@@ -49,13 +49,15 @@
   # playbooks in this directory as well)
   # become: yes
   vars:
-    # You need to specify ip address where etcd will be listening, either by:
-    # - ip adress value (based on prior knowledge of your infrastructure)
-    # etcd_ip_address: '192.0.2.2'
-    # - using ansible facts: asking for ipv4 address of interface eth1
-    # etcd_ip_address: "{{ ansible_eth1.ipv4.address }}"
-    # - using ansible facts: asking for ipv4 address of default interface
-    etcd_ip_address: "{{ ansible_default_ipv4.address }}"
+    # You need to specify fqdn where etcd will be listening, either by
+    # value based on prior knowledge of your infrastructure:
+    # etcd_fqdn: 'tendrl.example.com'
+    # or using ansible facts: fqdn of tendrl-server as detected by ansible:
+    etcd_fqdn: "{{ ansible_fqdn }}"
+    # Moreover you need to use ip address of interface where etcd will be
+    # listening, to configure etcd itself.
+    etcd_ip_address: "{{ lookup('dig', ansible_fqdn) }}"
+
     # IP address of graphite (carbon-cache service in particular) which will
     # be used in tendrl-node-agent config file (this value doesn't reconfigure
     # graphite).
@@ -67,6 +69,7 @@
     - name: Check that variables are defined properly (just to make this clear)
       assert:
         that:
+          - etcd_fqdn is defined
           - etcd_ip_address is defined
           - graphite_ip_address is defined
   roles:
@@ -79,7 +82,7 @@
   # become: yes
   vars:
     # make sure this value is the same
-    etcd_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+    etcd_fqdn: "{{ hostvars[groups['tendrl-server'][0]].ansible_fqdn }}"
     graphite_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
   roles:
     - tendrl-copr

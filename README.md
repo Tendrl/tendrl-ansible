@@ -63,7 +63,7 @@ tendrl.example.com
 ```
 
 4) Create `site.yml` file based on `site.yml.sample` and make sure to
-   define `etcd_ip_address` to suit
+   define all ansible variables there to suit.
 5) Run `$ ansible-playbook -i inventory_file site.yml`
 6) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
    ``admin`` user and the default password ``adminuser``.

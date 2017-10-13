@@ -14,7 +14,7 @@ dependencies) are already available on the machine.
 Role Variables
 --------------
 
- *  Variable `etcd_ip_address` needs to be set to ipv4 adress of etcd instance.
+ *  Variable `etcd_fqdn` needs to be set to fqdn of etcd instance.
     Specifying this variable is mandatory as there is no default value.
 
  *  Variable `graphite_ip_address` needs to be set to ipv4 adress of graphite

@@ -31,9 +31,25 @@ If you want to be able to provision Ceph clusters with Tendrl, use role
 Role Variables
 --------------
 
- *  When `etcd_ip_address` variable is undefined (which is the default state),
-    this role will use ip address of default ipv4 network interface to
-    configure etcd, otherwise a value of this variable will be used.
+ *  Variable `etcd_ip_address` is mandatory, when you let this variable
+    undefined, installation will fail.
+
+    Value of `etcd_ip_address` is used to configure where etcd instance is
+    listening.
+
+    If you provide a hostname instead of an ip address there, etcd instance may
+    fail to even start. Note that etcd upstream requires to use ip address for
+    this configuration.
+
+ *  Variable `etcd_fqdn` is mandatory, when you let this variable undefined,
+    installation will fail.
+
+    Value of this variable is used to configure tendrl components to be able
+    to connect to etcd instance (aka tednrl central store).
+
+    If you provide an ip address instead of fqdn there, tendrl components
+    may fail to start or even crash. Note that etcd upstream requires to use
+    fqdn for this configuration.
 
  *  When `graphite_ip_address` variable is undefined (which is the default
     state), this role will use ip address of default ipv4 network interface,
