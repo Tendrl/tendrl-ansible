@@ -12,11 +12,27 @@
     line: "{{ item.line }}"
   with_items:
     - regexp: '^etcd_connection:.*'
-      line: "etcd_connection: {{ etcd_ip_address }}"
+      line: "etcd_connection: {{ etcd_fqdn }}"
     - regexp: '^graphite_host:.*'
-      line: "graphite_host: {{ graphite_ip_address }}"
+      line: "graphite_host: {{ graphite_fqdn }}"
   notify:
     - restart tendrl-node-agent
+
+- name: Configure etcd client-server authentication
+  lineinfile:
+    dest: /etc/tendrl/node-agent/node-agent.conf.yaml
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: '^#? *etcd_ca_cert_file:.*'
+      line: "etcd_ca_cert_file: {{ etcd_trusted_ca_file }}"
+    - regexp: '^#? *etcd_cert_file:.*'
+      line: "etcd_cert_file: {{ etcd_cert_file }}"
+    - regexp: '^#? *etcd_key_file:.*'
+      line: "etcd_key_file: {{ etcd_key_file }}"
+  notify:
+    - restart tendrl-node-agent
+  when: etcd_tls_client_auth == True
 
 - name: Enable tendrl-node-agent service
   service:

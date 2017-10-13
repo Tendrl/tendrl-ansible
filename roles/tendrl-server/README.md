@@ -31,18 +31,79 @@ If you want to be able to provision Ceph clusters with Tendrl, use role
 Role Variables
 --------------
 
- *  When `etcd_ip_address` variable is undefined (which is the default state),
-    this role will use ip address of default ipv4 network interface to
-    configure etcd, otherwise a value of this variable will be used.
+ *  Variable `etcd_ip_address` is mandatory, when you let this variable
+    undefined, installation will fail.
 
- *  When `graphite_ip_address` variable is undefined (which is the default
-    state), this role will use ip address of default ipv4 network interface,
-    otherwise a value of this variable will be used.
+    Value of `etcd_ip_address` is used to configure where etcd instance is
+    listening.
+
+    If you provide a hostname instead of an ip address there, etcd instance may
+    fail to even start. Note that etcd upstream requires to use ip address for
+    this configuration.
+
+ *  Variable `etcd_fqdn` is mandatory, when you let this variable undefined,
+    installation will fail.
+
+    Value of this variable is used to configure tendrl components to be able
+    to connect to etcd instance (aka tednrl central store).
+
+    If you provide an ip address instead of fqdn there, tendrl components
+    may fail to start or even crash. Note that etcd upstream requires to use
+    fqdn for this configuration. See:
+
+    https://github.com/Tendrl/commons/issues/759
+
+ *  Variable `graphite_fqdn` is mandatory, when you let this variable undefined,
+    installation will fail.
+
+    Value of this variable is used to configure tendrl components
+    (this value doesn't reconfigure graphite itself!) to be able to connect to
+    graphite instance (carbon-cache service in particular).
 
  *  When `graphite_port` variable is undefined, task which configures graphite
     port for `tendrl-node-agent` will be skipped so that the default value from
     config file (as shipped in rpm package) will be used. *If you are not sure*
     if you need to reconfigure this, *leave this variable undefined*.
+
+ *  When `etcd_tls_client_auth` is set to False (which is the default state),
+    etcd will work without any authentication (default etcd behavior).
+
+    When `etcd_tls_client_auth` is True, etcd will be reconfigured to use
+    client to server authentication with HTTPS client certificates, and all
+    Tendrl components will be reconfigured accordingly.
+
+    Note that tendrl-ansible is not concerned with issuing and deployment of
+    certificates. So for etcd tcl client authentication to work, *you need to
+    issue and deploy tls certificates for all machines of the Tendrl cluster*
+    (including storage nodes and Tendrl server) *before running
+    tendrl-ansible*.
+
+    The placement of tls cert files can be tweaked via ansible variables
+    explained below.
+
+    For more details, see:
+
+    * [Red Hat Enterprise Linux 7 - Security Guide - Using OpenSSL](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-using_openssl)
+    * [Etcd Security model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_cert_file` specifies full filepath of `ETCD_CERT_FILE` etcd
+    option. The default value is `/etc/pki/tls/certs/etcd.crt`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_key_file` specifies full filepath of `ETCD_KEY_FILE` etcd
+    option. The default value is `/etc/pki/tls/private/etcd.key`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
+
+ *  Variable `etcd_trusted_ca_file` specifies full filepath of
+    `ETCD_TRUSTED_CA_FILE` etcd option. The default value is
+    `/etc/pki/tls/certs/ca-etcd.crt`.
+
+    For more details, see [Etcd Security
+    model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
 
  *  When one or both of variables `tendrl_notifier_email_id` and
     `tendrl_notifier_email_smtp_server` is undefined (which is

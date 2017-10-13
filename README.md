@@ -63,7 +63,7 @@ tendrl.example.com
 ```
 
 4) Create `site.yml` file based on `site.yml.sample` and make sure to
-   define `etcd_ip_address` to suit
+   define all ansible variables there to suit.
 5) Check that ssh can connect to all machines from the inventory file without
    asking for password or validation of public key by running:
    `$ ansible -i inventory_file -m ping all`.

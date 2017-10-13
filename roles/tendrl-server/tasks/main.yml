@@ -1,20 +1,11 @@
 ---
 # tasks file for tendrl-server
 
-- name: Use ip address of default ipv4 network interface for etcd
-  set_fact:
-    etcd_ip_address: '{{ ansible_default_ipv4.address }}'
-  when: etcd_ip_address is undefined
-
-- name: Use ip address of default ipv4 network interface for graphite
-  set_fact:
-    graphite_ip_address: '{{ ansible_default_ipv4.address }}'
-  when: graphite_ip_address is undefined
-
 - debug:
     msg:
-      - "Using {{ etcd_ip_address }} as etcd ip address."
-      - "Using {{ graphite_ip_address }} as graphite ip address."
+      - "Using {{ etcd_fqdn }} as etcd fqdn in tendrl config files."
+      - "Using {{ etcd_ip_address }} as etcd ip address in etcd config file."
+      - "Using {{ graphite_fqdn }} as graphite fqdn in tendrl config files."
 
 - include: etcd.yml
 - include: tendrl-node-agent.yml
