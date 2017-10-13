@@ -49,7 +49,9 @@ Role Variables
 
     If you provide an ip address instead of fqdn there, tendrl components
     may fail to start or even crash. Note that etcd upstream requires to use
-    fqdn for this configuration.
+    fqdn for this configuration. See:
+
+    https://github.com/Tendrl/commons/issues/759
 
  *  Variable `graphite_fqdn` is mandatory, when you let this variable undefined,
     installation will fail.
