@@ -23,7 +23,6 @@
 # Workarounds required to run before the installation.
 #
 
-- include: workaround.disable-selinux.yml
 - include: workaround.disable-firewall.yml
 
 #
