@@ -51,9 +51,12 @@ Role Variables
     may fail to start or even crash. Note that etcd upstream requires to use
     fqdn for this configuration.
 
- *  When `graphite_ip_address` variable is undefined (which is the default
-    state), this role will use ip address of default ipv4 network interface,
-    otherwise a value of this variable will be used.
+ *  Variable `graphite_fqdn` is mandatory, when you let this variable undefined,
+    installation will fail.
+
+    Value of this variable is used to configure tendrl components
+    (this value doesn't reconfigure graphite itself!) to be able to connect to
+    graphite instance (carbon-cache service in particular).
 
  *  When `graphite_port` variable is undefined, task which configures graphite
     port for `tendrl-node-agent` will be skipped so that the default value from

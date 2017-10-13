@@ -58,20 +58,20 @@
     # listening, to configure etcd itself.
     etcd_ip_address: "{{ lookup('dig', ansible_fqdn) }}"
 
-    # IP address of graphite (carbon-cache service in particular) which will
-    # be used in tendrl-node-agent config file (this value doesn't reconfigure
+    # fqdn of graphite instance (carbon-cache service in particular) which will
+    # be used in tendrl config files (this value doesn't reconfigure
     # graphite).
-    # Note that a safe default value for ip address of graphite is the same one
+    # Note that a safe default value for fqdn of graphite is the same one
     # we use for etcd here (tendrl-server role places both services on the same
     # machine).
-    graphite_ip_address: "{{ etcd_ip_address }}"
+    graphite_fqdn: "{{ etcd_fqdn }}"
   pre_tasks:
     - name: Check that variables are defined properly (just to make this clear)
       assert:
         that:
           - etcd_fqdn is defined
           - etcd_ip_address is defined
-          - graphite_ip_address is defined
+          - graphite_fqdn is defined
   roles:
     - grafana-repo
     - tendrl-copr
@@ -83,7 +83,7 @@
   vars:
     # make sure this value is the same
     etcd_fqdn: "{{ hostvars[groups['tendrl-server'][0]].ansible_fqdn }}"
-    graphite_ip_address: "{{ hostvars[groups['tendrl-server'][0]].ansible_default_ipv4.address }}"
+    graphite_fqdn: "{{ hostvars[groups['tendrl-server'][0]].ansible_fqdn }}"
   roles:
     - tendrl-copr
     - tendrl-storage-node

@@ -14,7 +14,7 @@
     - regexp: '^etcd_connection:.*'
       line: "etcd_connection: {{ etcd_fqdn }}"
     - regexp: '^graphite_host:.*'
-      line: "graphite_host: {{ graphite_ip_address }}"
+      line: "graphite_host: {{ graphite_fqdn }}"
   notify:
     - restart tendrl-node-agent
 
