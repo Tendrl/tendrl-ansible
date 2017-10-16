@@ -8,11 +8,11 @@
 
 - name: Use http as protocol in etcd urls
   set_fact: etcd_url_protocol="http"
-  when: etcd_tls_client_auth == False
+  when: etcd_tls_client_auth|bool == False
 
 - name: Use http as protocol in etcd urls
   set_fact: etcd_url_protocol="https"
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure etcd.conf ETCD_LISTEN_CLIENT_URLS
   lineinfile:
@@ -41,7 +41,7 @@
     line="ETCD_CERT_FILE=\"{{ etcd_cert_file }}\""
   notify:
     - restart etcd
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure etcd.conf ETCD_KEY_FILE (when TLS client auth is enabled)
   lineinfile:
@@ -50,7 +50,7 @@
     line="ETCD_KEY_FILE=\"{{ etcd_key_file }}\""
   notify:
     - restart etcd
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure etcd.conf ETCD_CLIENT_CERT_AUTH (when TLS client auth is enabled)
   lineinfile:
@@ -59,7 +59,7 @@
     line="ETCD_CLIENT_CERT_AUTH=\"true\""
   notify:
     - restart etcd
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure etcd.conf ETCD_TRUSTED_CA_FILE (when TLS client auth is enabled)
   lineinfile:
@@ -68,7 +68,7 @@
     line="ETCD_TRUSTED_CA_FILE=\"{{ etcd_trusted_ca_file }}\""
   notify:
     - restart etcd
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 #
 # Enable and start the service

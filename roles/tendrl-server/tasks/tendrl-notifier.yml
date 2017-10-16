@@ -30,7 +30,7 @@
       line: "etcd_key_file: {{ etcd_key_file }}"
   notify:
     - restart tendrl-notifier
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure email source (done only when email config is provided)
   lineinfile:

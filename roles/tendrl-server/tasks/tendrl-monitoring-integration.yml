@@ -111,7 +111,7 @@
       line: "etcd_key_file: {{ etcd_key_file }}"
   notify:
     - restart tendrl-monitoring-integration
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure grafana admin password in monitoring-integration.conf.yaml
   lineinfile:
