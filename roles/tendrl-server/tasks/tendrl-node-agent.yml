@@ -32,7 +32,7 @@
       line: "etcd_key_file: {{ etcd_key_file }}"
   notify:
     - restart tendrl-node-agent
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 - name: Configure graphite_port in node-agent.conf.yaml (only when needed)
   lineinfile:

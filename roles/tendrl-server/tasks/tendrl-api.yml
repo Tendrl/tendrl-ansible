@@ -27,7 +27,7 @@
       line: "  :client_key_file: '{{ etcd_key_file }}'"
   notify:
     - restart tendrl-api
-  when: etcd_tls_client_auth == True
+  when: etcd_tls_client_auth|bool == True
 
 # based on description from:
 # https://github.com/Tendrl/api/blob/master/docs/users.adoc#create-admin-user
