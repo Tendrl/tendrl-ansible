@@ -9,6 +9,11 @@
 # graphite (consists of carbon, whisper and graphite web) configuration
 #
 
+- name: Install carbon-selinux
+  yum:
+    name=carbon-selinux
+    state=latest
+
 - name: Initialize graphite-db
   command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
   args:
@@ -36,6 +41,11 @@
  #
  # grafana configuration
  #
+
+- name: Install tendrl-grafana-selinux
+  yum:
+    name=tendrl-grafana-selinux
+    state=latest
 
 - name: Configure grafana to use tendrl-monitoring-integration config
   lineinfile:
