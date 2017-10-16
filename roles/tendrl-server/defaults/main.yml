@@ -1,4 +1,6 @@
 ---
+# selinux mode (system wide, see man sestatus)
+selinux_mode: "permissive"
 # defaults file for tendrl-server
 tendrl_notifier_email_smtp_port: 25
 etcd_tls_client_auth: False

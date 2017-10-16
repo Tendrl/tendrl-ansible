@@ -22,7 +22,6 @@ dist: clean
 	cp site.yml.sample $(NAME)-$(VERSION)
 	cp prechecks.yml $(NAME)-$(VERSION)
 	cp workaround.disable-firewall.yml $(NAME)-$(VERSION)
-	cp workaround.disable-selinux.yml $(NAME)-$(VERSION)
 	tar caf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 
 srpm: dist

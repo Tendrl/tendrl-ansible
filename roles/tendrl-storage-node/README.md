@@ -14,6 +14,10 @@ dependencies) are already available on the machine.
 Role Variables
 --------------
 
+ *  Variable `selinux_mode` specifies which SELinux mode of `targeted` policy
+    should be enabled: either `enforcing` or `permissive` (which is the
+    default).
+
  *  Variable `etcd_fqdn` needs to be set to fqdn of etcd instance.
     Specifying this variable is mandatory as there is no default value.
 
