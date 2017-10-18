@@ -16,4 +16,9 @@
     name=tendrl-selinux
     state=latest
 
+- name: Install tendrl-collectd-selinux
+  yum:
+    name=tendrl-collectd-selinux
+    state=latest
+
 - include: tendrl-node-agent.yml
