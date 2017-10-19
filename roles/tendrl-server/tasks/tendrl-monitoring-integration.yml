@@ -38,9 +38,9 @@
     name=carbon-cache
     enabled=yes
 
- #
- # grafana configuration
- #
+#
+# grafana configuration
+#
 
 - name: Install tendrl-grafana-selinux
   yum:
