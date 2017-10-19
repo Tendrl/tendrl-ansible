@@ -5,7 +5,7 @@
     name=tendrl-notifier
     state=latest
 
-- name: Configure etcd ip addr in notifier.conf.yaml
+- name: Configure etcd fqdn in notifier.conf.yaml
   lineinfile:
     dest: /etc/tendrl/notifier/notifier.conf.yaml
     regexp: "{{ item.regexp }}"
