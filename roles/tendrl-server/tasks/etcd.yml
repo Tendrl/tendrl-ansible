@@ -14,6 +14,10 @@
   set_fact: etcd_url_protocol="https"
   when: etcd_tls_client_auth|bool == True
 
+#
+# https://coreos.com/etcd/docs/3.2.5/op-guide/configuration.html
+#
+
 - name: Configure etcd.conf ETCD_LISTEN_CLIENT_URLS
   lineinfile:
     dest=/etc/etcd/etcd.conf
