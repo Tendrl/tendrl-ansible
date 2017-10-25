@@ -32,6 +32,10 @@
     - restart tendrl-notifier
   when: etcd_tls_client_auth|bool == True
 
+#
+# email notifications
+#
+
 - name: Configure email source (done only when email config is provided)
   lineinfile:
     dest: /etc/tendrl/notifier/email.conf.yaml
