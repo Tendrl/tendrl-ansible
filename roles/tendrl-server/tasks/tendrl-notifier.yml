@@ -70,6 +70,20 @@
   notify:
     - restart tendrl-notifier
 
+#
+# snmp notifications
+#
+
+- name: Configure snmp (done only when snmp config is provided)
+  copy:
+    src: "{{ tendrl_notifier_snmp_conf_file }}"
+    dest: /etc/tendrl/notifier/snmp.conf.yaml
+    backup: yes
+    mode: 0640
+  when: tendrl_notifier_snmp_conf_file is defined
+  notify:
+    - restart tendrl-notifier
+
 - name: Enable tendrl-notifier service
   service:
     name=tendrl-notifier
