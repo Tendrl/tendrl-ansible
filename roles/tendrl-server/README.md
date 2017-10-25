@@ -175,6 +175,9 @@ Role Variables
     `/etc/tendrl/notifier/snmp.conf.yaml` on tendrl server and restart
     tendrl-notifier service.
 
+    For more details (including supported versions of snmp protocol and example
+    configuration of snmp endpoint), see Tendrl Installation Guide.
+
 License
 -------
 
