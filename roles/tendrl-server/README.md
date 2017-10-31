@@ -163,6 +163,21 @@ Role Variables
     For more details about email configuration of tendrl-notifier, see the
     Tendrl documentation.
 
+ *  When `tendrl_notifier_snmp_conf_file` variable is undefined, tendrl
+    notifier will not send any snmp notifications, which is the default state.
+
+    To configure snmp notifications, create new `snmp.conf.yaml` file
+    based on default `/etc/tendrl/notifier/snmp.conf.yaml` file from
+    tendrl-notifier package, and set it's local path (on ansible control
+    machine) as a value of `tendrl_notifier_snmp_conf_file` variable.
+
+    Based on that, tendrl-ansible will then copy the local file into
+    `/etc/tendrl/notifier/snmp.conf.yaml` on tendrl server and restart
+    tendrl-notifier service.
+
+    For more details (including supported versions of snmp protocol and example
+    configuration of snmp endpoint), see Tendrl Installation Guide.
+
 License
 -------
 

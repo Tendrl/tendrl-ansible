@@ -32,6 +32,10 @@
     - restart tendrl-notifier
   when: etcd_tls_client_auth|bool == True
 
+#
+# email notifications
+#
+
 - name: Configure email source (done only when email config is provided)
   lineinfile:
     dest: /etc/tendrl/notifier/email.conf.yaml
@@ -63,6 +67,20 @@
     regexp: '^#? *email_pass:.*'
     line: "email_pass: {{ tendrl_notifier_email_pass }}"
   when: tendrl_notifier_email_pass is defined
+  notify:
+    - restart tendrl-notifier
+
+#
+# snmp notifications
+#
+
+- name: Configure snmp (done only when snmp config is provided)
+  copy:
+    src: "{{ tendrl_notifier_snmp_conf_file }}"
+    dest: /etc/tendrl/notifier/snmp.conf.yaml
+    backup: yes
+    mode: 0640
+  when: tendrl_notifier_snmp_conf_file is defined
   notify:
     - restart tendrl-notifier
 
