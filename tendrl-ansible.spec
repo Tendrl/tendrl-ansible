@@ -3,8 +3,8 @@
 # examples to follow. Target OS is RHEL or CentOS 7.
 
 Name:           tendrl-ansible
-Version:        1.5.3
-Release:        2%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
 License:        LGPLv2.1
@@ -94,6 +94,13 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Thu Nov 2 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.4-1
+- New build for upstream Tendrl release 1.5.4
+- Add SELinux setup https://github.com/Tendrl/tendrl-ansible/issues/44
+- Fix bug https://github.com/Tendrl/tendrl-ansible/issues/56
+- Fix bug https://github.com/Tendrl/tendrl-ansible/issues/58
+- Add SNMP setup https://github.com/Tendrl/tendrl-ansible/issues/59
+
 * Fri Oct 6 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.3-2
 - Update requires to make it clear that we need ansible >= 2.3
 

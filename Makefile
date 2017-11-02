@@ -1,7 +1,7 @@
 # based on Makefile of tendrl-commons
 
 NAME = tendrl-ansible
-VERSION = 1.5.3
+VERSION = 1.5.4
 COMMIT := $(shell git rev-parse HEAD)
 SHORTCOMMIT := $(shell echo $(COMMIT) | cut -c1-7)
 
