@@ -1,0 +1,6 @@
+---
+
+- name: ensure rsyslog is running
+  service:
+    name=rsyslogd
+    state=started

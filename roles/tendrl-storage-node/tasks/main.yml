@@ -22,3 +22,4 @@
     state=latest
 
 - include: tendrl-node-agent.yml
+- include: rsyslog.yml
