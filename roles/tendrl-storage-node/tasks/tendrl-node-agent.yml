@@ -17,7 +17,6 @@
       line: "graphite_host: {{ graphite_fqdn }}"
   notify:
     - restart tendrl-node-agent
-  notify:
     - reload rsyslog
 
 - name: Configure etcd client-server authentication
@@ -35,8 +34,6 @@
   notify:
     - restart tendrl-node-agent
   when: etcd_tls_client_auth|bool == True
-  notify:
-    - reload rsyslog
 
 - name: Enable tendrl-node-agent service
   service:
