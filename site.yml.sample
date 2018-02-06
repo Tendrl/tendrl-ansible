@@ -37,6 +37,10 @@
         name: '*'
         state: latest
 
+    # Moreover you need to use ip address of interface where etcd will be
+    # listening, to configure etcd itself.
+    - set_fact: etcd_ip_address={{hostvars[inventory_hostname]['ansible_default_ipv4']["address"]}}
+
 #
 # Installation of Tendrl itself.
 #
@@ -53,10 +57,6 @@
     # etcd_fqdn: 'tendrl.example.com'
     # or using ansible facts: fqdn of tendrl-server as detected by ansible:
     etcd_fqdn: "{{ ansible_fqdn }}"
-    # Moreover you need to use ip address of interface where etcd will be
-    # listening, to configure etcd itself.
-    etcd_ip_address: "{{ lookup('dig', ansible_fqdn) }}"
-
     # fqdn of graphite instance (carbon-cache service in particular) which will
     # be used in tendrl config files (this value doesn't reconfigure
     # graphite).
