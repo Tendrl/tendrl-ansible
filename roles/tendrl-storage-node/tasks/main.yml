@@ -21,5 +21,5 @@
     name=tendrl-collectd-selinux
     state=latest
 
-- include: tendrl-node-agent.yml
 - include: rsyslog.yml
+- include: tendrl-node-agent.yml

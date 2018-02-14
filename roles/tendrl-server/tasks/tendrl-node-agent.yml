@@ -4,6 +4,8 @@
   yum:
     name=tendrl-node-agent
     state=latest
+  notify:
+   - restart rsyslog
 
 - name: Configure etcd and graphite ip addr in node-agent.conf.yaml
   lineinfile:
@@ -52,3 +54,5 @@
   service:
     name=tendrl-node-agent
     state=started
+  notify:
+   - restart rsyslog

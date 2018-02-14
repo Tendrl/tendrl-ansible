@@ -16,6 +16,11 @@
     name=httpd
     state=restarted
 
+- name: restart rsyslog
+  service:
+    name=rsyslog
+    state=restarted
+
 - name: restart tendrl-node-agent
   service:
     name=tendrl-node-agent

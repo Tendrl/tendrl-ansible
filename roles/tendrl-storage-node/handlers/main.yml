@@ -6,7 +6,7 @@
     name=tendrl-node-agent
     state=restarted
 
-- name: reload rsyslog
+- name: restart rsyslog
   service:
-    name=rsyslogd
-    state=reloaded
+    name=rsyslog
+    state=restarted
