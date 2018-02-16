@@ -1,6 +1,6 @@
 ---
 
-- name: ensure rsyslog is enabled and running SERVER-NGCHECKINGCHECKINGCHECKINGCHECKINGCHECKING
+- name: ensure rsyslog is enabled and running
   service:
     name=rsyslog
     state=started
