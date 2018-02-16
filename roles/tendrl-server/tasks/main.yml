@@ -13,6 +13,7 @@
     state=latest
 
 - include: etcd.yml
+- include: rsyslog.yml
 - include: tendrl-node-agent.yml
 - include: tendrl-api.yml
 - include: tendrl-ui.yml
