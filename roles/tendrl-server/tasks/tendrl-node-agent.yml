@@ -55,4 +55,6 @@
     name=tendrl-node-agent
     state=started
   notify:
+   # workaround for case when a new tendrl-node-agent package is installed
+   # during "Update all installed packages" task
    - restart rsyslog
