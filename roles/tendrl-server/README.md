@@ -31,10 +31,6 @@ If you want to be able to provision Ceph clusters with Tendrl, use role
 Role Variables
 --------------
 
- *  Variable `selinux_mode` specifies which SELinux mode of `targeted` policy
-    should be enabled: either `enforcing` or `permissive` (which is the
-    default).
-
  *  Variable `etcd_ip_address` is mandatory, when you let this variable
     undefined, installation will fail.
 
