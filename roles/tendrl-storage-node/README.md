@@ -15,7 +15,7 @@ Role Variables
 --------------
 
  *  Variable `selinux_mode` specifies which SELinux mode of `targeted` policy
-    should be enabled: either `enforcing` or `permissive` (which is the
+    should be enabled: either `enforcing` or `permissive` (`enforcing` is the
     default).
 
  *  Variable `etcd_fqdn` needs to be set to fqdn of etcd instance.
