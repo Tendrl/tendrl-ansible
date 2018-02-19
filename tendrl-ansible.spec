@@ -94,7 +94,7 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
-* Fri Feb 16 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.5-1
+* Fri Feb 16 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.5.5-1
 - New build for upstream Tendrl rc build 1.5.5
 
 * Thu Nov 2 2017  Martin Bukatovič <mbukatov@redhat.com> - 1.5.4-1
