@@ -30,7 +30,8 @@
     # > being stored on this node)
     #
     # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.0-(install-doc)
-    - assert:
+    - name: Check total memory and number of vcpus
+      assert:
         that:
           - ansible_memtotal_mb >= 12000
           - ansible_processor_vcpus >= 4
