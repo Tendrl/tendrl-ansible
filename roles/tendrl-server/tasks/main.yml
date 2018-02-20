@@ -12,6 +12,7 @@
     name=tendrl-selinux
     state=latest
 
+- include: firewalld.yml
 - include: etcd.yml
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml

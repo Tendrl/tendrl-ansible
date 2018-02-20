@@ -1,0 +1,50 @@
+---
+
+- name: Install firewalld
+  yum:
+    name=firewalld
+    state=present
+
+- name: Ensure that firewalld is started and enable at boot
+  service:
+    name=firewalld
+    enabled=yes
+    state=started
+
+- name: Enable port for etcd
+  firewalld:
+    port=2379/tcp
+    permanent=yes
+    state=enabled
+
+- name: Enable port for graphite
+  firewalld:
+    port=2003/tcp
+    permanent=yes
+    state=enabled
+
+- name: Enable port for Graphite web
+  firewalld:
+    port=10080/tcp
+    permanent=yes
+    state=enabled
+
+- name: Enable port for http
+  firewalld:
+    port=80/tcp
+    permanent=yes
+    state=enabled
+
+- name: Enable port for https
+  firewalld:
+    port=443/tcp
+    permanent=yes
+    state=enabled
+
+- name: Enable port for grafana server
+  firewalld:
+    port=3000/tcp
+    permanent=yes
+    state=enabled
+  notify:
+    - restart firewalld

@@ -13,3 +13,4 @@
 
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml
+- include: firewalld.yml
