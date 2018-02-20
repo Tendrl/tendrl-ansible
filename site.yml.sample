@@ -20,12 +20,6 @@
 - include: prechecks.yml
 
 #
-# Workarounds required to run before the installation.
-#
-
-- include: workaround.disable-firewall.yml
-
-#
 # Run yum update.
 #
 

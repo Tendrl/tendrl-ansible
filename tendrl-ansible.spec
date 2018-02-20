@@ -39,7 +39,6 @@ sed -i 's/- \(tendrl-storage-node\)/- %{roleprefix}\1/g' site.yml.sample
 
 # reference playbooks by full paths in sample playbook file
 sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml.sample
-sed -i 's!workaround.disable-firewall.yml!%{_pkgdocdir}/&!g' site.yml.sample
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
@@ -57,7 +56,6 @@ mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 # install playbooks
 install -p -m 644 site.yml.sample                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml.sample
 install -p -m 644 prechecks.yml                      $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
-install -p -m 644 workaround.disable-firewall.yml    $RPM_BUILD_ROOT%{_pkgdocdir}/workaround.disable-firewall.yml
 
 # install readme and license files
 install -p -m 644 README.rpm.md                $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
@@ -87,7 +85,6 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 
 # playbooks (referenced in site.yml.sample) in doc dir (temporary HACK)
 %doc %{_pkgdocdir}/prechecks.yml
-%doc %{_pkgdocdir}/workaround.disable-firewall.yml
 
 # readme and license files
 %doc %{_pkgdocdir}/README.md
