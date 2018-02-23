@@ -1,15 +1,46 @@
 ---
 
-- name: Install firewalld
-  yum:
-    name=firewalld
-    state=present
+- name: Check if firewalld is installed
+  command: rpm -q firewalld
+  register: rpm_q_firewalld
+  changed_when: False
+  failed_when: rpm_q_firewalld.rc > 1
 
-- name: Ensure that firewalld is started and enable at boot
-  service:
-    name=firewalld
-    enabled=yes
-    state=started
+- name: Check if firewalld is enabled
+  command: systemctl is-enabled firewalld
+  register: systemctl_is_enabled_firewalld
+  changed_when: False
+  failed_when: systemctl_is_enabled_firewalld.rc > 1
+
+- name: Check if firewalld is running
+  command: systemctl is-active firewalld
+  register: systemctl_is_running_firewalld
+  changed_when: False
+  failed_when: systemctl_is_running_firewalld.rc > 3
+
+- name: Assert fail if firewalld is not installed and running
+  assert:
+    that:
+      - rpm_q_firewalld.rc == 0
+      - systemctl_is_enabled_firewalld.rc == 0
+      - systemctl_is_running_firewalld.rc == 0
+    msg:
+      - "Admin intervention needed: tendrl-ansible was about to start"
+      - "opening Tendrl ports via firewalld but firewalld is either not"
+      - "installed, enabled nor running (see the assertion error above for"
+      - "details)."
+      - "You can either:"
+      - "1) Install firewalld and configure it to have ports opened for"
+      - "   services you are already running on the machines where you are"
+      - "   installing Tendrl (eg. Gluster). Then rerun this playbook."
+      - "2) Set ansible variable 'configure_firewalld_for_tendrl' to False,"
+      - "   so that tendrl-ansible would not touch any firewall configuration"
+      - "   when you rerun the playbook."
+      - "   In this mode, you own firewall configuration and are responsible"
+      - "   to make sure that all necessary ports are opened (including"
+      - "   Gluster and Tendrl ports)."
+      - "   For list of ports Tendrl requires to be open, refer to the"
+      - "   documentation."
 
 - name: Enable port for etcd
   firewalld:
