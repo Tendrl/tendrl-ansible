@@ -7,3 +7,4 @@ etcd_tls_client_auth: False
 etcd_cert_file: "/etc/pki/tls/certs/etcd.crt"
 etcd_key_file: "/etc/pki/tls/private/etcd.key"
 etcd_trusted_ca_file: "/etc/pki/tls/certs/ca-etcd.crt"
+configure_firewalld_for_tendrl: True

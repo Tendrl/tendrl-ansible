@@ -53,6 +53,23 @@ Role Variables
     For more details, see [Etcd Security
     model](https://coreos.com/etcd/docs/latest/op-guide/security.html)
 
+ *  When `configure_firewalld_for_tendrl` is set to True (which is the default
+    state), ports necessary for Tendrl to work will be opened via
+    [firewalld](http://www.firewalld.org/).
+    Note that *tendrl-ansible aborts playbook run when firewalld is not
+    running* on the machines, preventing accidental blocking of services which
+    are already running on the cluster.
+
+    When `etcd_tls_client_auth` is False, tendrl-ansible will skip all firewall
+    tasks completelly. This is usefull if you want to maintain firewall
+    configuration yourself (eg. via iptables scripts, having firewall disabled
+    ...). Note that in this case, you are responsible for opening ports of
+    all services running on the cluster, including Gluster and Tendrl.
+
+    For list of Tendrl ports, see [Tendrl firewall
+    settings](https://github.com/Tendrl/documentation/wiki/Tendrl-firewall-settings)
+    wikipage.
+
 Note that values specified in variables of this role need to match variables
 of *Tendrl Server* role.
 
