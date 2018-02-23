@@ -1,15 +1,9 @@
 ---
 
-- name: Install firewalld
-  yum:
-    name=firewalld
-    state=present
-
-- name: Ensure that firewalld is started and enable at boot
-  service:
-    name=firewalld
-    enabled=yes
-    state=started
+- name: Check if firewalld is up and running
+  include_role:
+    name: tendrl-server
+    tasks_from: firewalld-check
 
 - name: Gluster native events webhook
   firewalld:
