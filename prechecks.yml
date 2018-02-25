@@ -75,17 +75,6 @@
         that:
           - '"NTP synchronized: yes" in timedatectl_run.stdout'
 
-    # Check that machine-id is unique on each machine. The implementation is
-    # not very efficient (linear check on each machine ... o(n^2)), but assert
-    # can't be performed locally based on facts from each remote host. On the
-    # brigh side: machines with non unique machine-id will be marked as failed.
-
-    - name: Check that machine-id on this machine is unique
-      assert:
-        that:
-          - ansible_hostname == hostvars[item]['ansible_hostname'] or ansible_machine_id != hostvars[item]['ansible_machine_id']
-      with_items: "{{ groups['all'] }}"
-
     # Check that hostnames are reachable and available via dns
 
     # Note that the dns lookup is performed on the ansible control machine (as
