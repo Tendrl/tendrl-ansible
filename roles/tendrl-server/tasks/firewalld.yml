@@ -37,14 +37,6 @@
   notify:
     - reload firewalld
 
-- name: Enable port for https
-  firewalld:
-    port=443/tcp
-    permanent=yes
-    state=enabled
-  notify:
-    - reload firewalld
-
 - name: Enable port for grafana server
   firewalld:
     port=3000/tcp
