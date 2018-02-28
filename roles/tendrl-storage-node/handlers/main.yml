@@ -11,7 +11,7 @@
     name=rsyslog
     state=restarted
 
-- name: restart firewalld
+- name: reload firewalld
   service:
     name=firewalld
-    state=restarted
+    state=reloaded

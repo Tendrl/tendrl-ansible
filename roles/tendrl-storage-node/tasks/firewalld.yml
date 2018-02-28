@@ -11,4 +11,4 @@
     permanent=yes
     state=enabled
   notify:
-    - restart firewalld
+    - reload firewalld
