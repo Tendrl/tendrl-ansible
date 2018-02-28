@@ -71,8 +71,14 @@ tendrl.example.com
    In case of any problems, you need to fix it
    before going on. If you are not sure what's wrong, consult documentation of
    ansible and/or ssh.
-6) Run `$ ansible-playbook -i inventory_file site.yml`
-7) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+6) Run `$ ansible-playbook -i inventory_file prechecks.yml` to verify that
+   your machines meet expected requirements for **production deployment** (see
+   content of the `prechecks.yml` playbook file for details).
+   For **proof of concept deployments**, you can avoid checking of stringent
+   production requirements using `production` tag:
+   `$ ansible-playbook -i inventory_file prechecks.yml --skip-tags "production"`
+7) Run `$ ansible-playbook -i inventory_file site.yml`
+8) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
    ``admin`` user and the default password ``adminuser``.
 
 ## Setup with Vagrant using libvirt provider

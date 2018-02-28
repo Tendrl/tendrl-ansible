@@ -18,14 +18,6 @@ you can find all details about it's usage.
 To understand how all this fits together, see sample ansible playbook file
 `/usr/share/doc/tendrl-ansible-VERSION/site.yml.sample`.
 
-Also note that the sample playbook includes
-`/usr/share/doc/tendrl-ansible-VERSION/prechecks.yml`, which you can run
-directly as well to check if minimal requirements and setup for Tendrl are
-satisfied. Any problem with the pre checks will make sample site.yml file
-immediately fail, pointing you to a particular requirement or problem with
-configuration before the installation itself (preventing you to spare time
-with unnecessary debugging after installation).
-
 ## Basic setup
 
 1)  Install tendrl-ansible:
@@ -67,6 +59,26 @@ with unnecessary debugging after installation).
     You should see ansible to show `"pong"` message for all machines.
     In case of any problems, you need to fix it before going on. If you are not
     sure what's wrong, consult documentation of ansible and/or ssh.
+
+5)  Now you can run prechecks playbook to verify if minimal requirements and
+    setup for Tendrl are satisfied. Any problem with the pre checks will make
+    the playbook run fail immediately, pointing you to a particular
+    requirement or problem with configuration before the installation itself
+    (preventing you to spend time with unnecessary debugging after
+    installation).
+
+    For **production deployment**, run the full check:
+
+    ```
+    $ ansible-playbook -i inventory_file /usr/share/doc/tendrl-ansible-VERSION/prechecks.yml
+    ```
+
+    While for **proof of concept deployments**, you can avoid checking of
+    stringent production requirements using `production` tag:
+
+    ```
+    $ ansible-playbook -i inventory_file /usr/share/doc/tendrl-ansible-VERSION/prechecks.yml --skip-tags "production"
+    ```
 
 5)  Then we are ready to run ansible to install Tendrl:
 

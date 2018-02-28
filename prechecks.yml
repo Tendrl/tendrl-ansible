@@ -1,6 +1,7 @@
 ---
 # A simple playbook with Tendrl installation pre checks as listed in:
 # https://tendrl.atlassian.net/browse/TEN-257
+# This playbook doesn't modify machines in any way.
 
 - hosts: localhost
   connection: local
@@ -22,6 +23,8 @@
 #
 
 - hosts: tendrl-server
+  tags:
+    - production
   tasks:
     # Based on:
     #
