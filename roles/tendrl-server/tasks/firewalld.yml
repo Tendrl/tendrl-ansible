@@ -44,3 +44,11 @@
     state=enabled
   notify:
     - reload firewalld
+
+- name: Enable port for tendrl-monitoring-integration (grafana alerts callback)
+  firewalld:
+    port=8789/tcp
+    permanent=yes
+    state=enabled
+  notify:
+    - reload firewalld
