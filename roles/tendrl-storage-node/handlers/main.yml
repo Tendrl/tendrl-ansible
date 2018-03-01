@@ -10,8 +10,3 @@
   service:
     name=rsyslog
     state=restarted
-
-- name: reload firewalld
-  service:
-    name=firewalld
-    state=reloaded

@@ -40,8 +40,3 @@
   service:
     name=tendrl-notifier
     state=restarted
-
-- name: reload firewalld
-  service:
-    name=firewalld
-    state=reloaded

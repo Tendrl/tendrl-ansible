@@ -10,5 +10,4 @@
     port=8697/tcp
     permanent=yes
     state=enabled
-  notify:
-    - reload firewalld
+    immediate=true
