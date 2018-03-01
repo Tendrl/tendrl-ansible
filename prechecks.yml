@@ -33,17 +33,12 @@
   tags:
     - production
   tasks:
-    # Based on:
-    #
-    # > The Node hosting tendrl-api/central_store should have minimum 12
-    # > GB of memory and 4 VCPUs (or equivalent)(due to alerts, logs
-    # > being stored on this node)
-    #
-    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.0-(install-doc)
+    # Based on Tendrl Server System Requirements
+    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.6.0-(install-guide)#tendrl-server-system-requirements
     - name: Check total memory and number of vcpus
       assert:
         that:
-          - ansible_memtotal_mb >= 12000
+          - ansible_memtotal_mb >= 16000
           - ansible_processor_vcpus >= 4
 
 #
