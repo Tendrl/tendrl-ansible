@@ -26,20 +26,38 @@
           - "[3] Fedora package: python2-dns, RHEL 7 package: python-dns"
 
 #
-# Check hw requirements first, so far for *Tendrl Server* only.
+# Check requirements for *Tendrl Server* only
 #
 
 - hosts: tendrl-server
   tags:
     - production
   tasks:
+
     # Based on Tendrl Server System Requirements
     # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.6.0-(install-guide)#tendrl-server-system-requirements
-    - name: Check total memory and number of vcpus
+    - name: Assert that hw requirements are met
       assert:
         that:
           - ansible_memtotal_mb >= 16000
           - ansible_processor_vcpus >= 4
+
+    - name: Check if /var/lib/etcd is a mountpoint
+      command: mountpoint /var/lib/etcd
+      register: mountpoint_var_lib_etcd
+      changed_when: False
+      failed_when: mountpoint_var_lib_etcd.rc > 1
+
+    - name: Assert that /var/lib/etcd is a mount point
+      assert:
+        that:
+          - mountpoint_var_lib_etcd.rc == 0
+        msg:
+          - "Directory /var/lib/etcd is not a mountpoint."
+          - "Ensure that Etcd data directory is located on an separate"
+          - "dedicated disk which is not being used by any other process"
+          - "or the OS."
+          - "See *Tendrl Server System Requirements* for more details."
 
 #
 # General checks applicable to all machines.
