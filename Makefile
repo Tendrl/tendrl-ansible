@@ -19,7 +19,7 @@ dist: clean
 	cp LICENSE $(NAME)-$(VERSION)
 	cp README.md $(NAME)-$(VERSION)
 	cp README.rpm.md $(NAME)-$(VERSION)
-	cp site.yml.sample $(NAME)-$(VERSION)
+	cp site.yml $(NAME)-$(VERSION)
 	cp prechecks.yml $(NAME)-$(VERSION)
 	tar caf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 

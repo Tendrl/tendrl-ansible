@@ -30,15 +30,15 @@ Tendrl documentation.
 
 %build
 # reference roles by prefixed name in sample playbook file
-sed -i 's/- \(ceph-installer\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(gluster-gdeploy-copr\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(grafana-repo\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-copr\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-server\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-storage-node\)/- %{roleprefix}\1/g' site.yml.sample
+sed -i 's/- \(ceph-installer\)/- %{roleprefix}\1/g' site.yml
+sed -i 's/- \(gluster-gdeploy-copr\)/- %{roleprefix}\1/g' site.yml
+sed -i 's/- \(grafana-repo\)/- %{roleprefix}\1/g' site.yml
+sed -i 's/- \(tendrl-copr\)/- %{roleprefix}\1/g' site.yml
+sed -i 's/- \(tendrl-server\)/- %{roleprefix}\1/g' site.yml
+sed -i 's/- \(tendrl-storage-node\)/- %{roleprefix}\1/g' site.yml
 
 # reference playbooks by full paths in sample playbook file
-sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml.sample
+sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
@@ -54,7 +54,7 @@ cp -pR roles/tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{r
 mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 
 # install playbooks
-install -p -m 644 site.yml.sample                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml.sample
+install -p -m 644 site.yml                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml
 install -p -m 644 prechecks.yml                      $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
 
 # install readme and license files
@@ -81,9 +81,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %doc %{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node/README.md
 
 # mark example site.yml file as documentation
-%doc %{_pkgdocdir}/site.yml.sample
+%doc %{_pkgdocdir}/site.yml
 
-# playbooks (referenced in site.yml.sample) in doc dir (temporary HACK)
+# playbooks (referenced in site.yml) in doc dir (temporary HACK)
 %doc %{_pkgdocdir}/prechecks.yml
 
 # readme and license files
