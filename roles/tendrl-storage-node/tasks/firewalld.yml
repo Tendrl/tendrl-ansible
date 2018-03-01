@@ -1,0 +1,13 @@
+---
+
+- name: Check if firewalld is up and running
+  include_role:
+    name: tendrl-server
+    tasks_from: firewalld-check
+
+- name: Gluster native events webhook
+  firewalld:
+    port=8697/tcp
+    permanent=yes
+    state=enabled
+    immediate=true

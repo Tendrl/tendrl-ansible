@@ -14,12 +14,6 @@
 # doesn't care how you group your servers in ansible inventory.
 
 #
-# Workarounds required to run before the installation.
-#
-
-- include: workaround.disable-firewall.yml
-
-#
 # Run yum update.
 #
 
