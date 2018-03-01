@@ -57,7 +57,8 @@
           - "Ensure that Etcd data directory is located on an separate"
           - "dedicated disk which is not being used by any other process"
           - "or the OS."
-          - "See *Tendrl Server System Requirements* for more details."
+          - "See *Tendrl Server System Requirements* section in the"
+          - "documentation for more details."
 
 #
 # General checks applicable to all machines.
