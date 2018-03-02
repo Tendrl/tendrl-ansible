@@ -1,36 +1,70 @@
 tendrl-ansible
 ==============
 
-Ansible roles and playbooks for [Tendrl](http://tendrl.org/)!
-
-Clone me:
-
-```bash
-git clone https://github.com/Tendrl/tendrl-ansible.git
-```
-
-
-**NOTE:** The `master` branch was completely overwritten on 13th June 2017. The original master branch is now available as the branch `archive`.
+[Ansible](https://docs.ansible.com/ansible/latest/index.html) roles and
+playbooks for [Tendrl](http://tendrl.org/)!
 
 
 ## What does it do?
 
-There are ansible roles for installation of [Tendrl](http://tendrl.org/), based
-on [upstream documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installation-Reference):
+tendrl-ansible automates **installation of Tendrl** based description from
+[Tendrl wiki](https://github.com/Tendrl/documentation/wiki). You
+should check [installation documentation
+there](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest) to
+have basic understanding of various machine roles in Tendrl cluster before
+using tendrl-ansible.
 
-* `tendrl-copr`: installs yum repository of latest Tendrl upstream release
-* `tendrl-server`: installation of *Tendrl Server* machine (where api, web and
-   etcd are running)
-* `tendrl-storage-node`: installation of *Tendrl Storage Node* machine
-   (required on Gluster servers, which you would like to monitor by
-   Tendrl)
 
-Please note that `tendrl-server` role includes setup of admin user account for
-Tendrl (usable with both api and web interface), and that default
-password is ``adminuser``. Moreover the admin password is also
-stored on *Tendrl Server* machine in `/root/password` file (this feature of
-tendrl-ansible is based
-on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
+## How to get tendrl-ansible?
+
+Just clone this repo:
+
+```
+$ git clone https://github.com/Tendrl/tendrl-ansible.git
+```
+
+or you can install rpm package from [copr repo `tendrl/release` with stable
+Tendlr upstream
+builds](https://copr.fedorainfracloud.org/coprs/tendrl/release/):
+
+```
+# yum copr enable tendrl/release
+# yum install tendrl-ansible
+```
+
+See [how to enable copr
+repository](https://docs.pagure.org/copr.copr/how_to_enable_repo.html#how-to-enable-repo)
+if you need more help with this step.
+
+Note that installing **tendrl-ansible from rpm package is highly recommended
+when you use stable builds** from `tendrl/release` copr. Otherwise just cloning
+the repo is good enough.
+
+
+## Which version of ansible do I need?
+
+Ansible >= 2.4 is required to use tendrl-ansible.
+
+
+## What roles and playbooks are there?
+
+This is a brief overview only, **there is a README file for each role**, where
+you can see more details about each role, along with list of ansible variables
+one can use to tweak it.
+
+Ansible roles for Tendrl:
+
+* `tendrl-copr`: installs yum repositories with builds provided by Tendrl
+  project, it uses stable `tendrl/release` copr by default
+* `tendrl-server`: installation of **Tendrl Server** machine (where Tendrl api,
+  web and etcd are running)
+* `tendrl-storage-node`: installation of **Tendrl Storage Node** machines
+  (Gluster servers, which you would like to monitor by Tendrl)
+
+Roles installing yum repositories of Tendrl dependencies:
+
+* `grafana-repo`: installs official upstream yum repository with latest stable
+  [Grafana](https://grafana.com/) relese.
 
 For convenience, there are also ansible roles for installation of yum
 repositories with upstream releases of Ceph, Gluster and theirs installation
@@ -39,55 +73,206 @@ tools (such as `ceph-installer` and `gdeploy`):
 * `ceph-installer`
 * `gluster-gdeploy-copr`
 
-See sample ansible playbook `site.yml.sample` to check how it fits together.
+Playbook files:
 
-## Basic setup
+* `prechecks.yml`: playbook checking requirements before Tendrl installation
+  (see comments inside the playbook file for references)
+* `site.yml`: main playbook of tendrl-ansible, which one will use to install
+  Tendrl
 
-Ansible Driven installation:
 
-1) Install ansible >= 2.3
-2) Get the code: `git clone https://github.com/Tendrl/tendrl-ansible.git`
-3) Create Ansible inventory file with groups for `tendrl-server`
-   and `gluster-servers`. Here is an example of inventory
-   file for 4 node cluster with Gluster:
+## Where are the roles and playbooks if I use rpm package?
 
-```
-[gluster-servers]
-gl1.example.com
-gl2.example.com
-gl3.example.com
-gl4.example.com
+Ansible roles are available in `/usr/share/ansible/roles/` directory, where
+the role directories are prefixed with `tendrl-ansible.`, for example:
+`/usr/share/ansible/roles/tendrl-ansible.tendrl-server`.
+Each role has it's own `README.md` file, where you can find all details about
+it's usage.
 
-[tendrl-server]
-tendrl.example.com
-```
+Playbooks are available in `/usr/share/doc/tendrl-ansible-1.6.0/` directory,
+where `1.6.0` is version of tendrl-ansible package.
 
-4) Create `site.yml` file based on `site.yml.sample` and make sure to
-   define all ansible variables there to suit.
-5) Check that ssh can connect to all machines from the inventory file without
-   asking for password or validation of public key by running:
-   `$ ansible -i inventory_file -m ping all`.
-   You should see ansible to show `"pong"` message for all machines.
-   In case of any problems, you need to fix it
-   before going on. If you are not sure what's wrong, consult documentation of
-   ansible and/or ssh.
-6) Run `$ ansible-playbook -i inventory_file prechecks.yml` to verify that
-   your machines meet expected requirements for **production deployment** (see
-   content of the `prechecks.yml` playbook file for details).
-   For **proof of concept deployments**, you can avoid checking of stringent
-   production requirements using `production` tag:
-   `$ ansible-playbook -i inventory_file prechecks.yml --skip-tags "production"`
-7) Run `$ ansible-playbook -i inventory_file site.yml`
-8) Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
-   ``admin`` user and the default password ``adminuser``.
 
-## Setup with Vagrant using libvirt provider
+## What should I know before using tendrl-ansible?
 
-TODO
+You need to know [how to use
+ansbile](https://docs.ansible.com/ansible/latest/intro.html) and how to deploy
+and use ssh public keys.
 
-## Setup with Vagrant using virtualbox provider
+Moreover since this README file can't provide all details about Tendrl, you
+should read [Tendrl installation
+documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest)
+as well.
 
-TODO
+And last but not least, both `tendrl-server` and `tendrl-storage-node` contains
+many variables which one can use to tweak the installation. See README files of
+the roles for their description.
+
+
+## What installation steps from Tendrl installation documentation are not part of tendrl-ansible?
+
+This is should be clear from [Tendrl installation
+documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest)
+itself, but for the sake of convenience, here is the
+list of installation or deployment steps which are out of scope of
+tendrl-ansible:
+
+* Deployment and installation of machines (either virtual or bare metal), which
+  includes setup of networking, partitioning of disks, deployment of ssh public
+  keys and so on.
+* Installation and configuration of GlusterFS on the machines, see
+  [gdeploy](https://gdeploy.readthedocs.io/en/latest/) for automation of this
+  task.
+* Setup of dedicated disk for etcd and graphite data directories.
+* Setup of https for Tendrl web and api.
+* Deployment of tls certificates and keys for etcd tls based client server
+  encryption and authentication (this means communication between various
+  tendrl components and etcd instance).
+
+
+## How do I install Tendrl with tendrl-ansbile?
+
+1)  Install tendrl-ansible:
+
+    ```
+    # yum install tendrl-ansible
+    ```
+
+    See section "How to get tendrl-ansible?" in this README file for more
+    details.
+
+2)  Create [Ansible inventory
+    file](https://docs.ansible.com/ansible/latest/intro_inventory.html) with
+    groups for `tendrl-server` and `gluster-servers`. Here is an example of
+    inventory file for 4 node cluster with Gluster:
+
+    ```
+    [gluster-servers]
+    gl1.example.com
+    gl2.example.com
+    gl3.example.com
+    gl4.example.com
+
+    [tendrl-server]
+    tendrl.example.com
+    ```
+
+3)  Add mandatory ansible variables into the inventory file you created in the
+    previous step.
+
+    This includes:
+
+    * `etcd_ip_address` configures where etcd instance is listening
+    * `etcd_fqdn` configure tendrl components to be able to connect to etcd
+      instance
+    * `graphite_fqdn` configures tendrl components (this value doesn't
+       reconfigure graphite itself!) to be able to connect to graphite instance
+
+    For simple example cluster from previous step, assuming there is only
+    single network interface on all machines, the code you need to add into
+    the inventory file would look like:
+
+    ```
+    [all:vars]
+    etcd_ip_address=192.0.2.1
+    etcd_fqdn=tendrl.example.com
+    graphite_fqdn=tendrl.example.com
+    ```
+
+    Where `192.0.2.1` is ip address of tendrl server, `tendrl.example.com` is
+    a hostname of tendrl server and `tendrl.example.com` hostname is translated
+    to `192.0.2.1` ip address.
+
+    See full description in README file of tendrl-server role and pay attention
+    to the values you specify there when you use multiple network interfaces
+    on the machines.
+
+    Note: you can define these variables anywhere else you like (eg. in
+    variable files or from command line directly), but including them into the
+    inventory provides you with a single file with full description of
+    tendrl-ansible setup for future reference (eg. reruning tendrl-ansible
+    later when you need to expand cluster or make sure the configuration still
+    holds).
+
+4)  Add optional ansible variables into the invenory file.
+
+    Based on Tendrl documentation and description in README files of
+    tendrl-ansible roles, specify values for variables you like to tweak.
+
+    This is important because some features tendrl-ansible can help you
+    with are disabled by default as they require additional user input.
+
+    This includes etcd tls client authentication and tendrl notifier
+    configuration for snmp or smtp. Other features such as firewalld setup
+    for Tendrl can be disabled if needed.
+
+5)  If you use tendrl-ansible from rpm package, copy `site.yml` playbook into
+    local directory (where you already store the inventory file):
+
+    ```
+    $ cp /usr/share/doc/tendrl-ansible-VERSION/site.yml site.yml
+    ```
+
+    Do the same for prechecks playbook:
+
+    ```
+    $ cp /usr/share/doc/tendrl-ansible-VERSION/prechecks.yml prechecks.yml
+    ```
+
+6)  Check that ssh can connect to all machines from the inventory file without
+    asking for password or validation of public key by running:
+
+    ```
+    $ ansible -i inventory_file -m ping all
+    ```
+
+    You should see ansible to show `"pong"` message for all machines.
+    In case of any problems, you need to fix it before going on. If you are not
+    sure what's wrong, consult documentation of ansible and/or ssh.
+
+7)  Now you can run prechecks playbook to verify if minimal requirements and
+    setup for Tendrl are satisfied. Any problem with the pre checks will make
+    the playbook run fail immediately, pointing you to a particular
+    requirement or problem with configuration before the installation itself
+    (preventing you to spend time with unnecessary debugging after
+    installation).
+
+    For **production deployment**, run the full check:
+
+    ```
+    $ ansible-playbook -i inventory_file prechecks.yml
+    ```
+
+    While for **proof of concept deployments**, you can avoid checking of
+    stringent production requirements using `production` tag:
+
+    ```
+    $ ansible-playbook -i inventory_file prechecks.yml --skip-tags "production"
+    ```
+
+    If you are not sure why a particular check is there or what is checked
+    exactly, open the playbook file and see comments and/or implementation of
+    the check.
+
+8)  Then we are ready to run ansible to install Tendrl:
+
+    ```
+    $ ansible-playbook -i inventory_file site.yml
+    ```
+
+    Assuming we have deployed ssh keys on the machines and have a cluster
+    already installed and running there.
+
+9)  Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
+    ``admin`` user and the default password ``adminuser``.
+
+    Note that `tendrl-server` role includes setup of admin user account for
+    Tendrl (usable with both api and web interface), and that default
+    password is ``adminuser``. Moreover the admin password is also
+    stored on *Tendrl Server* machine in `/root/password` file (this feature of
+    tendrl-ansible is based
+    on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
+
 
 ## License
 

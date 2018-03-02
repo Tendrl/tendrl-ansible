@@ -58,7 +58,7 @@ install -p -m 644 site.yml                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.
 install -p -m 644 prechecks.yml                      $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
 
 # install readme and license files
-install -p -m 644 README.rpm.md                $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
+install -p -m 644 README.md                    $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
 install -p -m 644 LICENSE                      $RPM_BUILD_ROOT%{_pkgdocdir}/LICENSE
 
 %check

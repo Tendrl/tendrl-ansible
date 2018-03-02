@@ -18,7 +18,6 @@ dist: clean
 	cp .yamllint $(NAME)-$(VERSION)
 	cp LICENSE $(NAME)-$(VERSION)
 	cp README.md $(NAME)-$(VERSION)
-	cp README.rpm.md $(NAME)-$(VERSION)
 	cp site.yml $(NAME)-$(VERSION)
 	cp prechecks.yml $(NAME)-$(VERSION)
 	tar caf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
