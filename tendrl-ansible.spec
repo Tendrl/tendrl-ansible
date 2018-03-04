@@ -12,7 +12,7 @@ Url:            https://github.com/Tendrl/tendrl-ansible
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       ansible >= 2.3
+Requires:       ansible >= 2.4
 Requires:       python-dns
 BuildRequires:  yamllint
 
