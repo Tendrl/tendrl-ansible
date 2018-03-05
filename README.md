@@ -202,9 +202,14 @@ tendrl-ansible:
     This is important because some features tendrl-ansible can help you
     with are disabled by default as they require additional user input.
 
-    This includes etcd tls client authentication and tendrl notifier
-    configuration for snmp or smtp. Other features such as firewalld setup
-    for Tendrl can be disabled if needed.
+    This includes etcd tls client authentication (`etcd_tls_client_auth` and
+    other variables), tendrl notifier configuration for snmp or smtp
+    (`tendrl_notifier_email_id` and other variables), and other tweaks (eg.
+    `tendrl_copr_repo` variable of `tendrl-copr` role).
+
+    There are also features such as firewalld setup for Tendrl (variable
+    `configure_firewalld_for_tendrl`) which are enabled by default, but can be
+    disabled if needed.
 
 5)  If you use tendrl-ansible from rpm package, copy `site.yml` playbook into
     local directory (where you already store the inventory file):
