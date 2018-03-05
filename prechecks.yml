@@ -6,38 +6,59 @@
 - hosts: localhost
   connection: local
   tasks:
-    # For dig lookup module[1] to work (dig lookup is used later in this
-    # playbook), you need to have python dns module[2] installed[3] on ansible
-    # control machine (the local machine where you run ansible).
-    # [1] https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-dns-lookup-dig
-    # [2] http://www.dnspython.org/
-    # [3] Fedora package: python2-dns, RHEL 7 package: python-dns
-    # This check is here to provide more clear error message when the module
-    # is missing.
-    - name: Check that python dns is installed on ansible control machine
+
+    - name: Check if python dns is installed on ansible control machine
       command: python2 -c 'import dns'
+      register: python2_c_import_dns
       changed_when: False
+      failed_when: python2_c_import_dns.rc > 1
+
+    - name: Abort the playbook if python dns is not installed
+      assert:
+        that:
+          - python2_c_import_dns.rc == 0
+        msg:
+          - "This playbook uses dig lookup module[1], which requires python"
+          - "dns module[2] installed[3] on ansible control machine (the"
+          - "machine where you run this ansible playbook from)."
+          - "[1] https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-dns-lookup-dig"
+          - "[2] http://www.dnspython.org/"
+          - "[3] Fedora package: python2-dns, RHEL 7 package: python-dns"
 
 #
-# Check hw requirements first, so far for *Tendrl Server* only.
+# Check requirements for *Tendrl Server* only
 #
 
 - hosts: tendrl-server
   tags:
     - production
   tasks:
-    # Based on:
-    #
-    # > The Node hosting tendrl-api/central_store should have minimum 12
-    # > GB of memory and 4 VCPUs (or equivalent)(due to alerts, logs
-    # > being stored on this node)
-    #
-    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.5.0-(install-doc)
-    - name: Check total memory and number of vcpus
+
+    # Based on Tendrl Server System Requirements
+    # From https://github.com/Tendrl/documentation/wiki/Tendrl-release-v1.6.0-(install-guide)#tendrl-server-system-requirements
+    - name: Assert that hw requirements are met
       assert:
         that:
-          - ansible_memtotal_mb >= 12000
+          - ansible_memtotal_mb >= 16000
           - ansible_processor_vcpus >= 4
+
+    - name: Check if /var/lib/etcd is a mountpoint
+      command: mountpoint /var/lib/etcd
+      register: mountpoint_var_lib_etcd
+      changed_when: False
+      failed_when: mountpoint_var_lib_etcd.rc > 1
+
+    - name: Assert that /var/lib/etcd is a mount point
+      assert:
+        that:
+          - mountpoint_var_lib_etcd.rc == 0
+        msg:
+          - "Directory /var/lib/etcd is not a mountpoint."
+          - "Ensure that Etcd data directory is located on an separate"
+          - "dedicated disk which is not being used by any other process"
+          - "or the OS."
+          - "See *Tendrl Server System Requirements* section in the"
+          - "documentation for more details."
 
 #
 # General checks applicable to all machines.
@@ -53,12 +74,12 @@
       set_fact:
         distribution_minor_version: "{{ ansible_distribution_version|regex_replace('[0-9]\\.([0-9]+).*', '\\1') }}"
 
-    - name: Check that we run on CentOS or Red Hat Enterprise Linux >= 7.3
+    - name: Check that we run on CentOS or Red Hat Enterprise Linux >= 7.4
       assert:
         that:
           - ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
           - ansible_distribution_major_version == '7'
-          - distribution_minor_version|int >= 3
+          - distribution_minor_version|int >= 4
 
     # Checking that NTP is configured. Based on RHEL 7 *System Administrators
     # Guide*.
