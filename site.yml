@@ -15,9 +15,9 @@
           - "You need to define all mandatory ansible variables to run this"
           - "playbook, see README file for guidance."
   roles:
-    - grafana-repo
-    - tendrl-copr
-    - tendrl-server
+    - tendrl-ansible.grafana-repo
+    - tendrl-ansible.tendrl-copr
+    - tendrl-ansible.tendrl-server
 
 - hosts: gluster-servers
   user: root
@@ -31,5 +31,5 @@
           - "You need to define all mandatory ansible variables to run this"
           - "playbook, see README file for guidance."
   roles:
-    - tendrl-copr
-    - tendrl-storage-node
+    - tendrl-ansible.tendrl-copr
+    - tendrl-ansible.tendrl-storage-node

@@ -55,24 +55,24 @@ one can use to tweak it.
 
 Ansible roles for Tendrl:
 
-* `tendrl-copr`: installs yum repositories with builds provided by Tendrl
-  project, it uses stable `tendrl/release` copr by default
-* `tendrl-server`: installation of **Tendrl Server** machine (where Tendrl api,
-  web and etcd are running)
-* `tendrl-storage-node`: installation of **Tendrl Storage Node** machines
-  (Gluster servers, which you would like to monitor by Tendrl)
+* `tendrl-ansible.tendrl-copr`: installs yum repositories with builds provided
+  by Tendrl project, it uses stable `tendrl/release` copr by default
+* `tendrl-ansible.tendrl-server`: installation of **Tendrl Server** machine
+  (where Tendrl api, web and etcd are running)
+* `tendrl-ansible.tendrl-storage-node`: installation of **Tendrl Storage Node**
+  machines (Gluster servers, which you would like to monitor by Tendrl)
 
 Roles installing yum repositories of Tendrl dependencies:
 
-* `grafana-repo`: installs official upstream yum repository with latest stable
-  [Grafana](https://grafana.com/) release.
+* `tendrl-ansible.grafana-repo`: installs official upstream yum repository with
+  latest stable [Grafana](https://grafana.com/) release.
 
 For convenience, there are also ansible roles for installation of yum
 repositories with upstream releases of Ceph, Gluster and theirs installation
 tools (such as `ceph-installer` and `gdeploy`):
 
-* `ceph-installer`
-* `gluster-gdeploy-copr`
+* `tendrl-ansible.ceph-installer`
+* `tendrl-ansible.gluster-gdeploy-copr`
 
 Playbook files:
 
@@ -105,8 +105,8 @@ should read [Tendrl installation
 documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest)
 as well.
 
-And last but not least, both `tendrl-server` and `tendrl-storage-node` roles
-contain
+And last but not least, both `tendrl-ansible.tendrl-server` and
+`tendrl-ansible.tendrl-storage-node` roles contain
 many variables which one can use to tweak the installation. See README files of
 the roles for their description.
 
@@ -185,7 +185,8 @@ tendrl-ansible:
     a hostname of tendrl server and `tendrl.example.com` hostname is translated
     to `192.0.2.1` ip address.
 
-    See full description in README file of tendrl-server role and pay attention
+    See full description in README file of `tendrl-ansible.tendrl-server` role
+    and pay attention
     to the values you specify there when you use multiple network interfaces
     on the machines.
 
@@ -207,7 +208,7 @@ tendrl-ansible:
     This includes etcd tls client authentication (`etcd_tls_client_auth` and
     other variables), tendrl notifier configuration for snmp or smtp
     (`tendrl_notifier_email_id` and other variables), and other tweaks (eg.
-    `tendrl_copr_repo` variable of `tendrl-copr` role).
+    `tendrl_copr_repo` variable of `tendrl-ansible.tendrl-copr` role).
 
     There are also features such as firewalld setup for Tendrl (variable
     `configure_firewalld_for_tendrl`) which are enabled by default, but can be
@@ -274,7 +275,8 @@ tendrl-ansible:
     of Tendrl server as specified in the inventory file in step #2)  with
     username ``admin`` and default password ``adminuser``.
 
-    Note that `tendrl-server` role includes setup of admin user account for
+    Note that `tendrl-ansible.tendrl-server` role includes setup of admin user
+    account for
     Tendrl (usable with both api and web interface), and that default
     password is ``adminuser``. Moreover the admin password is also
     stored on *Tendrl Server* machine in `/root/password` file (this feature of

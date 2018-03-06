@@ -29,14 +29,6 @@ Tendrl documentation.
 %setup -q
 
 %build
-# reference roles by prefixed name in sample playbook file
-sed -i 's/- \(ceph-installer\)/- %{roleprefix}\1/g' site.yml
-sed -i 's/- \(gluster-gdeploy-copr\)/- %{roleprefix}\1/g' site.yml
-sed -i 's/- \(grafana-repo\)/- %{roleprefix}\1/g' site.yml
-sed -i 's/- \(tendrl-copr\)/- %{roleprefix}\1/g' site.yml
-sed -i 's/- \(tendrl-server\)/- %{roleprefix}\1/g' site.yml
-sed -i 's/- \(tendrl-storage-node\)/- %{roleprefix}\1/g' site.yml
-
 # reference playbooks by full paths in sample playbook file
 sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml
 
@@ -44,12 +36,12 @@ sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
 
 # install ansible roles
-cp -pR roles/ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
-cp -pR roles/gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
-cp -pR roles/grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
-cp -pR roles/tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
-cp -pR roles/tendrl-server          $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-server
-cp -pR roles/tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
+cp -pR roles/tendrl-ansible.ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
+cp -pR roles/tendrl-ansible.gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
+cp -pR roles/tendrl-ansible.grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
+cp -pR roles/tendrl-ansible.tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
+cp -pR roles/tendrl-ansible.tendrl-server          $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-server
+cp -pR roles/tendrl-ansible.tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
 
 mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 
