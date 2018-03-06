@@ -270,8 +270,9 @@ tendrl-ansible:
     Assuming we have deployed ssh keys on the machines and have Gluster
     trusted storage pool already installed and running there.
 
-9)  Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
-    ``admin`` user and the default password ``adminuser``.
+9)  Log in to your tendrl server at ``http://tendrl.example.com`` (hostname
+    of Tendrl server as specified in the inventory file in step #2)  with
+    username ``admin`` and default password ``adminuser``.
 
     Note that `tendrl-server` role includes setup of admin user account for
     Tendrl (usable with both api and web interface), and that default
