@@ -167,8 +167,8 @@ tendrl-ansible:
     * `etcd_ip_address` configures where etcd instance is listening
     * `etcd_fqdn` configure tendrl components to be able to connect to etcd
       instance
-    * `graphite_fqdn` configures tendrl components (this value doesn't
-       reconfigure graphite itself!) to be able to connect to graphite instance
+    * `graphite_fqdn` configures tendrl components to be able to connect to
+      graphite instance (this value doesn't reconfigure graphite itself!)
 
     For simple example cluster from previous step, assuming there is only
     single network interface on all machines, the code you need to add into
