@@ -214,7 +214,7 @@ tendrl-ansible:
     disabled if needed.
 
 5)  If you use tendrl-ansible from rpm package, copy `site.yml` playbook into
-    local directory (where you already store the inventory file):
+    working directory (where you already store the inventory file):
 
     ```
     $ cp /usr/share/doc/tendrl-ansible-VERSION/site.yml site.yml
