@@ -113,7 +113,7 @@ the roles for their description.
 
 ## What installation steps from Tendrl installation documentation are not part of tendrl-ansible?
 
-This is should be clear from [Tendrl installation
+This should be clear from [Tendrl installation
 documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest)
 itself, but for the sake of convenience, here is the
 list of installation or deployment steps which are out of scope of
