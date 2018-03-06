@@ -105,7 +105,8 @@ should read [Tendrl installation
 documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest)
 as well.
 
-And last but not least, both `tendrl-server` and `tendrl-storage-node` contains
+And last but not least, both `tendrl-server` and `tendrl-storage-node` roles
+contains
 many variables which one can use to tweak the installation. See README files of
 the roles for their description.
 
