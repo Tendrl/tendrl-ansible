@@ -7,7 +7,8 @@ playbooks for [Tendrl](http://tendrl.org/)!
 
 ## What does it do?
 
-tendrl-ansible automates **installation of Tendrl** based description from
+tendrl-ansible automates **installation of Tendrl** and helps with **cluster
+expansion** based description from
 [Tendrl wiki](https://github.com/Tendrl/documentation/wiki). You
 should check [installation documentation
 there](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest) to
@@ -277,6 +278,43 @@ tendrl-ansible:
     stored on *Tendrl Server* machine in `/root/password` file (this feature of
     tendrl-ansible is based
     on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
+
+
+## How do I expand cluster with tendrl-ansbile?
+
+See [Tendrl wiki](https://github.com/Tendrl/documentation/wiki) for full
+details of cluster expansion procedure. This section contains only brief
+overview of the expand operation for you to understand how tendrl-ansible
+fits into Tendrl cluster expand operation.
+
+1)  First of all, you need to install operating system and Gluster on new
+    servers(s) and add them into existing cluster (aka [Gluster *Trusted Storage
+    Pool*](http://docs.gluster.org/en/latest/Administrator%20Guide/Storage%20Pools/))
+    via peer probe and add bricks on new server(s) into existing gluster
+    volume(s) based on your needs.
+
+2)  When Gluster is aware of new servers (you see them in output of `gluster
+    pool list` command), you add the new servers into ansible inventory file
+    (into group `gluster-servers`) which you used during installation of
+    Tendrl.
+
+    Note that it's important to **add new servers into the same inventory file
+    as was used during installation**, because you need to ensure that you are
+    using the same set of ansible variables.
+
+3)  Then, you rerun ansible playbook in the same way as done during Tendrl
+    installation:
+
+    ```
+    $ ansible-playbook -i inventory_file site.yml
+    ```
+
+    During this run, ansible should report "ok" status for
+    already existing machines, while reporting "changed" status for the new
+    machines you just added.
+
+4)  Now, you should be able to see new servers in Tendrl web ui (see Tendrl
+    documentation for details).
 
 
 ## License
