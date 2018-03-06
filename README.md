@@ -65,7 +65,7 @@ Ansible roles for Tendrl:
 Roles installing yum repositories of Tendrl dependencies:
 
 * `grafana-repo`: installs official upstream yum repository with latest stable
-  [Grafana](https://grafana.com/) relese.
+  [Grafana](https://grafana.com/) release.
 
 For convenience, there are also ansible roles for installation of yum
 repositories with upstream releases of Ceph, Gluster and theirs installation
@@ -97,7 +97,7 @@ where `1.6.0` is version of tendrl-ansible package.
 ## What should I know before using tendrl-ansible?
 
 You need to know [how to use
-ansbile](https://docs.ansible.com/ansible/latest/intro.html) and how to deploy
+ansible](https://docs.ansible.com/ansible/latest/intro.html) and how to deploy
 and use ssh public keys.
 
 Moreover since this README file can't provide all details about Tendrl, you
@@ -106,7 +106,7 @@ documentation](https://github.com/Tendrl/documentation/wiki/Tendrl-release-lates
 as well.
 
 And last but not least, both `tendrl-server` and `tendrl-storage-node` roles
-contains
+contain
 many variables which one can use to tweak the installation. See README files of
 the roles for their description.
 
@@ -132,7 +132,7 @@ tendrl-ansible:
   tendrl components and etcd instance).
 
 
-## How do I install Tendrl with tendrl-ansbile?
+## How do I install Tendrl with tendrl-ansible?
 
 1)  Install tendrl-ansible:
 
@@ -196,7 +196,7 @@ tendrl-ansible:
     later when you need to expand cluster or make sure the configuration still
     holds).
 
-4)  Add optional ansible variables into the invenory file.
+4)  Add optional ansible variables into the inventory file.
 
     Based on Tendrl documentation and description in README files of
     tendrl-ansible roles, specify values for variables you like to tweak.
@@ -282,7 +282,7 @@ tendrl-ansible:
     on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
 
 
-## How do I expand cluster with tendrl-ansbile?
+## How do I expand cluster with tendrl-ansible?
 
 See [Tendrl wiki](https://github.com/Tendrl/documentation/wiki) for full
 details of cluster expansion procedure. This section contains only brief
