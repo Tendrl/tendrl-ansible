@@ -267,8 +267,8 @@ tendrl-ansible:
     $ ansible-playbook -i inventory_file site.yml
     ```
 
-    Assuming we have deployed ssh keys on the machines and have a cluster
-    already installed and running there.
+    Assuming we have deployed ssh keys on the machines and have Gluster
+    trusted storage pool already installed and running there.
 
 9)  Log in to your tendrl server at ``http://ip.of.tendrl.server`` with
     ``admin`` user and the default password ``adminuser``.
