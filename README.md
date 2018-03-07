@@ -97,8 +97,10 @@ where `1.6.0` is version of tendrl-ansible package.
 ## What should I know before using tendrl-ansible?
 
 You need to know [how to use
-ansible](https://docs.ansible.com/ansible/latest/intro.html) and how to deploy
-and use ssh public keys.
+ansible](https://docs.ansible.com/ansible/latest/intro.html) and [how to deploy
+and use ssh public
+keys](https://docs.openshift.org/latest/install_config/install/host_preparation.html#ensuring-host-access)
+(to be able to connect via ssh without asking for password).
 
 Moreover since this README file can't provide all details about Tendrl, you
 should read [Tendrl installation
@@ -237,6 +239,36 @@ tendrl-ansible:
     You should see ansible to show `"pong"` message for all machines.
     In case of any problems, you need to fix it before going on. If you are not
     sure what's wrong, consult documentation of ansible and/or ssh.
+
+    The following example shows how to use [ansible become
+    feature](https://docs.ansible.com/ansible/latest/become.html) **when direct
+    ssh login of root user is not allowed** and you are connecting via non-root
+    `cloud-user` account, which can leverage `sudo` to run any command as root
+    without any password:
+
+    ```
+    $ ansible --become -u cloud-user -i inventory_file -m ping all
+    ```
+
+    If this is your case, you may consider converting command line arguments
+    related to *Ansbile become feature* into [behavioral inventory
+    parameters](https://docs.ansible.com/ansible/latest/intro_inventory.html#list-of-behavioral-inventory-parameters)
+    and adding them into the inventory file. This way, you don't need to
+    specify these arguments again for every ansible command. Example of this
+    update which matches previous command line example follows (it should be
+    appended to the `[all:vars]` section):
+
+    ```
+    ansible_become=yes
+    ansible_user=cloud-user
+    ```
+
+    After this edit, you can re run the ping example without become command
+    line arguments:
+
+    ```
+    $ ansible -i inventory_file -m ping all
+    ```
 
 7)  Now you can run prechecks playbook to verify if minimal requirements and
     setup for Tendrl are satisfied. Any problem with the pre checks will make
