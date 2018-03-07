@@ -222,13 +222,13 @@ tendrl-ansible:
     working directory (where you already store the inventory file):
 
     ```
-    $ cp /usr/share/doc/tendrl-ansible-VERSION/site.yml site.yml
+    $ cp /usr/share/doc/tendrl-ansible-VERSION/site.yml .
     ```
 
     Do the same for prechecks playbook:
 
     ```
-    $ cp /usr/share/doc/tendrl-ansible-VERSION/prechecks.yml prechecks.yml
+    $ cp /usr/share/doc/tendrl-ansible-VERSION/prechecks.yml .
     ```
 
 6)  Check that ssh can connect to all machines from the inventory file without
