@@ -194,10 +194,12 @@ tendrl-ansible:
 
     Note: you can define these variables anywhere else you like (eg. in
     variable files or from command line directly), but including them into the
-    inventory provides you with a single file with full description of
+    inventory provides you with a single file with almost full description of
     tendrl-ansible setup for future reference (eg. reruning tendrl-ansible
     later when you need to expand cluster or make sure the configuration still
-    holds).
+    holds). The only information not stored in inventory file which you may
+    need in the future is `grafana_admin_passwd` file, which contains grafana
+    admin password, which will be generated during tendrl-ansible run.
 
 4)  Add optional ansible variables into the inventory file.
 
@@ -336,7 +338,9 @@ fits into Tendrl cluster expand operation.
 
     Note that it's important to **add new servers into the same inventory file
     as was used during installation**, because you need to ensure that you are
-    using the same set of ansible variables.
+    using the same set of ansible variables. For the same reason, you need to
+    have the lookup file with password for grafana admin `grafana_admin_passwd`
+    availabe in current directory.
 
 3)  Then, you rerun ansible playbook in the same way as done during Tendrl
     installation:
