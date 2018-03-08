@@ -3,7 +3,7 @@
 # examples to follow. Target OS is RHEL or CentOS 7.
 
 Name:           tendrl-ansible
-Version:        1.5.5
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
@@ -29,8 +29,7 @@ Tendrl documentation.
 %setup -q
 
 %build
-# reference playbooks by full paths in sample playbook file
-sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml
+
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
@@ -46,8 +45,8 @@ cp -pR roles/tendrl-ansible.tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/an
 mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 
 # install playbooks
-install -p -m 644 site.yml                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml
-install -p -m 644 prechecks.yml                      $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
+install -p -m 644 site.yml                     $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml
+install -p -m 644 prechecks.yml                $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
 
 # install readme and license files
 install -p -m 644 README.md                    $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
@@ -83,6 +82,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Thu Mar  8 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.1-1
+- New build for upstream Tendrl rc v1.6.1 (milestone-3 2018)
+
 * Fri Feb 16 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.5.5-1
 - New build for upstream Tendrl rc build 1.5.5
 
