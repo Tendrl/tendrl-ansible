@@ -1,0 +1,27 @@
+# This is an example of an tendrl-ansible host inventory file.
+# The example includes 4 *Tendrl Storage Nodes* (GlusterFS servers) and one
+# Tendrl server.
+
+[gluster-servers]
+gl1.example.com
+gl2.example.com
+gl3.example.com
+gl4.example.com
+
+[tendrl-server]
+tendrl.example.com
+
+[all:vars]
+
+# Mandatory variables. In this example, 192.0.2.1 is ip address of tendrl
+# server, tendrl.example.com is a hostname of tendrl server and
+# tendrl.example.com hostname is translated to 192.0.2.1 ip address.
+etcd_ip_address=192.0.2.1
+etcd_fqdn=tendrl.example.com
+graphite_fqdn=tendrl.example.com
+
+# when direct ssh login of root user is not allowed and you are connecting via
+# non-root cloud-user account, which can leverage sudo to run any command as
+# root without any password
+#ansible_become=yes
+#ansible_user=cloud-user
