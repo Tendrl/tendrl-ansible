@@ -12,7 +12,7 @@ Reference](https://github.com/Tendrl/documentation/wiki/Tendrl-Package-Installat
 Requirements
 ------------
 
-Expected operating system is *CentOS 7.3*, with both *CentOS-7 - Base* and
+Expected operating system is *CentOS 7*, with both *CentOS-7 - Base* and
 *CentOS-7 - Extras* repositories enabled.
 
 License
