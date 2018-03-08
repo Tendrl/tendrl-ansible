@@ -12,7 +12,7 @@ Url:            https://github.com/Tendrl/tendrl-ansible
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       ansible >= 2.3
+Requires:       ansible >= 2.4
 Requires:       python-dns
 BuildRequires:  yamllint
 
@@ -29,36 +29,28 @@ Tendrl documentation.
 %setup -q
 
 %build
-# reference roles by prefixed name in sample playbook file
-sed -i 's/- \(ceph-installer\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(gluster-gdeploy-copr\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(grafana-repo\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-copr\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-server\)/- %{roleprefix}\1/g' site.yml.sample
-sed -i 's/- \(tendrl-storage-node\)/- %{roleprefix}\1/g' site.yml.sample
-
 # reference playbooks by full paths in sample playbook file
-sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml.sample
+sed -i 's!prechecks.yml!%{_pkgdocdir}/&!g'                   site.yml
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
 
 # install ansible roles
-cp -pR roles/ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
-cp -pR roles/gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
-cp -pR roles/grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
-cp -pR roles/tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
-cp -pR roles/tendrl-server          $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-server
-cp -pR roles/tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
+cp -pR roles/tendrl-ansible.ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
+cp -pR roles/tendrl-ansible.gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
+cp -pR roles/tendrl-ansible.grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
+cp -pR roles/tendrl-ansible.tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
+cp -pR roles/tendrl-ansible.tendrl-server          $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-server
+cp -pR roles/tendrl-ansible.tendrl-storage-node    $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
 
 mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 
 # install playbooks
-install -p -m 644 site.yml.sample                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml.sample
+install -p -m 644 site.yml                    $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml
 install -p -m 644 prechecks.yml                      $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
 
 # install readme and license files
-install -p -m 644 README.rpm.md                $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
+install -p -m 644 README.md                    $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
 install -p -m 644 LICENSE                      $RPM_BUILD_ROOT%{_pkgdocdir}/LICENSE
 
 %check
@@ -81,9 +73,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %doc %{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node/README.md
 
 # mark example site.yml file as documentation
-%doc %{_pkgdocdir}/site.yml.sample
+%doc %{_pkgdocdir}/site.yml
 
-# playbooks (referenced in site.yml.sample) in doc dir (temporary HACK)
+# playbooks (referenced in site.yml) in doc dir (temporary HACK)
 %doc %{_pkgdocdir}/prechecks.yml
 
 # readme and license files
