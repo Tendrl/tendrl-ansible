@@ -32,3 +32,7 @@
 - name: "WORKAROUND for issues with grafana repo: make yum cache"
   command: "yum makecache -y --disablerepo='*' --enablerepo='grafana'"
   when: rpm_key_packagecloud.changed
+  register: task_result
+  until: task_result|success
+  retries: 5
+  delay: 5
