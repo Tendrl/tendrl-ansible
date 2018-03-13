@@ -29,7 +29,7 @@
 # Check requirements for *Tendrl Server* only
 #
 
-- hosts: tendrl-server
+- hosts: tendrl_server
   tags:
     - production
   tasks:
