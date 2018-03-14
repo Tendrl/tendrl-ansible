@@ -2,7 +2,7 @@
 # This Ansible playbook to install Tendrl, automating steps from upstream
 # *Tendrl Package Installation Reference* wiki page.
 
-- hosts: tendrl-server
+- hosts: tendrl_server
   user: root
   pre_tasks:
     - name: Check that mandatory variables are defined
@@ -19,7 +19,7 @@
     - tendrl-ansible.tendrl-copr
     - tendrl-ansible.tendrl-server
 
-- hosts: gluster-servers
+- hosts: gluster_servers
   user: root
   pre_tasks:
     - name: Check that mandatory variables are defined

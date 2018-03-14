@@ -147,17 +147,17 @@ tendrl-ansible:
 
 2)  Create [Ansible inventory
     file](https://docs.ansible.com/ansible/latest/intro_inventory.html) with
-    groups for `tendrl-server` and `gluster-servers`. Here is an example of
+    groups for `tendrl_server` and `gluster_servers`. Here is an example of
     inventory file for 4 node cluster with Gluster:
 
     ```
-    [gluster-servers]
+    [gluster_servers]
     gl1.example.com
     gl2.example.com
     gl3.example.com
     gl4.example.com
 
-    [tendrl-server]
+    [tendrl_server]
     tendrl.example.com
     ```
 
@@ -333,7 +333,7 @@ fits into Tendrl cluster expand operation.
 
 2)  When Gluster is aware of new servers (you see them in output of `gluster
     pool list` command), you add the new servers into ansible inventory file
-    (into group `gluster-servers`) which you used during installation of
+    (into group `gluster_servers`) which you used during installation of
     Tendrl.
 
     Note that it's important to **add new servers into the same inventory file
