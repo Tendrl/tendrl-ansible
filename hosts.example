@@ -2,13 +2,13 @@
 # The example includes 4 *Tendrl Storage Nodes* (GlusterFS servers) and one
 # Tendrl server.
 
-[gluster-servers]
+[gluster_servers]
 gl1.example.com
 gl2.example.com
 gl3.example.com
 gl4.example.com
 
-[tendrl-server]
+[tendrl_server]
 tendrl.example.com
 
 [all:vars]
