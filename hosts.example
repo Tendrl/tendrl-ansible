@@ -1,5 +1,8 @@
-# This is an example of an tendrl-ansible host inventory file.
-# The example includes 4 *Tendrl Storage Nodes* (GlusterFS servers) and one
+# This is an example of minimal tendrl-ansible host inventory file, aligned
+# with instructions in README.md file. For description of installation steps
+# and full list of ansible variables, see the README.md file and readme files
+# of tendrl-ansible roles.
+# This example includes 4 *Tendrl Storage Nodes* (GlusterFS servers) and one
 # Tendrl server.
 
 [gluster_servers]
@@ -20,8 +23,8 @@ etcd_ip_address=192.0.2.1
 etcd_fqdn=tendrl.example.com
 graphite_fqdn=tendrl.example.com
 
-# when direct ssh login of root user is not allowed and you are connecting via
-# non-root cloud-user account, which can leverage sudo to run any command as
-# root without any password
+# Uncomment and tweak the following options when direct ssh login of root user
+# is not allowed and you are connecting via non-root cloud-user account, which
+# can leverage sudo to run any command as root without any password.
 #ansible_become=yes
 #ansible_user=cloud-user
