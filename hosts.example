@@ -28,3 +28,6 @@ graphite_fqdn=tendrl.example.com
 # can leverage sudo to run any command as root without any password.
 #ansible_become=yes
 #ansible_user=cloud-user
+
+# Place for additional configuration ansible variables described in readme
+# files of tendrl-ansible roles.
