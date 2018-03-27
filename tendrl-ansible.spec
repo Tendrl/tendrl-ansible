@@ -48,9 +48,10 @@ mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/
 install -p -m 644 site.yml                     $RPM_BUILD_ROOT%{_pkgdocdir}/site.yml
 install -p -m 644 prechecks.yml                $RPM_BUILD_ROOT%{_pkgdocdir}/prechecks.yml
 
-# install readme and license files
+# install readme, license and example files
 install -p -m 644 README.md                    $RPM_BUILD_ROOT%{_pkgdocdir}/README.md
 install -p -m 644 LICENSE                      $RPM_BUILD_ROOT%{_pkgdocdir}/LICENSE
+install -p -m 644 hosts.example                $RPM_BUILD_ROOT%{_pkgdocdir}/hosts.example
 
 %check
 yamlint $RPM_BUILD_ROOT && rm .yamlint
@@ -76,6 +77,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 
 # playbooks (referenced in site.yml) in doc dir (temporary HACK)
 %doc %{_pkgdocdir}/prechecks.yml
+
+# example of ansible inventory file for tendrl-ansible
+%doc %{_pkgdocdir}/hosts.example
 
 # readme and license files
 %doc %{_pkgdocdir}/README.md

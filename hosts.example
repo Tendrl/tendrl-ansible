@@ -1,0 +1,33 @@
+# This is an example of minimal tendrl-ansible host inventory file, aligned
+# with instructions in README.md file. For description of installation steps
+# and full list of ansible variables, see the README.md file and readme files
+# of tendrl-ansible roles.
+# This example includes 4 *Tendrl Storage Nodes* (GlusterFS servers) and one
+# Tendrl server.
+
+[gluster_servers]
+gl1.example.com
+gl2.example.com
+gl3.example.com
+gl4.example.com
+
+[tendrl_server]
+tendrl.example.com
+
+[all:vars]
+
+# Mandatory variables. In this example, 192.0.2.1 is ip address of tendrl
+# server, tendrl.example.com is a hostname of tendrl server and
+# tendrl.example.com hostname is translated to 192.0.2.1 ip address.
+etcd_ip_address=192.0.2.1
+etcd_fqdn=tendrl.example.com
+graphite_fqdn=tendrl.example.com
+
+# Uncomment and tweak the following options when direct ssh login of root user
+# is not allowed and you are connecting via non-root cloud-user account, which
+# can leverage sudo to run any command as root without any password.
+#ansible_become=yes
+#ansible_user=cloud-user
+
+# Place for additional configuration ansible variables described in readme
+# files of tendrl-ansible roles.

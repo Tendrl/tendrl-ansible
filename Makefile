@@ -20,6 +20,7 @@ dist: clean
 	cp README.md $(NAME)-$(VERSION)
 	cp site.yml $(NAME)-$(VERSION)
 	cp prechecks.yml $(NAME)-$(VERSION)
+	cp hosts.example $(NAME)-$(VERSION)
 	tar caf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)
 
 srpm: dist
