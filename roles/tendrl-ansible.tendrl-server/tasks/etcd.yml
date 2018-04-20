@@ -75,6 +75,27 @@
   when: etcd_tls_client_auth|bool == True
 
 #
+# https://coreos.com/etcd/docs/latest/tuning.html
+#
+
+- name: Performance tweaks of etcd for Tendrl use case
+  lineinfile:
+    dest: /etc/etcd/etcd.conf
+    regexp: ^(\#*){{ item.name }}(.*)
+    line: "{{ item.name }}=\"{{ item.value }}\""
+  with_items:
+    - name: "ETCD_MAX_SNAPSHOTS"
+      value: "2"
+    - name: "ETCD_SNAPSHOT_COUNT"
+      value: "5000"
+    - name: "ETCD_HEARTBEAT_INTERVAL"
+      value: "10000"
+    - name: "ETCD_ELECTION_TIMEOUT"
+      value: "50000"
+  notify:
+    - restart etcd
+
+#
 # Enable and start the service
 #
 
