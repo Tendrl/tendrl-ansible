@@ -7,6 +7,12 @@
       - "Using {{ etcd_ip_address }} as etcd ip address in etcd config file."
       - "Using {{ graphite_fqdn }} as graphite fqdn in tendrl config files."
 
+- pam_limits:
+    domain: root
+    limit_type: '-'
+    limit_item: nofile
+    value: 16384
+
 - name: Install tendrl-selinux
   yum:
     name=tendrl-selinux
