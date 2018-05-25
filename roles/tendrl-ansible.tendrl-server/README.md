@@ -181,7 +181,8 @@ Role Variables
     running* on the machines, preventing accidental blocking of services which
     are already running on the cluster.
 
-    When `etcd_tls_client_auth` is False, tendrl-ansible will skip all firewall
+    When `configure_firewalld_for_tendrl` is False, tendrl-ansible will skip
+    all firewall
     tasks completelly. This is usefull if you want to maintain firewall
     configuration yourself (eg. via iptables scripts, having firewall disabled
     ...). Note that in this case, you are responsible for opening ports of
