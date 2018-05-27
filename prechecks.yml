@@ -64,7 +64,7 @@
 # General checks applicable to all machines.
 #
 
-- hosts: all
+- hosts: tendrl_server:gluster_servers
   user: root
   # become: yes
   tasks:
