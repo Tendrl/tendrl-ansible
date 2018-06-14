@@ -28,15 +28,16 @@
     owner: apache
     group: apache
 
-- name: Start carbon-cache service
-  service:
-    name=carbon-cache
-    state=started
-
 - name: Enable carbon-cache service
   service:
     name=carbon-cache
     enabled=yes
+    daemon_reload=yes
+
+- name: Start carbon-cache service
+  service:
+    name=carbon-cache
+    state=started
 
 #
 # grafana configuration
