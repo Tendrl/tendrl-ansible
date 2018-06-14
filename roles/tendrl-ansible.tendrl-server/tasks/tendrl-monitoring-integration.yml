@@ -29,13 +29,13 @@
     group: apache
 
 - name: Enable carbon-cache service
-  service:
+  systemd:
     name=carbon-cache
     enabled=yes
     daemon_reload=yes
 
 - name: Start carbon-cache service
-  service:
+  systemd:
     name=carbon-cache
     state=started
 
@@ -71,13 +71,13 @@
     - restart grafana-server
 
 - name: Enable grafana-server service
-  service:
+  systemd:
     name=grafana-server
     enabled=yes
     daemon_reload=yes
 
 - name: Start grafana-server service
-  service:
+  systemd:
     name=grafana-server
     state=started
 
