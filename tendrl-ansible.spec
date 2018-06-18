@@ -4,7 +4,7 @@
 
 Name:           tendrl-ansible
 Version:        1.6.3
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
 License:        LGPLv2.1
@@ -86,9 +86,6 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
-* Wed May 16 2018  Rohan Kanade <rkanade@redhat.com> - 1.6.3-2
-- New build for upstream Tendrl v1.6.3
-
 * Mon Apr 16 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3-1
 - New build for upstream Tendrl v1.6.3
 
