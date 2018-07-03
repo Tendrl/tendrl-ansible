@@ -5,6 +5,8 @@
   yum:
     name=etcd
     state=present
+  tags:
+    - rpm-installation
 
 - name: Use http as protocol in etcd urls
   set_fact: etcd_url_protocol="http"

@@ -6,6 +6,8 @@
     state=latest
   notify:
    - restart rsyslog
+  tags:
+    - rpm-installation
 
 - name: Configure etcd and graphite ip addr in node-agent.conf.yaml
   lineinfile:

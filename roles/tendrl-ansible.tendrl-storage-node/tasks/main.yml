@@ -5,11 +5,15 @@
   yum:
     name=tendrl-selinux
     state=latest
+  tags:
+    - rpm-installation
 
 - name: Install tendrl-collectd-selinux
   yum:
     name=tendrl-collectd-selinux
     state=latest
+  tags:
+    - rpm-installation
 
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml

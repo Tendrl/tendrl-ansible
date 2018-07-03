@@ -4,6 +4,8 @@
   yum:
     name=tendrl-notifier
     state=latest
+  tags:
+    - rpm-installation
 
 - name: Configure etcd fqdn in notifier.conf.yaml
   lineinfile:

@@ -4,6 +4,8 @@
   yum:
     name=tendrl-monitoring-integration
     state=latest
+  tags:
+    - rpm-installation
 
 #
 # graphite (consists of carbon, whisper and graphite web) configuration
@@ -13,6 +15,8 @@
   yum:
     name=carbon-selinux
     state=latest
+  tags:
+    - rpm-installation
 
 - name: Initialize graphite-db
   command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
@@ -47,6 +51,8 @@
   yum:
     name=tendrl-grafana-selinux
     state=latest
+  tags:
+    - rpm-installation
 
 - name: Configure grafana to use tendrl-monitoring-integration config
   lineinfile:
