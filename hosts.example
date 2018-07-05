@@ -29,5 +29,14 @@ graphite_fqdn=tendrl.example.com
 #ansible_become=yes
 #ansible_user=cloud-user
 
+# Uncomment to configure etcd to use client to server authentication with HTTPS 
+# client certificates, as well as all Tendrl components will be reconfigured 
+# accordingly.  Default set to false.
+#etcd_tls_client_auth=true
+
+# Uncomment to configure to not use of firewalld on the tendrl_server and 
+# gluster_servers.  Default set to true.
+#configure_firewalld_for_tendrl=false
+
 # Place for additional configuration ansible variables described in readme
 # files of tendrl-ansible roles.
