@@ -90,8 +90,12 @@
   service:
     name=tendrl-notifier
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start tendrl-notifier service
   service:
     name=tendrl-notifier
     state=started
+  tags:
+    - service-started

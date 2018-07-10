@@ -28,8 +28,12 @@
   service:
     name=httpd
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start httpd service
   service:
     name=httpd
     state=started
+  tags:
+    - service-started

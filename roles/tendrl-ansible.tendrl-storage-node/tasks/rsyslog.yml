@@ -1,7 +1,15 @@
 ---
 
-- name: ensure rsyslog is enabled and running
+- name: ensure rsyslog is enabled
+  service:
+    name=rsyslog
+    enabled=yes
+  tags:
+    - service-enabled
+
+- name: ensure rsyslog is running
   service:
     name=rsyslog
     state=started
-    enabled=yes
+  tags:
+    - service-started

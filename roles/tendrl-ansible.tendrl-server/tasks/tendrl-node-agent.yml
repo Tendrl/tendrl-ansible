@@ -51,11 +51,15 @@
   service:
     name=tendrl-node-agent
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start tendrl-node-agent service
   service:
     name=tendrl-node-agent
     state=started
+  tags:
+    - service-started
   notify:
    # workaround for case when a new tendrl-node-agent package is installed
    # during "Update all installed packages" task

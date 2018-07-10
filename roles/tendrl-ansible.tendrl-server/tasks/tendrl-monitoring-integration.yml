@@ -37,11 +37,15 @@
     name=carbon-cache
     enabled=yes
     daemon_reload=yes
+  tags:
+    - service-enabled
 
 - name: Start carbon-cache service
   systemd:
     name=carbon-cache
     state=started
+  tags:
+    - service-started
 
 #
 # grafana configuration
@@ -81,11 +85,15 @@
     name=grafana-server
     enabled=yes
     daemon_reload=yes
+  tags:
+    - service-enabled
 
 - name: Start grafana-server service
   systemd:
     name=grafana-server
     state=started
+  tags:
+    - service-started
 
 #
 # configuration of monitoring integration itself
@@ -133,8 +141,12 @@
   service:
     name=tendrl-monitoring-integration
     state=started
+  tags:
+    - service-started
 
 - name: Enable tendrl-monitoring-integration service
   service:
     name=tendrl-monitoring-integration
     enabled=yes
+  tags:
+    - service-enabled
