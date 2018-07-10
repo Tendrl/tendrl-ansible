@@ -16,6 +16,8 @@
 
 - include: firewalld.yml
   when: configure_firewalld_for_tendrl == True
+  tags:
+    - firewalld
 - include: etcd.yml
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml
