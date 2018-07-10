@@ -29,5 +29,22 @@ graphite_fqdn=tendrl.example.com
 #ansible_become=yes
 #ansible_user=cloud-user
 
+# etcd TLS client authentication configuration
+# Uncomment to configure etcd to use client to server authentication with HTTPS 
+# client certificates, as well as all Tendrl components will be reconfigured 
+# accordingly.  Default set to false.
+#etcd_tls_client_auth=true
+
+# Firewalld configuration for Tendrl, which is defined in the
+# tendrl-ansible.tendrl-server and tendrl-ansible-tendrl-storage-node roles.
+# Uncomment to configure to not use of firewalld on the tendrl_server and 
+# gluster_servers.  Default set to true.
+#configure_firewalld_for_tendrl=false
+
+# tendrl copr repo variable of tendrl-ansible.tendrl-copr role.  Default set 
+# to "release".  Use “master” if you want to use not-yet released packages 
+# from the Tendrl GitHub default master branch
+#tendrl_copr_repo: "master"
+
 # Place for additional configuration ansible variables described in readme
 # files of tendrl-ansible roles.
