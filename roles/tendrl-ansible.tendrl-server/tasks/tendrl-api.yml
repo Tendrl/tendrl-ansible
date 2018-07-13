@@ -4,6 +4,8 @@
   yum:
     name=tendrl-api
     state=latest
+  tags:
+    - rpm-installation
 
 - name: Configure tendrl-api etcd.yml host
   replace:
@@ -63,8 +65,12 @@
   service:
     name=tendrl-api
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start tendrl-api service
   service:
     name=tendrl-api
     state=started
+  tags:
+    - service-started

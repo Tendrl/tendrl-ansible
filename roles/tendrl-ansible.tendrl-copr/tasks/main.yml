@@ -11,6 +11,8 @@
   yum:
     name=epel-release
     state=present
+  tags:
+    - rpm-installation
 
 # we can trust the key here because it comes from rpm package from extras repo
 - name: Import EPEL rpm-gpg key

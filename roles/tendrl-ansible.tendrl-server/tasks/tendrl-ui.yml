@@ -4,3 +4,5 @@
   yum:
     name=tendrl-ui
     state=latest
+  tags:
+    - rpm-installation

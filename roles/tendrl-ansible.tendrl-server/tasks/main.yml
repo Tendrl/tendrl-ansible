@@ -11,9 +11,13 @@
   yum:
     name=tendrl-selinux
     state=latest
+  tags:
+    - rpm-installation
 
 - include: firewalld.yml
   when: configure_firewalld_for_tendrl == True
+  tags:
+    - firewalld
 - include: etcd.yml
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml
@@ -26,8 +30,12 @@
   service:
     name=httpd
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start httpd service
   service:
     name=httpd
     state=started
+  tags:
+    - service-started
