@@ -118,4 +118,4 @@
     - name: Check that the host can get an ip address for all the others
       command: getent hosts "{{ hostvars[item]['ansible_fqdn'] }}"
       changed_when: False
-      with_items: "{{ groups['all'] }}"
+      with_items: "{{ groups['tendrl_server'] + groups['gluster_servers'] }}"
