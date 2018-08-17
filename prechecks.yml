@@ -39,7 +39,7 @@
     - name: Assert that hw requirements are met
       assert:
         that:
-          - ansible_memtotal_mb >= 16000
+          - ansible_memtotal_mb >= 3700
           - ansible_processor_vcpus >= 4
 
     - name: Check if /var/lib/etcd is a mountpoint
