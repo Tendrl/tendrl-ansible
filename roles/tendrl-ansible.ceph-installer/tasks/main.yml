@@ -7,3 +7,5 @@
   yum:
     name="ceph-installer"
     state=latest
+  tags:
+    - rpm-installation

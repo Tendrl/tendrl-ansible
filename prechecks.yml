@@ -39,7 +39,7 @@
     - name: Assert that hw requirements are met
       assert:
         that:
-          - ansible_memtotal_mb >= 16000
+          - ansible_memtotal_mb >= 3700
           - ansible_processor_vcpus >= 4
 
     - name: Check if /var/lib/etcd is a mountpoint
@@ -118,4 +118,4 @@
     - name: Check that the host can get an ip address for all the others
       command: getent hosts "{{ hostvars[item]['ansible_fqdn'] }}"
       changed_when: False
-      with_items: "{{ groups['all'] }}"
+      with_items: "{{ groups['tendrl_server'] + groups['gluster_servers'] }}"

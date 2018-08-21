@@ -6,6 +6,8 @@
     state=latest
   notify:
    - restart rsyslog
+  tags:
+    - rpm-installation
 
 - name: Configure etcd and graphite ip addr in node-agent.conf.yaml
   lineinfile:
@@ -49,11 +51,15 @@
   service:
     name=tendrl-node-agent
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start tendrl-node-agent service
   service:
     name=tendrl-node-agent
     state=started
+  tags:
+    - service-started
   notify:
    # workaround for case when a new tendrl-node-agent package is installed
    # during "Update all installed packages" task

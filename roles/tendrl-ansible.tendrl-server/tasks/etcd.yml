@@ -5,6 +5,8 @@
   yum:
     name=etcd
     state=present
+  tags:
+    - rpm-installation
 
 - name: Use http as protocol in etcd urls
   set_fact: etcd_url_protocol="http"
@@ -103,10 +105,14 @@
   service:
     name=etcd
     enabled=yes
+  tags:
+    - service-enabled
 
 - name: Start etcd service
   service:
     name=etcd
     state=started
+  tags:
+    - service-started
 
 - meta: flush_handlers

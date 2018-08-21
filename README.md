@@ -356,6 +356,33 @@ fits into Tendrl cluster expand operation.
 4)  Now, you should be able to see new servers in Tendrl web ui (see Tendrl
     documentation for details).
 
+## Does tendrl-ansible use some ansible tags?
+
+Yes, tendrl-ansible uses [ansible
+tags](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html)
+as listed below.
+
+The purpose of these tags is to make debugging after installation easier by
+allowing to run particular type of tasks quickly without rerunning the whole
+tendrl-ansible playbook.
+
+* Tags `service-enabled` and `service-started` allows one to run just ansible
+  tasks which enables (or starts) all services which Tendrl consists of. This
+  is useful for checking that all services are running as expected.
+* Tag `firewalld` allows one to run firewalld setup only, making sure that all
+  ports are enabled. Note that the tag doesn't override ansible variable
+  `configure_firewalld_for_tendrl`, and if you have set it to `False`, all
+  firewalld tasks will be skipped.
+* All yum tasks are tagged with `rpm-installation`. This is useful for testing
+  purposes only and there is no reason to use it in production.
+
+Example: The following command will check that all ports are open via firewalld
+after installation of Tendrl. If all tasks are reported as "ok", the ports has
+been already opened as expected.
+
+```
+$ ansible-playbook -i inventory_file site.yml --tags firewalld
+```
 
 ## License
 
