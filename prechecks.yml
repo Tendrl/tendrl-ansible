@@ -32,6 +32,8 @@
 - hosts: tendrl_server
   tags:
     - production
+  user: root
+  # become: yes
   tasks:
 
     # Based on Tendrl Server System Requirements
