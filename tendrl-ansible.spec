@@ -35,7 +35,6 @@ Tendrl documentation.
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
 
 # install ansible roles
-cp -pR roles/tendrl-ansible.ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
 cp -pR roles/tendrl-ansible.gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
 cp -pR roles/tendrl-ansible.grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
 cp -pR roles/tendrl-ansible.tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
@@ -57,7 +56,6 @@ install -p -m 644 hosts.example                $RPM_BUILD_ROOT%{_pkgdocdir}/host
 yamlint $RPM_BUILD_ROOT && rm .yamlint
 
 %files
-%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
 %{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
 %{_datadir}/ansible/roles/%{roleprefix}grafana-repo
 %{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
@@ -65,7 +63,6 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
 
 # mark readme files in ansible roles as documentation
-%doc %{_datadir}/ansible/roles/%{roleprefix}ceph-installer/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}grafana-repo/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}tendrl-copr/README.md
