@@ -3,7 +3,7 @@
 # examples to follow. Target OS is RHEL or CentOS 7.
 
 Name:           tendrl-ansible
-Version:        1.6.3
+Version:        1.6.3a
 Release:        1%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
@@ -83,6 +83,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Tue Oct 09 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3a-1
+- Pre release (alpha), dropping ceph-installer role
+
 * Mon Apr 16 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3-1
 - New build for upstream Tendrl v1.6.3
 
