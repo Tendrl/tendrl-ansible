@@ -69,9 +69,8 @@ Roles installing yum repositories of Tendrl dependencies:
 
 For convenience, there are also ansible roles for installation of yum
 repositories with upstream releases of Ceph, Gluster and theirs installation
-tools (such as `ceph-installer` and `gdeploy`):
+tools (such as `gdeploy`):
 
-* `tendrl-ansible.ceph-installer`
 * `tendrl-ansible.gluster-gdeploy-copr`
 
 Playbook files:
