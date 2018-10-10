@@ -3,7 +3,7 @@
 # examples to follow. Target OS is RHEL or CentOS 7.
 
 Name:           tendrl-ansible
-Version:        1.6.3
+Version:        1.6.3a
 Release:        1%{?dist}
 Summary:        Ansible roles and playbooks for Tendrl
 
@@ -35,7 +35,6 @@ Tendrl documentation.
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
 
 # install ansible roles
-cp -pR roles/tendrl-ansible.ceph-installer         $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
 cp -pR roles/tendrl-ansible.gluster-gdeploy-copr   $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
 cp -pR roles/tendrl-ansible.grafana-repo           $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}grafana-repo
 cp -pR roles/tendrl-ansible.tendrl-copr            $RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
@@ -57,7 +56,6 @@ install -p -m 644 hosts.example                $RPM_BUILD_ROOT%{_pkgdocdir}/host
 yamlint $RPM_BUILD_ROOT && rm .yamlint
 
 %files
-%{_datadir}/ansible/roles/%{roleprefix}ceph-installer
 %{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr
 %{_datadir}/ansible/roles/%{roleprefix}grafana-repo
 %{_datadir}/ansible/roles/%{roleprefix}tendrl-copr
@@ -65,7 +63,6 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %{_datadir}/ansible/roles/%{roleprefix}tendrl-storage-node
 
 # mark readme files in ansible roles as documentation
-%doc %{_datadir}/ansible/roles/%{roleprefix}ceph-installer/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}gluster-gdeploy-copr/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}grafana-repo/README.md
 %doc %{_datadir}/ansible/roles/%{roleprefix}tendrl-copr/README.md
@@ -86,6 +83,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Tue Oct 09 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3a-1
+- Pre release (alpha), dropping ceph-installer role
+
 * Mon Apr 16 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3-1
 - New build for upstream Tendrl v1.6.3
 
