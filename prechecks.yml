@@ -17,13 +17,13 @@
       assert:
         that:
           - python2_c_import_dns.rc == 0
-        msg:
-          - "This playbook uses dig lookup module[1], which requires python"
-          - "dns module[2] installed[3] on ansible control machine (the"
-          - "machine where you run this ansible playbook from)."
-          - "[1] https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-dns-lookup-dig"
-          - "[2] http://www.dnspython.org/"
-          - "[3] Fedora package: python2-dns, RHEL 7 package: python-dns"
+        msg: >
+          This playbook uses dig lookup module[1], which requires python
+          dns module[2] installed[3] on ansible control machine (the
+          machine where you run this ansible playbook from).
+          [1] https://docs.ansible.com/ansible/latest/playbooks_lookups.html#the-dns-lookup-dig
+          [2] http://www.dnspython.org/
+          [3] Fedora package: python2-dns, RHEL 7 package: python-dns
 
 #
 # Check requirements for *Tendrl Server* only
@@ -54,13 +54,13 @@
       assert:
         that:
           - mountpoint_var_lib_etcd.rc == 0
-        msg:
-          - "Directory /var/lib/etcd is not a mountpoint."
-          - "Ensure that Etcd data directory is located on an separate"
-          - "dedicated disk which is not being used by any other process"
-          - "or the OS."
-          - "See *Tendrl Server System Requirements* section in the"
-          - "documentation for more details."
+        msg: >
+          Directory /var/lib/etcd is not a mountpoint.
+          Ensure that Etcd data directory is located on an separate
+          dedicated disk which is not being used by any other process
+          or the OS.
+          See *Tendrl Server System Requirements* section in the
+          documentation for more details.
 
 #
 # General checks applicable to all machines.

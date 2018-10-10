@@ -26,17 +26,14 @@
       - rpm_q_firewalld.rc == 0
       - systemctl_is_enabled_firewalld.rc == 0
       - systemctl_is_running_firewalld.rc == 0
-    msg:
-      - "tendrl-ansible did not complete execution as firewalld is not"
-      - "installed, enabled nor running."
-      - "You can either:"
-      - "1) Install firewalld and ensure ports are configured for existing"
-      - "   services (eg. Gluster). Then rerun this playbook."
-      - "2) Set ansible variable 'configure_firewalld_for_tendrl' to False,"
-      - "   so that tendrl-ansible does not modify existing firewall"
-      - "   configurations when you rerun the playbook."
-      - "   With this setting, you are responsible for the firewall"
-      - "   configuration and ensure all necessary ports are opened (including"
-      - "   Gluster and Tendrl ports)."
-      - "   For list of ports Tendrl requires to be open, refer to the"
-      - "   documentation."
+    msg: >
+      tendrl-ansible did not complete execution as firewalld is not
+      installed, enabled nor running. You can either:
+      1) Install firewalld and ensure ports are configured for existing
+      services (eg. Gluster). Then rerun this playbook.
+      2) Set ansible variable 'configure_firewalld_for_tendrl' to False, so
+      that tendrl-ansible does not modify existing firewall configurations
+      when you rerun the playbook.  With this setting, you are responsible
+      for the firewall configuration and ensure all necessary ports are
+      opened (including Gluster and Tendrl ports). For list of ports Tendrl
+      requires to be open, refer to the documentation.
