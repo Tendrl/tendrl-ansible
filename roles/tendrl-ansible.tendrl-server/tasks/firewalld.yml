@@ -33,13 +33,6 @@
     state=enabled
     immediate=true
 
-- name: Enable port for grafana server
-  firewalld:
-    port=3000/tcp
-    permanent=yes
-    state=enabled
-    immediate=true
-
 - name: Enable port for tendrl-monitoring-integration (grafana alerts callback)
   firewalld:
     port=8789/tcp
