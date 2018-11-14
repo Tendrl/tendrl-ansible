@@ -15,6 +15,12 @@ there](https://github.com/Tendrl/documentation/wiki/Tendrl-release-latest) to
 have basic understanding of various machine roles in Tendrl cluster before
 using tendrl-ansible.
 
+tendrl-ansible also provides a playbook to cleanup the existing tendrl setup. It
+performs the below steps
+* Stops all the tendrl specific services on storage nodes
+* Stops all the tendrl specific services on tendrl server node
+* Cleans etcd, grafana and carbon data files
+
 
 ## How to get tendrl-ansible?
 
@@ -61,6 +67,9 @@ Ansible roles for Tendrl:
   (where Tendrl api, web and etcd are running)
 * `tendrl-ansible.tendrl-storage-node`: installation of **Tendrl Storage Node**
   machines (Gluster servers, which you would like to monitor by Tendrl)
+* `tendrl-ansible.tendrl-server-cleanup`: cleanup tendrl setup from server node
+* `tendrl-ansible.tendrl-storage-node-cleanup`: cleanup tendrl setup from
+storage nodes
 
 Roles installing yum repositories of Tendrl dependencies:
 
@@ -79,6 +88,8 @@ Playbook files:
   (see comments inside the playbook file for references)
 * `site.yml`: main playbook of tendrl-ansible, which one will use to install
   Tendrl
+* `cleanup.yml`: playbook for cleaning up the tendrl setup from storage nodes
+and tendrl server node
 
 
 ## Where are the roles and playbooks if I use rpm package?
@@ -315,6 +326,63 @@ tendrl-ansible:
     stored on *Tendrl Server* machine in `/root/password` file (this feature of
     tendrl-ansible is based
     on [TEN-257](https://tendrl.atlassian.net/browse/TEN-257)).
+
+
+## How do I cleanup Tendrl setup using tendrl-ansible?
+
+1)  If you use tendrl-ansible from rpm package, copy `cleanup.yml` playbook into
+    working directory (where you already store the inventory file):
+
+    ```
+    $ cp /usr/share/doc/tendrl-ansible-VERSION/cleanup.yml .
+    ```
+
+2)  Check that ssh can connect to all machines from the inventory file without
+    asking for password or validation of public key by running:
+
+    ```
+    $ ansible -i inventory_file -m ping all
+    ```
+
+    You should see ansible to show `"pong"` message for all machines.
+    In case of any problems, you need to fix it before going on. If you are not
+    sure what's wrong, consult documentation of ansible and/or ssh.
+
+    The following example shows how to use [ansible become
+    feature](https://docs.ansible.com/ansible/latest/become.html) **when direct
+    ssh login of root user is not allowed** and you are connecting via non-root
+    `cloud-user` account, which can leverage `sudo` to run any command as root
+    without any password:
+
+    ```
+    $ ansible --become -u cloud-user -i inventory_file -m ping all
+    ```
+
+    If this is your case, you may consider converting command line arguments
+    related to *Ansbile become feature* into [behavioral inventory
+    parameters](https://docs.ansible.com/ansible/latest/intro_inventory.html#list-of-behavioral-inventory-parameters)
+    and adding them into the inventory file. This way, you don't need to
+    specify these arguments again for every ansible command. Example of this
+    update which matches previous command line example follows (it should be
+    appended to the `[all:vars]` section):
+
+    ```
+    ansible_become=yes
+    ansible_user=cloud-user
+    ```
+
+    After this edit, you can re run the ping example without become command
+    line arguments:
+
+    ```
+    $ ansible -i inventory_file -m ping all
+    ```
+
+3)  Then we are ready to run ansible to cleanup Tendrl setup:
+
+    ```
+    $ ansible-playbook -i inventory_file cleanup.yml
+    ```
 
 
 ## How do I expand cluster with tendrl-ansible?
