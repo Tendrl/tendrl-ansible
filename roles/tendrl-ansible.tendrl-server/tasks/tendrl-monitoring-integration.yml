@@ -81,13 +81,12 @@
     - restart grafana-server
 
 - name: Configure grafana root_url with sub_path for reverse proxy
-  lineinfile:
-    dest=/etc/tendrl/monitoring-integration/grafana/grafana.ini
-    regexp={{ item.regexp }}
-    line={{ item.line }}
-  with_items:
-    - regexp: '^;? *root_url = .*'
-      line: "root_url = http://localhost:3000/grafana"
+  ini_file:
+    path: /etc/tendrl/monitoring-integration/grafana/grafana.ini
+    section: server
+    option: root_url
+    value: "http://localhost:3000/grafana"
+    state: present
   notify:
     - restart grafana-server
 
