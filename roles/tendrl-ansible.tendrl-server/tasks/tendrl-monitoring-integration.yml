@@ -80,6 +80,10 @@
   notify:
     - restart grafana-server
 
+#
+# This task is only for update scenario and will not affect on fresh installation
+#
+
 - name: Configure grafana root_url with sub_path for reverse proxy
   ini_file:
     path: /etc/tendrl/monitoring-integration/grafana/grafana.ini
