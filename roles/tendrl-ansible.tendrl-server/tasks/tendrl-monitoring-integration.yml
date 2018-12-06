@@ -19,7 +19,7 @@
     - rpm-installation
 
 - name: Initialize graphite-db
-  command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
+  shell: PYTHONPATH=$GRAPHITE_ROOT/webapp/ django-admin migrate --settings=graphite.settings --run-syncdb
   args:
     creates: /var/lib/graphite-web/graphite.db
   register: graphite_syncdb
