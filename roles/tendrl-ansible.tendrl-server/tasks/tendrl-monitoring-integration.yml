@@ -32,6 +32,13 @@
     owner: apache
     group: apache
 
+- name: Allow apache to log messages in graphite-web
+  file:
+    path: /var/log/graphite-web
+    owner: apache
+    group: apache
+    recurse: yes
+
 - name: Enable carbon-cache service
   systemd:
     name=carbon-cache
