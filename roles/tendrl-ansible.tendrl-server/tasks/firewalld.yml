@@ -19,13 +19,6 @@
     state=enabled
     immediate=true
 
-- name: Enable port for Graphite web
-  firewalld:
-    port=10080/tcp
-    permanent=yes
-    state=enabled
-    immediate=true
-
 - name: Enable port for http
   firewalld:
     port=80/tcp
