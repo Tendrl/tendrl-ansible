@@ -19,7 +19,7 @@
     - rpm-installation
 
 - name: Initialize graphite-db
-  command: /usr/lib/python2.7/site-packages/graphite/manage.py syncdb --noinput
+  command: django-admin migrate --settings=graphite.settings --run-syncdb
   args:
     creates: /var/lib/graphite-web/graphite.db
   register: graphite_syncdb
@@ -31,6 +31,13 @@
     path: /var/lib/graphite-web/graphite.db
     owner: apache
     group: apache
+
+- name: Allow apache to log messages in graphite-web
+  file:
+    path: /var/log/graphite-web
+    owner: apache
+    group: apache
+    recurse: yes
 
 - name: Enable carbon-cache service
   systemd:
