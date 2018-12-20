@@ -19,25 +19,25 @@
   assert:
     that:
       - etcd_crt.stat.exists == True
-    msg:
-      - "File specified in etcd_cert_file doesn't exist on remote machine."
-      - "Please specify path to etcd certificate file in the variable
-and rerun the playbook."
+    msg: >
+      File specified in etcd_cert_file doesn't exist on remote machine.
+      Please specify path to etcd certificate file in the variable and rerun
+      the playbook.
 
 - name: Check that file specified in etcd_key_file actually exists
   assert:
     that:
       - etcd_key.stat.exists == True
-    msg:
-      - "File specified in etcd_key_file doesn't exist on remote machine."
-      - "Please specify path to etcd key file in the variable
-and rerun the playbook."
+    msg: >
+      File specified in etcd_key_file doesn't exist on remote machine.
+      Please specify path to etcd key file in the variable and rerun the
+      playbook.
 
 - name: Check that file specified in etcd_trusted_ca_file actually exists
   assert:
     that:
       - etcd_trusted_ca_file.stat.exists == True
-    msg:
-      - "File specified in etcd_trusted_ca_file doesn't exist on remote machine."
-      - "Please specify path to trusted certificate authority in the variable
-and rerun the playbook."
+    msg: >
+      File specified in etcd_trusted_ca_file doesn't exist on remote machine.
+      Please specify path to trusted certificate authority in the variable and
+      rerun the playbook.
