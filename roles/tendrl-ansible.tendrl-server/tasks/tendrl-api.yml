@@ -42,6 +42,8 @@
     - "'User named admin already exists.' not in rake_result.stdout"
   failed_when:
     - "rake_result.rc != 0"
+  tags:
+    - skip_ansible_lint
 
 # Extracting and storing default password is based on requirements from
 # tendrl.atlassian.net jira TEN-257
