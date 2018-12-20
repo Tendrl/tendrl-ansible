@@ -40,6 +40,12 @@
 # https://coreos.com/etcd/docs/latest/op-guide/security.html
 #
 
+- name: Check if etcd cert files exists when TLS client auth is enabled
+  include_role:
+    name: tendrl-ansible.tendrl-server
+    tasks_from: etcd-tls-client-auth-check
+  when: etcd_tls_client_auth|bool == True
+
 - name: Configure etcd.conf ETCD_CERT_FILE (when TLS client auth is enabled)
   lineinfile:
     dest=/etc/etcd/etcd.conf

@@ -22,6 +22,12 @@
   notify:
     - restart tendrl-node-agent
 
+- name: Check if etcd cert files exists when TLS client auth is enabled
+  include_role:
+    name: tendrl-ansible.tendrl-server
+    tasks_from: etcd-tls-client-auth-check
+  when: etcd_tls_client_auth|bool == True
+
 - name: Configure etcd client-server authentication
   lineinfile:
     dest: /etc/tendrl/node-agent/node-agent.conf.yaml
