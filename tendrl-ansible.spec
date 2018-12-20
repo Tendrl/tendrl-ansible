@@ -12,7 +12,7 @@ Url:            https://github.com/Tendrl/tendrl-ansible
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       ansible >= 2.4
+Requires:       ansible >= 2.7
 Requires:       python-dns
 BuildRequires:  yamllint
 
@@ -83,6 +83,9 @@ yamlint $RPM_BUILD_ROOT && rm .yamlint
 %license %{_pkgdocdir}/LICENSE
 
 %changelog
+* Thu Dec 20 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3a-2
+- Update requires to make it clear that we need ansible >= 2.7
+
 * Tue Oct 09 2018  Martin Bukatovič <mbukatov@redhat.com> - 1.6.3a-1
 - Pre release (alpha), dropping ceph-installer role
 

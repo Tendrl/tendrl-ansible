@@ -44,7 +44,7 @@ the repo is good enough.
 
 ## Which version of ansible do I need?
 
-Ansible >= 2.4 is required to use tendrl-ansible.
+Ansible >= 2.7 is required to use tendrl-ansible.
 
 
 ## What roles and playbooks are there?
