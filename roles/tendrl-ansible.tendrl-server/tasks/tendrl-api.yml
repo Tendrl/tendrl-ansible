@@ -49,8 +49,8 @@
 # tendrl.atlassian.net jira TEN-257
 
 - name: Extract tendrl admin password
-  shell: echo "{{rake_result.stdout_lines[3] | regex_replace('^.*\"Password:\s*(.*)\".*$','\1')}}"
-  register: admin_password
+  set_fact:
+    admin_password: "{{rake_result.stdout_lines[3] | regex_replace('^.*\"Password:\\s*(.*)\".*$','\\1')}}"
   when: rake_result.changed
 
 # - debug:
@@ -58,10 +58,10 @@
 
 - name: Store tendrl admin password to local /root/password file
   copy:
-    content="{{ admin_password.stdout }}\n"
+    content="{{ admin_password }}\n"
     dest=/root/password
     mode=0600
-  when: admin_password.changed
+  when: rake_result.changed
 
 - name: Enable tendrl-api service
   service:
