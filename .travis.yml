@@ -6,6 +6,9 @@ before_install:
   # - sudo apt-get install -y rpmlint
 install:
   - pip install yamllint
+  - pip install ansible-lint==3.4.21
 script:
   - yamllint .
+  - ansible-lint prechecks.yml
+  - ansible-lint -x ANSIBLE0016,ANSIBLE0010 site.yml
   # - rpmlint tendrl-ansible.spec

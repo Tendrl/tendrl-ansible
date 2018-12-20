@@ -36,3 +36,5 @@
   until: task_result|success
   retries: 5
   delay: 5
+  tags:
+   - skip_ansible_lint
