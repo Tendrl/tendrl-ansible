@@ -58,7 +58,7 @@
   copy:
     content="{{ admin_password.stdout }}\n"
     dest=/root/password
-    mode=600
+    mode=0600
   when: admin_password.changed
 
 - name: Enable tendrl-api service
