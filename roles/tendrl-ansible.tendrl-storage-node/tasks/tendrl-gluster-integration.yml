@@ -1,0 +1,12 @@
+---
+
+- name: Install tendrl-gluster-integration
+  yum:
+    name: tendrl-gluster-integration
+    state: latest
+  tags:
+    - rpm-installation
+
+# Nothing else beyond sheer installation is done here, as the rest is
+# configured by Tendrl itself during import cluster operation, see:
+# https://github.com/Tendrl/tendrl-ansible/issues/126#issuecomment-449099471

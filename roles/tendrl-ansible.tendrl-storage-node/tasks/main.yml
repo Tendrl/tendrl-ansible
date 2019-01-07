@@ -17,6 +17,7 @@
 
 - include: rsyslog.yml
 - include: tendrl-node-agent.yml
+- include: tendrl-gluster-integration.yml
 - include: firewalld.yml
   when: configure_firewalld_for_tendrl == True
   tags:
