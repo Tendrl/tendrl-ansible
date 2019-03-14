@@ -1,9 +1,11 @@
 language: python
 python:
   - "2.7"
+services:
+  - docker
 before_install:
   - sudo apt-get -qq update
-  # - sudo apt-get install -y rpmlint
+  - docker build -t tendrl-ansible-rpmlint -f .travis.rpmlint.dockerfile .
 install:
   - pip install yamllint
   - pip install ansible-lint==3.4.21
@@ -11,4 +13,4 @@ script:
   - yamllint .
   - ansible-lint prechecks.yml
   - ansible-lint -x ANSIBLE0016,ANSIBLE0010 site.yml
-  # - rpmlint tendrl-ansible.spec
+  - docker run tendrl-ansible-rpmlint
