@@ -4,16 +4,6 @@
 
 - hosts: tendrl_server
   user: root
-  pre_tasks:
-    - name: Check that mandatory variables are defined
-      assert:
-        that:
-          - etcd_fqdn is defined
-          - etcd_ip_address is defined
-          - graphite_fqdn is defined
-        msg: >
-          You need to define all mandatory ansible variables to run this
-          playbook, see README file for guidance.
   roles:
     - tendrl-ansible.grafana-repo
     - tendrl-ansible.tendrl-copr
@@ -21,15 +11,6 @@
 
 - hosts: gluster_servers
   user: root
-  pre_tasks:
-    - name: Check that mandatory variables are defined
-      assert:
-        that:
-          - etcd_fqdn is defined
-          - graphite_fqdn is defined
-        msg: >
-          You need to define all mandatory ansible variables to run this
-          playbook, see README file for guidance.
   roles:
     - tendrl-ansible.tendrl-copr
     - tendrl-ansible.tendrl-storage-node

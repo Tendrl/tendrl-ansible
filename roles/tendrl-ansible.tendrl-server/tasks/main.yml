@@ -1,6 +1,24 @@
 ---
 # tasks file for tendrl-server
 
+- name: Check that mandatory variables are defined
+  assert:
+    that:
+      - etcd_fqdn is defined
+      - etcd_fqdn != ''
+      - etcd_fqdn != 'tendrl.example.com'
+      - etcd_ip_address is defined
+      - etcd_ip_address != ''
+      - etcd_ip_address != '192.0.2.1'
+      - graphite_fqdn is defined
+      - graphite_fqdn != ''
+      - graphite_fqdn != 'tendrl.example.com'
+    msg: >
+      You need to define all mandatory ansible variables to use this role,
+      see README file for guidance.
+  tags:
+    - check-vars
+
 - debug:
     msg:
       - "Using {{ etcd_fqdn }} as etcd fqdn in tendrl config files."

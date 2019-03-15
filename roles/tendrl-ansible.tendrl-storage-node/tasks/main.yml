@@ -1,6 +1,21 @@
 ---
 # tasks file for tendrl-node
 
+- name: Check that mandatory variables are defined
+  assert:
+    that:
+      - etcd_fqdn is defined
+      - etcd_fqdn != ''
+      - etcd_fqdn != 'tendrl.example.com'
+      - graphite_fqdn is defined
+      - graphite_fqdn != ''
+      - graphite_fqdn != 'tendrl.example.com'
+    msg: >
+      You need to define all mandatory ansible variables to use this role,
+      see README file for guidance.
+  tags:
+    - check-vars
+
 - name: Install tendrl-selinux
   yum:
     name=tendrl-selinux
