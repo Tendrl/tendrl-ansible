@@ -1,0 +1,29 @@
+---
+# This Ansible playbook is to cleanup Tendrl setup
+# It just stops all the running services related to Tendrl
+# on storage nodes as well as server. Also it cleans the
+# existing etcd, grafana and carbon data (if any) for existing
+# setup
+
+- hosts: gluster_servers
+  user: root
+
+  roles:
+    - tendrl-storage-node-cleanup
+
+- hosts: tendrl_server
+  user: root
+  vars:
+    # etcd db file to be deleted
+    etcd_db_path: "/var/lib/etcd/default.etcd"
+
+    # grafana db file to be deleted
+    grafana_db_file: "/var/lib/grafana/grafana.db"
+
+    # carbon data to be deleted
+    carbon_data_path: "/var/lib/carbon/whisper/tendrl/"
+
+  roles:
+    - tendrl-server-cleanup
+
+
